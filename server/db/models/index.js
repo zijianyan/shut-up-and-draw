@@ -1,29 +1,6 @@
 const User = require('./user')
-const db = require('../db')
-
-const Game = db.define('game', {
-  roundNumber: {
-    type: db.Sequelize.INTEGER
-  },
-  players: {
-    type: db.Sequelize.ARRAY(db.Sequelize.STRING)
-  },
-  // submissions: {
-  //   type: db.Sequelize.ARRAY(db.Sequelize.STRING)
-  // },
-})
-
-const Submission = db.define('entry', {
-  type: {
-    type: db.Sequelize.ENUM('drawing', 'guess')
-  },
-  guess: {
-    type: db.Sequelize.STRING
-  },
-  drawingUrl: {
-    type: db.Sequelize.STRING
-  },
-})
+const Game = require('./Game')
+const Submission = require('./Submission')
 
 
 Submission.belongsTo(Game)
