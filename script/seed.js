@@ -9,9 +9,9 @@ async function seed() {
     console.log('db synced!')
 
     const [Emily, Zi, Cang] = await Promise.all([
-      User.create({ email: 'emily@email.com' }),
-      User.create({ email: 'cang@email.com' }),
-      User.create({ email: 'zi@email.com' }),
+      User.create({ email: 'emily@email.com', password: 'EMILY' }),
+      User.create({ email: 'cang@email.com', password: 'CANG' }),
+      User.create({ email: 'zi@email.com', password: 'ZI' }),
     ])
     const [Game1] = await Promise.all([
       Game.create({ roundNumber: 1, status: 'complete'}),
