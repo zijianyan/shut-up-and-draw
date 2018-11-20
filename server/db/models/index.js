@@ -17,6 +17,10 @@ const Game = db.define('game', {
   }
 })
 
+Game.prototype.getCurrentPlayer = function() {
+  return this.players[this.roundNumber]; // check for off-by-one errors
+};
+
 const Submission = db.define('submission', {
   type: {
     type: db.Sequelize.ENUM('drawing', 'phrase')
