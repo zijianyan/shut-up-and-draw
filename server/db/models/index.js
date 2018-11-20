@@ -6,12 +6,15 @@ const db = require('../db')
 
 const Game = db.define('game', {
   roundNumber: {
-    type: db.Sequelize.INTEGER
+    type: db.Sequelize.INTEGER,
+    defaultValue: 0
   },
   players: {
     type: db.Sequelize.ARRAY(db.Sequelize.STRING)
   },
-  status: db.Sequelize.ENUM('active', 'closed')
+  status: {
+    type: db.Sequelize.ENUM('active', 'complete')
+  }
 })
 
 
