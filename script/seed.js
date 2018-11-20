@@ -1,19 +1,37 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Game, Submission} = require('../server/db/models')
 
 async function seed() {
-  await db.sync({force: true})
-  console.log('db synced!')
+  try {
+    await db.sync({force: true})
+    console.log('db synced!')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+    const [Emily, Zi, Cang] = await Promise.all([
+      User.create({ email: 'emily@email.com'}),
+      User.create({ email: 'cang@email.com' }),
+      User.create({ email: 'zi@email.com' }),
+    ])
+    const [Game1] = await Promise.all([
+      Game.create({ roundNumber: 1, status: 'closed'}),
+    ])
+    const [response1, response2] = await Promise.all([
+      Submission.create({ type: 'phrase', phrase: 'horse'}),
+      Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg'}),
+    ])
+    await Promise.all([
+      response1.setGame(Game1),
+      response1.setUser(Zi),
+      response2.setUser(Cang),
+      response2.setGame(Game1),
 
-  console.log(`seeded ${users.length} users`)
-  console.log(`seeded successfully`)
+    ])
+    console.log(`seeded game ${Game1.id}`)
+    console.log(`seeded successfully`)
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // We've separated the `seed` function from the `runSeed` function.
