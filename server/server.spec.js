@@ -41,18 +41,45 @@ describe('Playing the game', ()=> {
         const createdGame = await Game.findOne({ where: { status: 'active' }, include: [Submission] });
         expect(createdGame).to.be.ok;
         expect(createdGame.submissions.length).to.equal(1);
+        expect(createdGame.roundNumber).to.equal(0);
         // console.log('createdGame:', createdGame.dataValues);
 
         return app.post(`/api/submissions/${createdGame.id}`)
-          .send({ type: 'drawing', drawingUrl: 'placeholder-url', gameId: createdGame.id }) // a drawing submission
+          .send({ type: 'drawing', drawingUrl: 'placeholder-url', gameId: createdGame.id, userId: zi.id }) // a drawing submission
           .expect(200)
           .then( async (response)=> {
-            const createdGame = await Game.findOne( { where: { status: 'active' }, include: [Submission] });
-            expect(createdGame.submissions.length).to.equal(2);
-            expect(createdGame.submissions[1].type).to.equal('drawing');
+            const createdGame = await Game.findOne({
+              where: { status: 'active' },
+              include: [{
+                model: Submission
+              }],
+              order: [
+                [ Submission, 'createdAt', 'ASC']
+              ]
+            });
 
-            return 
+            // db.Page.findAll({
+            //   include: [{
+            //     model: db.Gallery
+            //     include: [{
+            //       model: db.Artwork
+            //     }]
+            //   }],
+            //   order: [
+            //     [ db.Gallery, 'order', 'DESC' ],
+            //     [ db.Gallery, db.ArtWork, 'order', 'DESC' ]
+            //   ]
+            // })
+            
+
+            expect(createdGame.roundNumber).to.equal(1);
+            expect(createdGame.submissions.length).to.equal(2);
+
+            expect(createdGame.submissions[1].type).to.equal('drawing');
+            
+            // return app.post(
           })
+          
 
       })
   });

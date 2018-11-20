@@ -5,7 +5,7 @@ const db = require('../db')
 
 
 const Game = db.define('game', {
-  round: {
+  roundNumber: {
     type: db.Sequelize.INTEGER,
     defaultValue: 0
   },
