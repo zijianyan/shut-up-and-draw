@@ -25,7 +25,7 @@ router.get('/gameId', async (req, res, next) => {
   }
 })
 
-router.post('/gameId', (req, res, next) => {
+router.post('/gameId', async (req, res, next) => {
   // POST a submission in association to the game it's being created within
   // needs to come to this route with these attributes in the body
   try {
