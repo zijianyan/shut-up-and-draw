@@ -39,6 +39,9 @@ describe('Playing the game', ()=> {
         const createdGame = await Game.findOne({ where: { status: 'active' }, include: [Submission] });
         expect(createdGame).to.be.ok;
         expect(createdGame.submissions.length).to.equal(1);
+        // console.log('createdGame:', createdGame.dataValues);
+
+        return 
       })
   });
 });
