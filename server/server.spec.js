@@ -63,7 +63,7 @@ describe('Playing the game', ()=> {
             return app.get(`/api/games/${createdGame.id}`)
               .expect(200)
               .then( async (response)=> {
-                console.log('response:', response);
+
               })
           })
           
