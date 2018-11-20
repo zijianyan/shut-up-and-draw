@@ -3,7 +3,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 
-router.use('/games', require('./games') )
+router.use('/games', require('./games'))
 
 router.use('/submissions', require('./submissions'))
 

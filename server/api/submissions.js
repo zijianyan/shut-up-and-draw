@@ -7,7 +7,7 @@ module.exports = router
 
 // router is hosted under /api/submissions
 
-router.get('/gameId', async (req, res, next) => {
+router.get('/:gameId', async (req, res, next) => {
   // route is /submissions/gameId
   // GET all submissions that belong to a game
   try {
@@ -25,7 +25,7 @@ router.get('/gameId', async (req, res, next) => {
   }
 })
 
-router.post('/gameId', async (req, res, next) => {
+router.post('/:gameId', async (req, res, next) => {
   // POST a submission in association to the game it's being created within
   // needs to come to this route with these attributes in the body
   try {
@@ -58,3 +58,4 @@ router.post('/gameId', async (req, res, next) => {
     next(err)
   }
 })
+

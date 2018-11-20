@@ -13,10 +13,12 @@ router.post('/', async (req, res, next) => {
   try {
 
     const { players } = req.body
-    const game = await Game.create({
+    const game = await Game.create({ // zi: do we want this game to belong only to the person who created it? Or to all players involved?
       players,
       status: 'active'
     });
+    
+
 
     const initialPhrase = await Submission.create({
       type: 'phrase',
@@ -34,7 +36,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try{
     const game = await Game.findById(req.params.id);
     res.send(game);
@@ -43,7 +45,7 @@ router.get('/id', async (req, res, next) => {
   }
 })
 
-router.put('/id', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const game = await Game.findById(req.params.id)
     game.status = 'complete'

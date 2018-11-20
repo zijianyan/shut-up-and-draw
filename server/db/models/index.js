@@ -17,7 +17,6 @@ const Game = db.define('game', {
   }
 })
 
-
 const Submission = db.define('submission', {
   type: {
     type: db.Sequelize.ENUM('drawing', 'phrase')
@@ -35,8 +34,16 @@ const Submission = db.define('submission', {
  *
  *    BlogPost.belongsTo(User)
  */
-Submission.belongsTo(Game)
-Submission.belongsTo(User)
+
+
+User.hasMany(Game);
+Game.belongsTo(User); // zi: should a game belong to many users?
+
+Game.hasMany(Submission);
+Submission.belongsTo(Game);
+
+User.hasMany(Submission);
+Submission.belongsTo(User);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
