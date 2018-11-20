@@ -36,7 +36,7 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.get('/id', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   try{
     const game = await Game.findById(req.params.id);
     res.send(game);
@@ -45,7 +45,7 @@ router.get('/id', async (req, res, next) => {
   }
 })
 
-router.put('/id', async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const game = await Game.findById(req.params.id)
     game.status = 'complete'

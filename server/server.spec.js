@@ -60,7 +60,11 @@ describe('Playing the game', ()=> {
             expect(createdGame.submissions.length).to.equal(2);
             expect(createdGame.submissions[1].type).to.equal('drawing');
             
-            
+            return app.get(`/api/games/${createdGame.id}`)
+              .expect(200)
+              .then( async (response)=> {
+                console.log('response:', response);
+              })
           })
           
 
