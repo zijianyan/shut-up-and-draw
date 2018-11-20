@@ -1,5 +1,8 @@
 const User = require('./user')
 const db = require('../db')
+// const Game = require('./game')
+// const Submission = require('./submission')
+
 
 const Game = db.define('game', {
   roundNumber: {
@@ -8,16 +11,14 @@ const Game = db.define('game', {
   players: {
     type: db.Sequelize.ARRAY(db.Sequelize.STRING)
   },
-  // submissions: {
-  //   type: db.Sequelize.ARRAY(db.Sequelize.STRING)
-  // },
 })
 
-const Submission = db.define('entry', {
+
+const Submission = db.define('submission', {
   type: {
-    type: db.Sequelize.ENUM('drawing', 'guess')
+    type: db.Sequelize.ENUM('drawing', 'phrase')
   },
-  guess: {
+  phrase: {
     type: db.Sequelize.STRING
   },
   drawingUrl: {
@@ -28,7 +29,6 @@ const Submission = db.define('entry', {
 
 Submission.belongsTo(Game)
 Submission.belongsTo(User)
-
 
 // const syncAndSeed = async ()=> {
 //   try {
