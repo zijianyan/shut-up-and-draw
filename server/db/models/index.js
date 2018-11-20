@@ -17,9 +17,6 @@ const Game = db.define('game', {
   }
 })
 
-Game.prototype.incrementRound
-
-
 const Submission = db.define('submission', {
   type: {
     type: db.Sequelize.ENUM('drawing', 'phrase')

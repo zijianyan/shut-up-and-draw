@@ -5,6 +5,8 @@ const {Submission} = require('../db/models')
 
 module.exports = router
 
+// router is hosted under /api/games
+
 router.post('/', async (req, res, next) => {
   // user initiates a game with selected friends
   // assumption: players are coming in as an array of users
