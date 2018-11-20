@@ -14,7 +14,7 @@ async function seed() {
       User.create({ email: 'zi@email.com' }),
     ])
     const [Game1] = await Promise.all([
-      Game.create({ roundNumber: 1, status: 'closed'}),
+      Game.create({ roundNumber: 1, status: 'complete'}),
     ])
     const [response1, response2] = await Promise.all([
       Submission.create({ type: 'phrase', phrase: 'horse'}),
