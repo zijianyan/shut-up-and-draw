@@ -28,11 +28,10 @@ describe('Seeded models', ()=> {
 
 describe('Playing the game', ()=> {
 
-  const zi = User.findOne({ where: { email: 'zi@email.com' }});
-  const emily = User.findOne({ where: { email: 'emily@email.com' }});
-  const cang = User.findOne({ where: { email: 'cang@email.com' }});
-
   it('can play a full round', async ()=> {
+    const zi = User.findOne({ where: { email: 'zi@email.com' }});
+    const emily = User.findOne({ where: { email: 'emily@email.com' }});
+    const cang = User.findOne({ where: { email: 'cang@email.com' }});
     return app.post('/api/games')
       .send({ players: [ 'zi', 'emily', 'cang' ] })
       .expect(200)
