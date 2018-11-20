@@ -5,7 +5,7 @@ const db = require('../db')
 
 
 const Game = db.define('game', {
-  roundNumber: {
+  round: {
     type: db.Sequelize.INTEGER,
     defaultValue: 0
   },
@@ -16,6 +16,8 @@ const Game = db.define('game', {
     type: db.Sequelize.ENUM('active', 'complete')
   }
 })
+
+Game.prototype.incrementRound
 
 
 const Submission = db.define('submission', {

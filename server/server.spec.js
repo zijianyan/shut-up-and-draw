@@ -27,10 +27,12 @@ describe('Seeded models', ()=> {
 
 
 describe('Playing the game', ()=> {
-  it('a user can create a game', async ()=> {
-    const zi = User.findOne({ where: { email: 'zi@email.com' }});
-    const emily = User.findOne({ where: { email: 'emily@email.com' }});
-    const cang = User.findOne({ where: { email: 'cang@email.com' }});
+
+  const zi = User.findOne({ where: { email: 'zi@email.com' }});
+  const emily = User.findOne({ where: { email: 'emily@email.com' }});
+  const cang = User.findOne({ where: { email: 'cang@email.com' }});
+
+  it('can play a full round', async ()=> {
     return app.post('/api/games')
       .send({ players: [ 'zi', 'emily', 'cang' ] })
       .expect(200)
@@ -41,7 +43,44 @@ describe('Playing the game', ()=> {
         expect(createdGame.submissions.length).to.equal(1);
         // console.log('createdGame:', createdGame.dataValues);
 
-        return 
+        return app.post('/api/submissions')
+          .send({ type: 'drawing', drawingUrl: 'placeholder-url', gameId: createdGame.id, userId: zi.id }) // a drawing submission
+          .expect(200)
+          .then( async (response)=> {
+            const createdGame = await Game.findOne( { where: { status: 'active' }, include: [Submission] });
+            expect(createdGame.submissions.length).to.equal(2);
+            expect(createdGame.submissions[1].type).to.equal('drawing');
+
+            return 
+          })
+
       })
   });
 });
+
+
+
+// const Game = db.define('game', {
+//   roundNumber: {
+//     type: db.Sequelize.INTEGER,
+//     defaultValue: 0
+//   },
+//   players: {
+//     type: db.Sequelize.ARRAY(db.Sequelize.STRING)
+//   },
+//   status: {
+//     type: db.Sequelize.ENUM('active', 'complete')
+//   }
+// })
+
+// const Submission = db.define('submission', {
+//   type: {
+//     type: db.Sequelize.ENUM('drawing', 'phrase')
+//   },
+//   phrase: {
+//     type: db.Sequelize.STRING
+//   },
+//   drawingUrl: {
+//     type: db.Sequelize.STRING
+//   },
+// })
