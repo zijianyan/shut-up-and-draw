@@ -1,4 +1,5 @@
 const User = require('./user')
+const db = require('../db')
 // const Game = require('./game')
 // const Submission = require('./submission')
 
