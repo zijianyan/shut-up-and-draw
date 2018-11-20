@@ -9,7 +9,7 @@ async function seed() {
     console.log('db synced!')
 
     const [Emily, Zi, Cang] = await Promise.all([
-      User.create({ email: 'emily@email.com'}),
+      User.create({ email: 'emily@email.com' }),
       User.create({ email: 'cang@email.com' }),
       User.create({ email: 'zi@email.com' }),
     ])
@@ -27,8 +27,8 @@ async function seed() {
       response2.setGame(Game1),
 
     ])
-    console.log(`seeded game ${Game1.id}`)
-    console.log(`seeded successfully`)
+    // console.log(`seeded game ${Game1.id}`)
+    // console.log(`seeded successfully`)
   } catch (error) {
     console.log(error)
   }

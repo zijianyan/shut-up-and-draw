@@ -1,27 +1,44 @@
-const expect = require('chai').expect
-const { User, Game, Submission } = require('./db/models')
-const { syncAndSeed } = require('./db');
+const expect = require('chai').expect;
+const { User, Game, Submission } = require('./db/models');
+const seed = require('../script/seed');
+const app = require('supertest')(require('./index'));
 
 const db = require('./db');
 
-describe('models', ()=> {
+describe('Seeded models', ()=> {
 
-  beforeEach(()=> async ()=> {
-    await db.sync({ force: true })
-    const [moe] = await Promise.all([
-      User.create({ email: 'moe@moe.com' })
-    ])
-  })
+  beforeEach(()=> seed());
 
-  
+  describe('Seeded Users', ()=> {
+    it('has three users', async ()=> {
+      const users = await User.findAll();
+      expect(users.length).to.equal(3);
+    });
+  });
 
-  // it('they exist', ()=> {
-  //   expect(User).to.be.ok
-  //   expect(Game).to.be.ok
-  //   expect(Submission).to.be.ok
-  // })
+  describe('Seeded Game', ()=> {
+    it('has one game', async ()=> {
+      const games = await Game.findAll();
+      expect(games.length).to.equal(1);
+    });
+  });
 
-  
+});
 
 
-})
+describe('Playing the game', ()=> {
+  it('a user can create a game', async ()=> {
+    const zi = User.findOne({ where: { email: 'zi@email.com' }});
+    const emily = User.findOne({ where: { email: 'emily@email.com' }});
+    const cang = User.findOne({ where: { email: 'cang@email.com' }});
+    return app.post('/api/games')
+      .send({ players: [ zi, emily, cang ] })
+      .expect(200)
+      .then( async (response) => {
+        expect(response).to.be.ok;
+        const createdGame = await Game.findOne({ where: { status: 'active' }, include: [Submission] });
+        expect(createdGame).to.be.ok;
+        expect(createdGame.submissions.length).to.equal(1);
+      })
+  });
+});
