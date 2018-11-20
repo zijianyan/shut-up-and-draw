@@ -2,26 +2,26 @@
 
 const {expect} = require('chai')
 const db = require('../index')
-const Game = db.model('game')
+const Submission = db.model('submission')
 
-describe('Game model', () => {
+describe('Submission model', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
 
   describe('instanceMethods', () => {
     describe('correctPassword', () => {
-      let game
+      let submission
 
       beforeEach(async () => {
-        game = await Game.create({})
+        submission = await Submission.create({})
       })
 
-      it('adds', ()=> {
-        expect(1+1).to.equal(2)
+      it('subtracts', ()=> {
+        expect(2-1).to.equal(1)
       })
-      it('game can be created', ()=> {
-        expect(game.id).to.be.ok
+      it('a submission can be created', ()=> {
+        expect(submission.id).to.be.ok
       })
 
 

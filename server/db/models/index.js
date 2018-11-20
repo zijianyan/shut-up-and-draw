@@ -1,6 +1,6 @@
 const User = require('./user')
-const Game = require('./Game')
-const Submission = require('./Submission')
+const Game = require('./game')
+const Submission = require('./submission')
 
 
 Submission.belongsTo(Game)

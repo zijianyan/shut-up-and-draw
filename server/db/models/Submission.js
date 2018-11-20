@@ -2,9 +2,9 @@ const db = require('../db')
 
 const Submission = db.define('submission', {
   type: {
-    type: db.Sequelize.ENUM('drawing', 'guess')
+    type: db.Sequelize.ENUM('drawing', 'phrase')
   },
-  guess: {
+  phrase: {
     type: db.Sequelize.STRING
   },
   drawingUrl: {
