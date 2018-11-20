@@ -11,10 +11,12 @@ router.post('/', async (req, res, next) => {
   try {
 
     const { players } = req.body
-    const game = await Game.create({
+    const game = await Game.create({ // zi: do we want this game to belong only to the person who created it? Or to all players involved?
       players,
       status: 'active'
     });
+    
+
 
     const initialPhrase = await Submission.create({
       type: 'phrase',

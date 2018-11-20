@@ -32,7 +32,7 @@ describe('Playing the game', ()=> {
     const emily = User.findOne({ where: { email: 'emily@email.com' }});
     const cang = User.findOne({ where: { email: 'cang@email.com' }});
     return app.post('/api/games')
-      .send({ players: [ zi, emily, cang ] })
+      .send({ players: [ 'zi', 'emily', 'cang' ] })
       .expect(200)
       .then( async (response) => {
         expect(response).to.be.ok;
