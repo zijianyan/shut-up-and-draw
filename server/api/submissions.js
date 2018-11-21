@@ -5,6 +5,7 @@ const {Submission} = require('../db/models')
 
 module.exports = router
 
+
 // router is hosted under /api/submissions
 
 // router.get('/:gameId', async (req, res, next) => {

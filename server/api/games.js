@@ -36,6 +36,8 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+
+
 // getting a game by its id
 router.get('/:id', async (req, res, next) => {
   try {
@@ -75,6 +77,15 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+router.get('/submissions', async (req, res, next) => {
+  try{
+    const submissions = await Submission.findAll()
+    res.send(submissions)
+  } catch(err) {
+    next(err)
+  }
+})
+
 // /api/games/id/submissions to get all submissions for a game
 router.get('/:id/submissions', async (req, res, next) => {
   // GET all submissions that belong to a game
@@ -83,7 +94,7 @@ router.get('/:id/submissions', async (req, res, next) => {
       where: {
         gameId: req.params.id
       },
-      include: [ { User } ] // each submission will also eager load the user that created that submission
+      include: [ User ] // each submission will also eager load the user that created that submission
     });
     // add a sorting function here before sending the submissions back to the client
     res.send(submissions)
