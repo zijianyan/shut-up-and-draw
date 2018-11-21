@@ -10,7 +10,7 @@ const Game = db.define('game', {
     defaultValue: 0
   },
   players: {
-    type: db.Sequelize.ARRAY(db.Sequelize.STRING)
+    type: db.Sequelize.ARRAY(db.Sequelize.INTEGER)
   },
   status: {
     type: db.Sequelize.ENUM('active', 'complete')
