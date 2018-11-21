@@ -4,7 +4,7 @@ import axios from 'axios'
 /**
  * ACTION TYPES
  */
-const GET_USERS = 'GET_USERS'
+const GET_ALL_USERS = 'GET_ALL_USERS'
 
 /**
  * INITIAL STATE
@@ -14,7 +14,7 @@ const initialState = []
 /**
  * ACTION CREATORS
  */
-const _getUsers = users => ({type: GET_USERS, users})
+const _getAllUsers = users => ({type: GET_ALL_USERS, users})
 
 /**
  * THUNK CREATORS
@@ -33,7 +33,7 @@ export const me = () => async dispatch => {
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_USERS:
+    case GET_ALL_USERS:
       return action.users
     default:
       return state
