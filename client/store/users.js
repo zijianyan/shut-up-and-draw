@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import history from '../history'
 
 /**
  * ACTION TYPES
@@ -22,7 +21,7 @@ const _getAllUsers = users => ({type: GET_ALL_USERS, users})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/api/users')
-    dispatch(_getUser(res.data || initialState))
+    dispatch(_getAllUsers(res.data || initialState))
   } catch (err) {
     console.error(err)
   }

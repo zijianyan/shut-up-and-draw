@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import history from '../history'
 
 /**
  * ACTION TYPES
@@ -32,26 +31,22 @@ export const getSubmissions = (game) => async dispatch => {
 
 export const createSubmission = (submission) => async dispatch => { // req.body = { content, gameId: 1 }
   try {
-    const res = await axios.post('/api/submissions', submission)
+    const res = await axios.post(`/api/games/${submission.gameId}/submissions`, submission)
     dispatch(_createSubmission(res.data || initialState))
   } catch (err) {
     console.error(err)
   }
 }
 
-
-
 /**
  * REDUCER
  */
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_ALL_GAMES:
-      return action.games
-    case CREATE_GAME:
-      return [...state, action.game]
-    case UPDATE_GAME:
-      return state.map( game => game.id === action.game.id ? action.game : game )
+    case GET_SUBMISSIONS:
+      return action.submissions
+    case CREATE_SUBMISSION:
+      return [...state, action.submission]
     default:
       return state
   }

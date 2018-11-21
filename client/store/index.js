@@ -5,11 +5,13 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import users from './users'
 import games from './games'
+import submissions from './submissions'
 
 const reducer = combineReducers({
-  user,
+  user, // auth reducer
   users,
-  games
+  games,
+  submissions
 })
 
 const middleware = composeWithDevTools(
