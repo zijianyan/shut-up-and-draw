@@ -15,7 +15,7 @@ router.post('/', async (req, res, next) => {
 
     const { players } = req.body
     const game = await Game.create({
-      players: players,
+      players,
       status: 'active'
     });
 
