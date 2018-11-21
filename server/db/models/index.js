@@ -40,9 +40,6 @@ const Submission = db.define('submission', {
  */
 
 
-User.hasMany(Game);
-Game.belongsTo(User); // zi: should a game belong to many users?
-
 Game.hasMany(Submission);
 Submission.belongsTo(Game);
 
