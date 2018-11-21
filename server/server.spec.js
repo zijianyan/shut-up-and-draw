@@ -29,20 +29,26 @@ describe('Seeded models', ()=> {
 describe('Playing the game', ()=> {
 
   it('can play a full round', async ()=> {
-    const zi = User.findOne({ where: { email: 'zi@email.com' }});
-    const emily = User.findOne({ where: { email: 'emily@email.com' }});
-    const cang = User.findOne({ where: { email: 'cang@email.com' }});
+    const zi = await User.findOne({ where: { email: 'zi@email.com' }});
+    const emily = await User.findOne({ where: { email: 'emily@email.com' }});
+    const cang = await User.findOne({ where: { email: 'cang@email.com' }});
     return app.post('/api/games')
-      .send({ players: [ 'zi', 'emily', 'cang' ] })
+      .send({ players: [ zi.id, emily.id, cang.id ] })
       .expect(200)
       .then( async (response) => {
         expect(response).to.be.ok;
-        const createdGame = await Game.findOne({ where: { status: 'active' }, include: [Submission] });
+        const createdGame = await Game.findOne({
+          where: {
+            status: 'active',
+            id: response.body.id
+          },
+          include: [Submission]
+        });
         expect(createdGame).to.be.ok;
         expect(createdGame.submissions.length).to.equal(1);
         expect(createdGame.roundNumber).to.equal(0);
 
-        return app.post(`/api/submissions/${createdGame.id}`)
+        return app.post(`/api/games/${createdGame.id}/submissions`)
           .send({ type: 'drawing', drawingUrl: 'placeholder-url', gameId: createdGame.id, userId: zi.id }) // a drawing submission
           .expect(200)
           .then( async (response)=> {
@@ -59,14 +65,14 @@ describe('Playing the game', ()=> {
             expect(createdGame.roundNumber).to.equal(1);
             expect(createdGame.submissions.length).to.equal(2);
             expect(createdGame.submissions[1].type).to.equal('drawing');
-            
+
             return app.get(`/api/games/${createdGame.id}`)
               .expect(200)
               .then( async (response)=> {
 
               })
           })
-          
+
 
       })
   });
