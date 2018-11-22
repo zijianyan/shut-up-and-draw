@@ -6,4 +6,5 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {default as GamesList} from './games-list'
+export {default as PlayerList} from './players-list'
 export {Login, Signup} from './auth-form'
