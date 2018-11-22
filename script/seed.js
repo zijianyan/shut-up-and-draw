@@ -31,7 +31,7 @@ async function seed() {
       await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: activeGame.id})
 
     // console.log(`seeded game ${Game1.id}`)
-    // console.log(`seeded successfully`)
+    console.log(`seeded successfully`)
   } catch (error) {
     console.log(error)
   }

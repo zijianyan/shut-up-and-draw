@@ -2,6 +2,8 @@ const router = require('express').Router()
 const {Game} = require('../db/models')
 const {User} = require('../db/models')
 const {Submission} = require('../db/models')
+const db = require('../db')
+const Op = db.Sequelize.Op
 
 module.exports = router
 
@@ -29,18 +31,32 @@ router.post('/', async (req, res, next) => {
 
     console.log(submission)
 
-
-    // initialPhrase.gameId = game.id;
-    // await initialPhrase.save();
-
+    submission.gameId = game.id;
+    await submission.save();
 
     res.send(game);
 
   } catch(err) {
+    console.log('errroring on posting game')
     next(err);
   }
 });
 
+// get all games by a user by req.user.id
+router.get('/', async (req, res, next) => {
+  try {
+    const games = await Game.findAll({
+      // where: {
+      //   players: {
+      //     [Op.contains]: [req.user.id]
+      //   }
+      // }
+    })
+    res.send(games)
+  } catch (err) {
+    next(err)
+  }
+})
 
 
 // getting a game by its id
@@ -53,21 +69,6 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// get all games by a user by req.user.id
-router.get('/', async (req, res, next) => {
-  try {
-    const games = await Game.findAll({
-      where: {
-        players: {
-          [Op.contains]: [req.user.id]
-        }
-      }
-    })
-    res.send(games)
-  } catch (err) {
-    next(err)
-  }
-})
 
 
 // editing a game's status
