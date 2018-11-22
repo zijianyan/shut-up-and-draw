@@ -35,8 +35,8 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const email = profile.emails[0].value
 
       User.findOrCreate({
-        where: {googleId},
-        defaults: {name, email}
+        where: {email},
+        defaults: {name, googleId}
       })
         .then(([user]) => done(null, user))
         .catch(done)
