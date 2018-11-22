@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
     console.log(submission)
 
     submission.gameId = game.id;
-    await initialPhrase.save();
+    await submission.save();
 
     res.send(game);
 
