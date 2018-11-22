@@ -19,15 +19,20 @@ router.post('/', async (req, res, next) => {
       status: 'active'
     });
 
-    const initialPhrase = await Submission.create({
+    const submission = await Submission.create({
       type: 'phrase',
-      phrase: 'pigeon eats your bagel'
+      phrase: 'pigeon eats your bagel',
+      gameId: game.id
       // this can be pulled in from a phraseBank
       // maybe randomized if it's being imported as an array of Json objects
     });
 
-    initialPhrase.gameId = game.id;
-    await initialPhrase.save();
+    console.log(submission)
+
+
+    // initialPhrase.gameId = game.id;
+    // await initialPhrase.save();
+
 
     res.send(game);
 
@@ -35,6 +40,8 @@ router.post('/', async (req, res, next) => {
     next(err);
   }
 });
+
+
 
 // getting a game by its id
 router.get('/:id', async (req, res, next) => {
@@ -75,6 +82,15 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
+router.get('/submissions', async (req, res, next) => {
+  try{
+    const submissions = await Submission.findAll()
+    res.send(submissions)
+  } catch(err) {
+    next(err)
+  }
+})
+
 // /api/games/id/submissions to get all submissions for a game
 router.get('/:id/submissions', async (req, res, next) => {
   // GET all submissions that belong to a game
@@ -83,7 +99,7 @@ router.get('/:id/submissions', async (req, res, next) => {
       where: {
         gameId: req.params.id
       },
-      include: [ { User } ] // each submission will also eager load the user that created that submission
+      include: [ User ] // each submission will also eager load the user that created that submission
     });
     // add a sorting function here before sending the submissions back to the client
     res.send(submissions)

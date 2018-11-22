@@ -8,25 +8,28 @@ async function seed() {
     await db.sync({force: true})
     console.log('db synced!')
 
-    const [Emily, Zi, Cang] = await Promise.all([
-      User.create({ email: 'emily@email.com', password: 'EMILY' }),
-      User.create({ email: 'cang@email.com', password: 'CANG' }),
-      User.create({ email: 'zi@email.com', password: 'ZI' }),
+    const [emily, cang, zi] = await Promise.all([
+      User.create({ email: 'emily@email.com', password: 'EMILY', name: 'emily' }),
+      User.create({ email: 'cang@email.com', password: 'CANG', name: 'cang' }),
+      User.create({ email: 'zi@email.com', password: 'ZI', name: 'zi' }),
     ])
-    const [Game1] = await Promise.all([
-      Game.create({ roundNumber: 1, status: 'complete'}),
+    const [completedGame, activeGame] = await Promise.all([
+      Game.create({ roundNumber: 2, status: 'complete', players: [cang.id, emily.id, zi.id]}),
+      Game.create({ roundNumber: 1, status: 'active', players: [cang.id, emily.id, zi.id]})
     ])
-    const [response1, response2] = await Promise.all([
-      Submission.create({ type: 'phrase', phrase: 'horse'}),
-      Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg'}),
-    ])
-    await Promise.all([
-      response1.setGame(Game1),
-      response1.setUser(Zi),
-      response2.setUser(Cang),
-      response2.setGame(Game1),
+    //create submissions for completedGame
 
-    ])
+      await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: zi.id, gameId: completedGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: completedGame.id})
+      await Submission.create({ type: 'phrase', phrase: 'avian bird flu', userId: emily.id, gameId: completedGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: cang.id, gameId: completedGame.id})
+
+
+    //create submissions for active game
+
+      await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: zi.id, gameId: activeGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: activeGame.id})
+
     // console.log(`seeded game ${Game1.id}`)
     // console.log(`seeded successfully`)
   } catch (error) {
