@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 /**
@@ -11,6 +12,12 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {name}</h3>
+      {/* placeholder until game is created */}
+      <Link to='/selectplayers'>
+        <button type="submit">
+          Select Players
+        </button>
+      </Link>
     </div>
   )
 }
