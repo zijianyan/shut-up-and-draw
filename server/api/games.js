@@ -4,8 +4,14 @@ const {User} = require('../db/models')
 const {Submission} = require('../db/models')
 const db = require('../db')
 const Op = db.Sequelize.Op
+const phrases = require('./phrases')
 
 module.exports = router
+
+//randomizes a number between 0 and length of all phrases
+export const randomize = () => {
+  return Math.floor(Math.random() * phrases.length);
+}
 
 // router is hosted under /api/games
 
@@ -23,7 +29,7 @@ router.post('/', async (req, res, next) => {
 
     const submission = await Submission.create({
       type: 'phrase',
-      phrase: 'pigeon eats your bagel',
+      phrase: phrases[randomize()].text,
       gameId: game.id
       // this can be pulled in from a phraseBank
       // maybe randomized if it's being imported as an array of Json objects
