@@ -12,6 +12,16 @@ const AuthForm = props => {
   return (
     <div>
       <form onSubmit={handleSubmit} name={name}>
+        { name === 'signup'
+        ? (
+          <div>
+            <label htmlFor="username">
+              <small>Name</small>
+            </label>
+            <input name="username" type="text" />
+          </div>
+        ) : null
+      }
         <div>
           <label htmlFor="email">
             <small>Email</small>
@@ -29,7 +39,13 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div>
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
+      <div>
+        <a href="/auth/facebook">{displayName} with Facebook</a>
+      </div>
+
     </div>
   )
 }
@@ -57,7 +73,7 @@ const mapSignup = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatchLogIn = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
@@ -69,8 +85,21 @@ const mapDispatch = dispatch => {
   }
 }
 
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
+const mapDispatchSignUp = dispatch => {
+  return {
+    handleSubmit(evt) {
+      evt.preventDefault()
+      const formName = evt.target.name
+      const email = evt.target.email.value
+      const password = evt.target.password.value
+      const username = evt.target.username.value
+      dispatch(auth(email, password, formName, username))
+    }
+  }
+}
+
+export const Login = connect(mapLogin, mapDispatchLogIn)(AuthForm)
+export const Signup = connect(mapSignup, mapDispatchSignUp)(AuthForm)
 
 /**
  * PROP TYPES
