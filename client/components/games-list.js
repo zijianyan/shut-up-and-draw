@@ -13,7 +13,7 @@ class GamesList extends Component {
         <div>
           {
             games.map(game => (
-              <div>
+              <div key={game.id}>
                 <GamePreview key={game.id} game={game}></GamePreview>
                 <hr/>
               </div>

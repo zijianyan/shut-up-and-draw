@@ -5,8 +5,11 @@ class GamePreview extends Component {
 
 
   render() {
-    const {players, status} = this.props.game
+
+    const { players, status, roundNumber } = this.props.game
     const { users, me } = this.props
+    console.log(roundNumber)
+
 
     // will move the CSS to it's own file later
     const style = {
@@ -26,11 +29,18 @@ class GamePreview extends Component {
               {users.find(user => user.id === player).name}
             </div>)
           }
-          <button>
+          <div>
             {
-
+              status === 'active' ?
+              roundNumber === players[me.id]
+              ? <button>Your Turn!</button>
+              : <div>
+                  {users.find(user => user.id === players[roundNumber]).name}'s
+                  turn!<button>Nudge Them!</button>
+                </div>
+              : <button>View Finished Chain</button>
             }
-          </button>
+          </div>
         </div>
       </div>
     )
