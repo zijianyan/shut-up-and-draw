@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import GamePreview from './game-preview'
 
 class GamesList extends Component {
   render(){
-    const { games, users } = this.props
-    if(!games && !users) { return null }
+    const { games } = this.props
+    if(!games) { return null }
 
     return (
       <div>
@@ -12,15 +13,9 @@ class GamesList extends Component {
         <div>
           {
             games.map(game => (
-              <div key={game.id}>
-                {game.status}
-                <ul>
-                  {
-                    game.players.map(player => (
-                      <li key={player} >{users.find(user => user.id === player).name}</li>
-                    ))
-                  }
-                </ul>
+              <div>
+                <GamePreview key={game.id} game={game}></GamePreview>
+                <hr/>
               </div>
             ))
           }
@@ -30,10 +25,9 @@ class GamesList extends Component {
   }
 }
 
-const mapStateToProps = ({games, users}) => {
+const mapStateToProps = ({games}) => {
   return {
-    games,
-    users
+    games
   }
 }
 

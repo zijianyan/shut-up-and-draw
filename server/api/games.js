@@ -9,7 +9,7 @@ const phrases = require('./phrases')
 module.exports = router
 
 //randomizes a number between 0 and length of all phrases
-export const randomize = () => {
+const randomize = () => {
   return Math.floor(Math.random() * phrases.length);
 }
 
@@ -22,6 +22,7 @@ router.post('/', async (req, res, next) => {
   try {
 
     const { players } = req.body
+    console.log(players)
     const game = await Game.create({
       players,
       status: 'active'
@@ -34,8 +35,6 @@ router.post('/', async (req, res, next) => {
       // this can be pulled in from a phraseBank
       // maybe randomized if it's being imported as an array of Json objects
     });
-
-    console.log(submission)
 
     submission.gameId = game.id;
     await submission.save();
