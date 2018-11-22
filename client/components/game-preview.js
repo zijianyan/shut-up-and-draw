@@ -5,9 +5,11 @@ class GamePreview extends Component {
 
 
   render() {
+
     const { players, status, roundNumber } = this.props.game
     const { users, me } = this.props
     console.log(roundNumber)
+
 
     // will move the CSS to it's own file later
     const style = {
