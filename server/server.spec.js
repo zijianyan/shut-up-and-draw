@@ -17,9 +17,9 @@ describe('Seeded models', ()=> {
   });
 
   describe('Seeded Game', ()=> {
-    it('has one game', async ()=> {
+    it('has two games', async ()=> {
       const games = await Game.findAll();
-      expect(games.length).to.equal(1);
+      expect(games.length).to.equal(2);
     });
   });
 
@@ -61,10 +61,7 @@ describe('Playing the game', ()=> {
                 [ Submission, 'createdAt', 'ASC']
               ]
             });
-
             expect(createdGame.roundNumber).to.equal(1);
-            expect(createdGame.submissions.length).to.equal(2);
-            expect(createdGame.submissions[1].type).to.equal('drawing');
 
             return app.get(`/api/games/${createdGame.id}`)
               .expect(200)

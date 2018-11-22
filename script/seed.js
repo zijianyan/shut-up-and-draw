@@ -8,7 +8,7 @@ async function seed() {
     await db.sync({force: true})
     console.log('db synced!')
 
-    const [emily, zi, cang] = await Promise.all([
+    const [emily, cang, zi] = await Promise.all([
       User.create({ email: 'emily@email.com', password: 'EMILY', name: 'emily' }),
       User.create({ email: 'cang@email.com', password: 'CANG', name: 'cang' }),
       User.create({ email: 'zi@email.com', password: 'ZI', name: 'zi' }),
@@ -18,18 +18,17 @@ async function seed() {
       Game.create({ roundNumber: 1, status: 'active', players: [cang.id, emily.id, zi.id]})
     ])
     //create submissions for completedGame
-    await Promise.all([
-      Submission.create({ type: 'phrase', phrase: 'horse', userId: zi.id, gameId: completedGame.id}),
-      Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: completedGame.id}),
-      Submission.create({ type: 'phrase', phrase: 'donkey', userId: emily.id, gameId: completedGame.id}),
-      Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: cang.id, gameId: completedGame.id})
-    ])
+
+      await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: zi.id, gameId: completedGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: completedGame.id})
+      await Submission.create({ type: 'phrase', phrase: 'avian bird flu', userId: emily.id, gameId: completedGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: cang.id, gameId: completedGame.id})
+
 
     //create submissions for active game
-    await Promise.all([
-      Submission.create({ type: 'phrase', phrase: 'pirate', userId: zi.id, gameId: activeGame.id}),
-      Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: activeGame.id}),
-    ])
+
+      await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: zi.id, gameId: activeGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: activeGame.id})
 
     // console.log(`seeded game ${Game1.id}`)
     // console.log(`seeded successfully`)

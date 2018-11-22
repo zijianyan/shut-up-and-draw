@@ -19,15 +19,20 @@ router.post('/', async (req, res, next) => {
       status: 'active'
     });
 
-    const initialPhrase = await Submission.create({
+    const submission = await Submission.create({
       type: 'phrase',
-      phrase: 'pigeon eats your bagel'
+      phrase: 'pigeon eats your bagel',
+      gameId: game.id
       // this can be pulled in from a phraseBank
       // maybe randomized if it's being imported as an array of Json objects
     });
 
-    initialPhrase.gameId = game.id;
-    await initialPhrase.save();
+    console.log(submission)
+
+
+    // initialPhrase.gameId = game.id;
+    // await initialPhrase.save();
+
 
     res.send(game);
 
