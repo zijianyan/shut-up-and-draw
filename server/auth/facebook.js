@@ -10,7 +10,7 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
   const facebookConfig = {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:8080/auth/facebook/callback',
+    callbackURL: process.env.FACEBOOK_APP_CALLBACK,
     enableProof: true,
     profileFields: ['id', 'name', 'email']
   }
@@ -23,8 +23,8 @@ if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {
       const email = profile.emails[0].value
 
       User.findOrCreate({
-        where: {facebookId},
-        defaults: {name, email}
+        where: {email},
+        defaults: {name, facebookId}
       })
         .then(([user]) => {
           return done(null, user)
