@@ -18,7 +18,7 @@ const _getAllUsers = users => ({type: GET_ALL_USERS, users})
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
+export const getAllUsers = () => async dispatch => {
   try {
     const res = await axios.get('/api/users')
     dispatch(_getAllUsers(res.data || initialState))
@@ -26,6 +26,7 @@ export const me = () => async dispatch => {
     console.error(err)
   }
 }
+
 
 /**
  * REDUCER

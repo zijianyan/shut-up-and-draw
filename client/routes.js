@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, Signup, UserHome, GamesList} from './components'
 import {me} from './store'
+import { getGames } from './store/games'
+import { getAllUsers } from './store/users';
 
 /**
  * COMPONENT
@@ -25,6 +27,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            <Route path="/games" component={GamesList} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
@@ -49,6 +52,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(getAllUsers())
+      dispatch(getGames())
     }
   }
 }
