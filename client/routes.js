@@ -30,6 +30,7 @@ class Routes extends Component {
             <Route path="/games" component={GamesList} />
             <Route path="/selectplayers" component={PlayersList} />
             <Route path='/submission/:id' exact component={DrawingSubmission} />
+            <Route path='/drawing-submission-test' component={DrawingSubmission} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
