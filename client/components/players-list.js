@@ -82,7 +82,6 @@ class PlayersList extends Component {
           :
           null
         }
-        <Link to='/submission' >
         <button
           type="submit"
           onClick={()=>createNewGame(players)}
@@ -90,7 +89,6 @@ class PlayersList extends Component {
         >
           Create Game
         </button>
-        </Link>
       </div>
     )
   }
