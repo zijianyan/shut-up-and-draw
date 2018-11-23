@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {createGame} from '../store/games'
+import {Link} from 'react-router-dom'
+
 
 class PlayersList extends Component {
   constructor (props){
   super(props);
+  const {user} = this.props
   this.state = {
-    players: []
+    players: [user], //initializes with logged in user
   };
   this.addPlayer = this.addPlayer.bind(this)
   this.removePlayer = this.removePlayer.bind(this)
   this.createNewGame = this.createNewGame.bind(this)
 }
-
 
   createNewGame (players) {
     const playersids = players.map(x => x.id)
@@ -76,6 +78,7 @@ class PlayersList extends Component {
           :
           null
         }
+        <Link to='/submission' >
         <button
           type="submit"
           onClick={()=>createNewGame(players)}
@@ -83,14 +86,16 @@ class PlayersList extends Component {
         >
           Create Game
         </button>
+        </Link>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({users}) => {
+const mapStateToProps = ({users, user}) => {
   return {
-    users
+    user,
+    users: users.filter(x => x.id !== user.id)
   }
 }
 const mapDispatch = dispatch => {

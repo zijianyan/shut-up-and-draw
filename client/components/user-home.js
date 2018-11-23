@@ -14,8 +14,10 @@ export const UserHome = props => {
       <h3>Welcome, {name}</h3>
       {/* placeholder until game is created */}
       <Link to='/selectplayers'>
-        <button type="submit">
-          Select Players
+      <button
+          type="submit"
+        >
+          Start Game
         </button>
       </Link>
     </div>
