@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {getSubmissions} from '../store/submissions'
 import {Link} from 'react-router-dom'
+
+import CanvasDraw from 'react-canvas-draw'
 
 class DrawingSubmission extends Component {
   constructor (props){
@@ -12,15 +14,44 @@ class DrawingSubmission extends Component {
       user,
       game
     };
+    this.handleClear = this.handleClear.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   //TO DO: brainstorming how to pull in associated game w/ submission
 
+  handleClear() {
+    this.canvasRef.clear();
+  }
+
+  handleSubmit() {
+    const base64 = this.canvasRef.canvas.drawing.toDataURL();
+    console.log(base64);
+  }
+
   render(){
+    const { handleClear, handleSubmit } = this;
     return (
-    <h1>
-      DRAW!
-    </h1>
+      <Fragment>
+        <h1>
+          DRAW!
+        </h1>
+        <CanvasDraw
+          ref={(node)=> {this.canvasRef = node}} // now this component has a .canvas property which references this element
+          loadTimeOffset={5}
+          lazyRadius={0}
+          brushRadius={5}
+          brushColor={"#222"}
+          catenaryColor={"#222"}
+          gridColor={"rgba(150,150,150,0.17)"}
+          hideGrid={true}
+          canvasWidth={400}
+          canvasHeight={400}
+          disabled={false}
+        />
+        <button onClick={handleClear}>Clear</button>
+        <button onClick={handleSubmit}>Submit (console logs for now)</button>
+      </Fragment>
     )
   }
 }

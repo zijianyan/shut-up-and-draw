@@ -52,6 +52,7 @@
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-canvas-draw": "^1.0.0-alpha.7",
     "react-dom": "^16.4.2",
     "react-redux": "^5.0.2",
     "react-router-dom": "^4.3.1",

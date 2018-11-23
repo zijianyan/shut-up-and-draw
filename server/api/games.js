@@ -22,7 +22,7 @@ router.post('/', async (req, res, next) => {
   try {
 
     const { players } = req.body
-    console.log(players)
+    console.log('players:', players)
     const game = await Game.create({
       players,
       status: 'active'
