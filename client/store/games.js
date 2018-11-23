@@ -31,11 +31,9 @@ export const getGames = () => async dispatch => {
   }
 }
 
-export const createGame = (game) => async dispatch => {
+export const createGame = (players) => async dispatch => {
   try {
-    const res = await axios.post('/api/games', game)
-    console.log(res.data)
-    dispatch(_createGame(res.data || initialState))
+    return await axios.post('/api/games', players)
   } catch (err) {
     console.error(err)
   }
