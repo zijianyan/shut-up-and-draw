@@ -26,10 +26,10 @@ class Routes extends Component {
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route path="/games" component={GamesList} />
+            <Route exact path="/home" component={UserHome} />
+            <Route exact path="/games" component={GamesList} />
             <Route path="/selectplayers" component={PlayersList} />
-            <Route path='/submission/:id' exact component={DrawingSubmission} />
+            <Route path='/games/:gameId/submissions' exact component={DrawingSubmission} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

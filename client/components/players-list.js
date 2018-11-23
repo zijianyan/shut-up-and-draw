@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {createGame} from '../store/games'
+import {createGame, getGames} from '../store/games'
 import {Link} from 'react-router-dom'
 
 
@@ -19,7 +19,11 @@ class PlayersList extends Component {
   createNewGame (players) {
     const playersids = players.map(x => x.id)
     console.log(playersids)
-    this.props._createGame({players: playersids})
+    this.props.createGame({players: playersids})
+      .then(game => {
+        this.props.getGames()
+        this.props.history.push(`/games/${game.data.id}/submissions`)
+      })
   }
 
   addPlayer (player) {
@@ -100,8 +104,11 @@ const mapStateToProps = ({users, user}) => {
 }
 const mapDispatch = dispatch => {
   return {
-    _createGame: (players) => {
-      dispatch(createGame(players))
+    createGame: (players) => {
+      return dispatch(createGame(players))
+    },
+    getGames: () => {
+      return dispatch(getGames())
     }
   }
 }
