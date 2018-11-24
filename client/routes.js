@@ -6,6 +6,7 @@ import {Login, Signup, UserHome, GamesList, PlayersList, DrawingSubmission, Comp
 import {me} from './store'
 import { getGames } from './store/games'
 import { getAllUsers } from './store/users';
+import PhraseSubmission from './components/phrase-submission';
 
 /**
  * COMPONENT
@@ -29,10 +30,11 @@ class Routes extends Component {
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/games" component={GamesList} />
             <Route path="/selectplayers" component={PlayersList} />
-            <Route path='/games/:gameId/submissions' render={({match})=> <DrawingSubmission match={match}/>} />
+            <Route exact path='/games/:gameId/submissions' render={({match})=> <DrawingSubmission match={match}/>} />
             <Route path='/drawing-submission-test' component={DrawingSubmission} />
             <Route path='/games/:gameId/compilation' render={({match}) => <Compilation match={match} />}/>
-
+            {/* //Question: how to differentiate between drawing and phrase guess? */}
+            <Route exact path='/games/:gameId/submissions/phrase' render={({match})=> <PhraseSubmission match={match}/>} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
