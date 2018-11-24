@@ -9,20 +9,13 @@ import CanvasDraw from 'react-canvas-draw'
 class DrawingSubmission extends Component {
   constructor (props){
     super(props);
-    const {user, game, gameId} = this.props
-    this.state = {
-      user: user ? user : {},
-      game: game ? game : {},
-      gameId: gameId ? gameId : ''
-    };
     this.handleClear = this.handleClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
-    this.props.getSubmissions({id: this.state.gameId})
+    this.props.getSubmissions({id: this.props.gameId})
   }
-
 
   handleClear() {
     this.canvasRef.clear();
@@ -33,7 +26,8 @@ class DrawingSubmission extends Component {
     const submission = {
       type: 'drawing',
       gameId: this.props.match.params.gameId*1,
-      base64
+      base64,
+      userId: this.props.user.id
     }
     this.props.createSubmission(submission)
   }
@@ -41,12 +35,12 @@ class DrawingSubmission extends Component {
   render(){
     const { handleClear, handleSubmit } = this;
     const {submissions} = this.props
-
+    const round = 0
 
     return (
       <Fragment>
         <h1>
-          DRAW! { submissions.length > 0 ? submissions[0].phrase : null}
+          DRAW! { submissions.length > 0 ? submissions[round].phrase : null}
         </h1>
         <CanvasDraw
           ref={(node)=> {this.canvasRef = node}} // now this component has a .canvas property which references this element
@@ -78,14 +72,11 @@ class DrawingSubmission extends Component {
   }
 }
 
-const mapStateToProps = ( {games, user, submissions}, { match }) => {
-  const currentGame = games.find(x => x.id === match.params.gameId * 1)
-  console.log(currentGame)
+const mapStateToProps = ( { user, submissions }, { match }) => {
   return {
     gameId: match.params.gameId,
     user,
     submissions,
-    game: currentGame
   }
 }
 

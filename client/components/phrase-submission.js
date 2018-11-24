@@ -36,6 +36,7 @@ class PhraseSubmission extends Component {
   render(){
     const { handleChange, handleSubmit } = this;
     const { submissions } = this.props
+    const round = 1
 
     return (
       <Fragment>
@@ -44,8 +45,7 @@ class PhraseSubmission extends Component {
         </h1>
        <div>
        { submissions.length > 0 ?
-        <img src={submissions[1].drawingUrl}/>
-        // console.log('submissions 0', submissions[1])
+        <img src={submissions[round].drawingUrl}/>
         : null
         }
        </div>
