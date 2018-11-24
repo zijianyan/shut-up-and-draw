@@ -35,10 +35,10 @@ const Submission = db.define('submission', {
   },
 })
 
-Submission.uploadImage = async (data, gameId) => {
+Submission.uploadImage = async (data, gameId, userId) => {
   try {
     console.log('submission upload is being called!')
-    const submission = await Submission.create({type: 'drawing', gameId})
+    const submission = await Submission.create({type: 'drawing', gameId, userId})
     const regex = /data:image\/(\w+);base64,(.*)/
     const matches = regex.exec(data)
     const extension = matches[1]
