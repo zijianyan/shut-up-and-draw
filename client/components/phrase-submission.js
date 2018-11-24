@@ -1,10 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {getSubmissions, createSubmission} from '../store/submissions'
-import {Link} from 'react-router-dom'
-import uploadImage from '../../server/S3'
-
-import CanvasDraw from 'react-canvas-draw'
 
 class PhraseSubmission extends Component {
   constructor (props){
@@ -16,9 +12,6 @@ class PhraseSubmission extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-
-  //when you click on play - it should call all the submissions for that gam eid
-  //the submissions reducer
   componentDidMount(){
     this.props.getSubmissions({id: this.props.gameId})
   }
@@ -35,15 +28,15 @@ class PhraseSubmission extends Component {
       phrase: this.state.phrase,
       userId: this.props.user.id
     }
-    console.log('submission')
+
     this.props.createSubmission(submission)
+    .then(()=> this.setState({phrase:''}))
   }
 
   render(){
     const { handleChange, handleSubmit } = this;
     const { submissions } = this.props
-    // const round = this.props.game ? this.props.game.roundNumber : null
-    console.log('game in render',  this.props.game)
+
     return (
       <Fragment>
         <h1>
@@ -51,15 +44,12 @@ class PhraseSubmission extends Component {
         </h1>
        <div>
        { submissions.length > 0 ?
-      //  pass thru last drawing
-        <img src={submissions[0].drawing}/>
+        <img src={submissions[1].drawingUrl}/>
+        // console.log('submissions 0', submissions[1])
         : null
         }
        </div>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="guess">
-            Guess
-          </label>
           <input
             name="guess"
             type="text"
@@ -68,7 +58,7 @@ class PhraseSubmission extends Component {
           <button
             type="submit"
             >
-            Submit
+            Guess the phrase!
           </button>
         </form>
       </Fragment>
@@ -76,14 +66,11 @@ class PhraseSubmission extends Component {
   }
 }
 
-const mapStateToProps = ( {games, user, submissions}, { match }) => {
-  const currentGame = games.find(x => x.id === match.params.gameId * 1)
-  console.log(currentGame)
+const mapStateToProps = ( { user, submissions }, { match }) => {
   return {
     gameId: match.params.gameId,
     user,
     submissions,
-    game: currentGame
   }
 }
 
