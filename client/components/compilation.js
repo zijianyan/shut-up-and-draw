@@ -11,15 +11,15 @@ class Compilation extends Component {
   }
 
   componentDidUpdate() {
-    if(!this.props.game.id){
-      this.props.getGame()
+    if(!this.props.games.length){
+      this.props.getGames()
     }
   }
 
   render() {
     const { submissions, users, game, games } = this.props
-    if(!submissions && !games) {return null}
-
+    if(!users.length || !games.length || !submissions.length) {return null}
+    console.log('continuing')
     return (
       <div>
         <h2>Game Compilation</h2>
@@ -56,6 +56,7 @@ const mapStateToProps = ({games, submissions, users, user}, {match}) => {
   return {
     gameId,
     game,
+    games,
     submissions,
     users,
     user

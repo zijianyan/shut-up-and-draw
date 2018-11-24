@@ -18,7 +18,7 @@ class GamePreview extends Component {
       borderWidth: 'thin'
     }
 
-    if(!users) return null
+    if(!users.length) return null
 
     return (
       <div style={style}>
