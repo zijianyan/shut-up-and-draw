@@ -33,7 +33,7 @@ class GamePreview extends Component {
             {
               status === 'active' ?
               players[roundNumber] === players[me.id]
-              ? <button>Your Turn!</button>
+              ? <div>Your Turn! <button>Play</button></div>
               : <div>
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!<button>Nudge Them!</button>

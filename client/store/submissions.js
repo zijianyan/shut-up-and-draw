@@ -29,9 +29,11 @@ export const getSubmissions = (game) => async dispatch => {
   }
 }
 
-export const createSubmission = (submission) => async dispatch => { // req.body = { content, gameId: 1 }
+export const createSubmission = (submission) => async dispatch => {
+  // req.body = { content, gameId: 1 }
   try {
     const res = await axios.post(`/api/games/${submission.gameId}/submissions`, submission)
+    console.log(res.data)
     dispatch(_createSubmission(res.data || initialState))
   } catch (err) {
     console.error(err)

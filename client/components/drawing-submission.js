@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import {getSubmissions} from '../store/submissions'
+import {getSubmissions, createSubmission} from '../store/submissions'
 import {Link} from 'react-router-dom'
+import uploadImage from '../../server/S3'
 
 import CanvasDraw from 'react-canvas-draw'
 
@@ -26,7 +27,12 @@ class DrawingSubmission extends Component {
 
   handleSubmit() {
     const base64 = this.canvasRef.canvas.drawing.toDataURL();
-    console.log(base64);
+    const submission = {
+      type: 'drawing',
+      gameId: this.props.match.params.gameId*1,
+      base64
+    }
+    this.props.createSubmission(submission)
   }
 
   render(){
@@ -57,7 +63,7 @@ class DrawingSubmission extends Component {
 }
 
 const mapStateToProps = ({game, user, submissions}, { match }) => {
-  const submission = submissions.find(x => x.id === match.params.id * 1);
+  const submission = submissions.find(x => x.id === match.params.gameId * 1);
   return {
     game,
     user,
@@ -66,7 +72,8 @@ const mapStateToProps = ({game, user, submissions}, { match }) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getSubmissions: (game) => dispatch(getSubmissions(game))
+  getSubmissions: (game) => dispatch(getSubmissions(game)),
+  createSubmission: (submission) => dispatch(createSubmission(submission))
 })
 
 

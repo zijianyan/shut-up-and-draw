@@ -29,7 +29,7 @@ class Routes extends Component {
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/games" component={GamesList} />
             <Route path="/selectplayers" component={PlayersList} />
-            <Route path='/games/:gameId/submissions' exact component={DrawingSubmission} />
+            <Route path='/games/:gameId/submissions' render={({match})=> <DrawingSubmission match={match}/>} />
             <Route path='/drawing-submission-test' component={DrawingSubmission} />
 
           </Switch>

@@ -122,29 +122,29 @@ router.post('/:id/submissions', async (req, res, next) => {
   // needs to come to this route with these attributes in the body
   try {
     const { type } = req.body;
+    const gameId = req.params.id
     let submission;
 
     if(type === 'phrase') {
       submission = await Submission.create({
-        type: req.body.type,
+        type,
         phrase: req.body.phrase,
-        gameId: req.params.id
+        gameId
       });
     } else {
       // this is TBD because we haven't set up AWS and
       // I'm unsure where the drawing URL is coming from
-      submission = await Submission.create({
-        type: req.body.type,
-        drawingUrl: req.body.drawing,
-        gameId: req.params.id
-      });
+
+      submission = await Submission.uploadImage(req.body.base64, gameId)
+
     }
 
     // after submission is created, we find the game and update the roundNumber pointer
-    const game = await Game.findById(req.params.id)
-    game.roundNumber++
+    const game = await Game.findById(gameId)
+    game.roundNumber = game.roundNumber+1
     await game.save()
 
+    console.log('submission created: ', submission)
     res.send(submission);
   } catch(err) {
     next(err)
