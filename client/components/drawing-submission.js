@@ -9,17 +9,20 @@ import CanvasDraw from 'react-canvas-draw'
 class DrawingSubmission extends Component {
   constructor (props){
     super(props);
-    const {user, game, submission} = this.props
+    const {user, game, gameId} = this.props
     this.state = {
-      submission,
-      user,
-      game
+      user: user ? user : {},
+      game: game ? game : {},
+      gameId: gameId ? gameId : ''
     };
     this.handleClear = this.handleClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  //TO DO: brainstorming how to pull in associated game w/ submission
+  componentDidMount(){
+    this.props.getSubmissions({id: this.state.gameId})
+  }
+
 
   handleClear() {
     this.canvasRef.clear();
@@ -37,37 +40,52 @@ class DrawingSubmission extends Component {
 
   render(){
     const { handleClear, handleSubmit } = this;
+    const {submissions} = this.props
+
+
     return (
       <Fragment>
         <h1>
-          DRAW!
+          DRAW! { submissions.length > 0 ? submissions[0].phrase : null}
         </h1>
         <CanvasDraw
           ref={(node)=> {this.canvasRef = node}} // now this component has a .canvas property which references this element
           loadTimeOffset={5}
           lazyRadius={0}
           brushRadius={5}
-          brushColor={"#222"}
-          catenaryColor={"#222"}
-          gridColor={"rgba(150,150,150,0.17)"}
+          brushColor="#222"
+          catenaryColor="#222"
+          gridColor="rgba(150,150,150,0.17)"
           hideGrid={true}
           canvasWidth={400}
           canvasHeight={400}
           disabled={false}
         />
-        <button onClick={handleClear}>Clear</button>
-        <button onClick={handleSubmit}>Submit (console logs for now)</button>
+        <button
+          onClick={handleClear}
+          type="submit"
+          >
+          Clear
+          </button>
+        <button
+          onClick={handleSubmit}
+          type="submit"
+          >
+          Submit (console logs for now)
+          </button>
       </Fragment>
     )
   }
 }
 
-const mapStateToProps = ({game, user, submissions}, { match }) => {
-  const submission = submissions.find(x => x.id === match.params.gameId * 1);
+const mapStateToProps = ( {games, user, submissions}, { match }) => {
+  const currentGame = games.find(x => x.id === match.params.gameId * 1)
+  console.log(currentGame)
   return {
-    game,
+    gameId: match.params.gameId,
     user,
-    submission
+    submissions,
+    game: currentGame
   }
 }
 
