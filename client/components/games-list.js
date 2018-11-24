@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import GamePreview from './game-preview'
+import { Link } from 'react-router-dom'
 
 class GamesList extends Component {
   render(){
@@ -10,6 +11,8 @@ class GamesList extends Component {
     return (
       <div>
         <h1>Games List</h1>
+
+        <button><Link to='/selectplayers'>Start a new game!</Link></button>
         <div>
           {
             games.map(game => (
