@@ -1,38 +1,32 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import {getSubmissions, createSubmission} from '../store/submissions'
+import {getSubmissions} from '../store/submissions'
 import {DrawingSubmission, PhraseSubmission} from './index'
 
 class SubmissionWrapper extends Component {
 
   componentDidMount(){
-    this.props.getSubmissions({id: this.props.gameId})
+    if(this.props.game) {
+      this.props.getSubmissions(this.props.game)
+    }
   }
 
   render(){
-    if(!this.props.games) return null
-    const { games, game, user, gameId, submissions } = this.props
-
-    console.log('user', user)
-    console.log('gameId', gameId)
-    console.log('games', games)
-    console.log('game', game)
-    console.log('submissions', submissions)
+    if(!this.props.game || !this.props.gameId) return null
+    const { game, gameId } = this.props
 
     const round = game ? game.roundNumber : 0
     const isDrawing = round % 2 === 0
-    console.log('roundnumber', round)
-
     return (
       <Fragment>
         <h1>ok</h1>
       {
-        even ?
-        <DrawingSubmission />
+        isDrawing ?
+        <DrawingSubmission gameId={gameId}/>
         :
-        <PhraseSubmission />
+        <PhraseSubmission gameId={gameId}/>
       }
-      ,</Fragment>
+      </Fragment>
     )
   }
 }
