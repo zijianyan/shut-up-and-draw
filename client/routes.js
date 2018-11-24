@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, GamesList, PlayersList, DrawingSubmission} from './components'
+import {Login, Signup, UserHome, GamesList, PlayersList, DrawingSubmission, Compilation} from './components'
 import {me} from './store'
 import { getGames } from './store/games'
 import { getAllUsers } from './store/users';
@@ -31,6 +31,7 @@ class Routes extends Component {
             <Route path="/selectplayers" component={PlayersList} />
             <Route path='/games/:gameId/submissions' render={({match})=> <DrawingSubmission match={match}/>} />
             <Route path='/drawing-submission-test' component={DrawingSubmission} />
+            <Route path='/games/:gameId/compilation' render={({match}) => <Compilation match={match} />}/>
 
           </Switch>
         )}

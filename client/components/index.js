@@ -8,5 +8,6 @@ export {default as UserHome} from './user-home'
 export {default as GamesList} from './games-list'
 export {default as PlayersList} from './players-list'
 export {default as DrawingSubmission} from './drawing-submission'
+export {default as Compilation} from './compilation'
 
 export {Login, Signup} from './auth-form'
