@@ -22,12 +22,12 @@ class DrawingSubmission extends Component {
   }
 
   handleSubmit() {
-    const base64 = this.canvasRef.canvas.drawing.toDataURL();
+    const recording = this.canvasRef.getSaveData();
     const submission = {
       type: 'drawing',
-      gameId: this.props.gameId,
-      base64,
-      userId: this.props.user.id
+      gameId: this.props.match.params.gameId*1,
+      userId: this.props.user.id,
+      drawingUrl: recording
     }
     this.props.createSubmission(submission)
   }

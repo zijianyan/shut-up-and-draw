@@ -139,7 +139,13 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
       // this is TBD because we haven't set up AWS and
       // I'm unsure where the drawing URL is coming from
 
-      submission = await Submission.uploadImage(req.body.base64, gameId, userId)
+      // submission = await Submission.uploadImage(req.body.base64, gameId, userId)
+      submission = await Submission.create({
+        type,
+        gameId,
+        userId,
+        drawingUrl: req.body.drawingUrl
+      })
 
     }
 
@@ -148,7 +154,6 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
     game.roundNumber = game.roundNumber+1
     await game.save()
 
-    console.log('submission created: ', submission)
     res.send(submission);
   } catch(err) {
     next(err)
