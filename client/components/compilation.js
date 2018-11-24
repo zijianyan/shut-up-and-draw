@@ -3,8 +3,15 @@ import { connect } from 'react-redux'
 import { getSubmissions } from '../store/submissions'
 import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
+import CanvasDraw from 'react-canvas-draw'
+
 
 class Compilation extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {}
+  }
 
   componentDidMount() {
     this.props.getSubmissions({id: this.props.gameId})
@@ -32,9 +39,15 @@ class Compilation extends Component {
         {
           submissions.map((submission,index) => (
             submission.drawingUrl
-            ? <div key={submission.id}>
+            ? <div key={submission.id} >
               <label>Drawing submission by {submission.user.name}</label>
-              <img key={submission.id} src={submission.drawingUrl}></img>
+              {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
+              <CanvasDraw
+                ref={canvasDraw => (this.submission = canvasDraw)}
+                disabled={true}
+                immediate={true}
+              />
+              <button onClick={()=> this.submission.loadSaveData(submission.drawingUrl)}>Play drawing</button>
               <hr />
               </div>
             : <div key={submission.id}>

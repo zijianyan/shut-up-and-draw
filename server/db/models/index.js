@@ -31,7 +31,7 @@ const Submission = db.define('submission', {
     type: db.Sequelize.STRING
   },
   drawingUrl: {
-    type: db.Sequelize.STRING
+    type: db.Sequelize.TEXT
   },
 })
 
