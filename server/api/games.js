@@ -13,10 +13,13 @@ const randomize = () => {
   return Math.floor(Math.random() * phrases.length);
 }
 
+const isLoggedIn = (req, res, next) => {
+  next(req.user ? null : {status: 401})
+}
 // router is hosted under /api/games
 
 // creating a game with an initial submission of a phrase
-router.post('/', async (req, res, next) => {
+router.post('/', isLoggedIn, async (req, res, next) => {
   // user initiates a game with selected friends
   // assumption: players are coming in as an array of users
   try {
@@ -31,13 +34,12 @@ router.post('/', async (req, res, next) => {
     const submission = await Submission.create({
       type: 'phrase',
       phrase: phrases[randomize()].text,
-      gameId: game.id
+      gameId: game.id,
+      userId: req.user.id
       // this can be pulled in from a phraseBank
       // maybe randomized if it's being imported as an array of Json objects
     });
-
-    submission.gameId = game.id;
-    await submission.save();
+    console.log(submission)
 
     res.send(game);
 
@@ -117,25 +119,27 @@ router.get('/:id/submissions', async (req, res, next) => {
 
 
 // /api/games/id/submissions routes to create a submission
-router.post('/:id/submissions', async (req, res, next) => {
+router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
   // POST a submission in association to the game it's being created within
   // needs to come to this route with these attributes in the body
   try {
     const { type } = req.body;
     const gameId = req.params.id
+    const userId = req.user.id
     let submission;
 
     if(type === 'phrase') {
       submission = await Submission.create({
         type,
         phrase: req.body.phrase,
-        gameId
+        gameId,
+        userId
       });
     } else {
       // this is TBD because we haven't set up AWS and
       // I'm unsure where the drawing URL is coming from
 
-      submission = await Submission.uploadImage(req.body.base64, gameId)
+      submission = await Submission.uploadImage(req.body.base64, gameId, userId)
 
     }
 
