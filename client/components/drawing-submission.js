@@ -25,7 +25,7 @@ class DrawingSubmission extends Component {
     const base64 = this.canvasRef.canvas.drawing.toDataURL();
     const submission = {
       type: 'drawing',
-      gameId: this.props.match.params.gameId*1,
+      gameId: this.props.gameId,
       base64,
       userId: this.props.user.id
     }
@@ -72,9 +72,8 @@ class DrawingSubmission extends Component {
   }
 }
 
-const mapStateToProps = ( { user, submissions }, { match }) => {
+const mapStateToProps = ( { user, submissions } ) => {
   return {
-    gameId: match.params.gameId,
     user,
     submissions,
   }

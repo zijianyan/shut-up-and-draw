@@ -24,7 +24,7 @@ class PhraseSubmission extends Component {
     ev.preventDefault();
     const submission = {
       type: 'phrase',
-      gameId: this.props.match.params.gameId*1,
+      gameId: this.props.gameId,
       phrase: this.state.phrase,
       userId: this.props.user.id
     }
@@ -66,9 +66,8 @@ class PhraseSubmission extends Component {
   }
 }
 
-const mapStateToProps = ( { user, submissions }, { match }) => {
+const mapStateToProps = ( { user, submissions } ) => {
   return {
-    gameId: match.params.gameId,
     user,
     submissions,
   }
