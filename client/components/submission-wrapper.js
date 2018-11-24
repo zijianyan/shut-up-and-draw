@@ -13,7 +13,7 @@ class SubmissionWrapper extends Component {
 
   render(){
     if(!this.props.game || !this.props.gameId) return null
-    const { games, game, user, gameId, submissions } = this.props
+    const { game, gameId } = this.props
 
     const round = game ? game.roundNumber : 0
     const isDrawing = round % 2 === 0
