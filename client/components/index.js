@@ -9,5 +9,5 @@ export {default as GamesList} from './games-list'
 export {default as PlayersList} from './players-list'
 export {default as DrawingSubmission} from './drawing-submission'
 export {default as Compilation} from './compilation'
-
+export {default as SubmissionWrapper} from './submission-wrapper'
 export {Login, Signup} from './auth-form'
