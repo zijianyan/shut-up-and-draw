@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class GamePreview extends Component {
 
 
   render() {
 
-    const { players, status, roundNumber } = this.props.game
+    const { players, status, roundNumber, id } = this.props.game
     const { users, me } = this.props
     console.log(roundNumber)
 
@@ -32,8 +33,8 @@ class GamePreview extends Component {
           <div>
             {
               status === 'active' ?
-              players[roundNumber] === players[me.id]
-              ? <div>Your Turn! <button>Play</button></div>
+              players[roundNumber] === me.id
+              ? <div>Your Turn! <Link to={`/games/${id}/submissions`}><button>Play</button></Link></div>
               : <div>
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!<button>Nudge Them!</button>
