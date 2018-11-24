@@ -20,9 +20,9 @@ async function seed() {
     //create submissions for completedGame
 
       await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: cang.id, gameId: completedGame.id})
-      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: cang.id, gameId: completedGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'https://s3.amazonaws.com/ezc-images/8.png', userId: cang.id, gameId: completedGame.id})
       await Submission.create({ type: 'phrase', phrase: 'avian bird flu', userId: emily.id, gameId: completedGame.id})
-      await Submission.create({ type: 'drawing', drawingUrl: 'img.jpeg', userId: zi.id, gameId: completedGame.id})
+      await Submission.create({ type: 'drawing', drawingUrl: 'https://s3.amazonaws.com/ezc-images/8.png', userId: zi.id, gameId: completedGame.id})
 
 
     //create submissions for active game

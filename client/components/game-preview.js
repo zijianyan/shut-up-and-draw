@@ -39,7 +39,7 @@ class GamePreview extends Component {
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!<button>Nudge Them!</button>
                 </div>
-              : <button>View Finished Chain</button>
+              : <button><Link to={`/games/${id}/compilation`}>View Finished Chain</Link></button>
             }
           </div>
         </div>
