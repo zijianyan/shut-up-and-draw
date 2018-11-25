@@ -25,11 +25,12 @@ class DrawingSubmission extends Component {
     const recording = this.canvasRef.getSaveData();
     const submission = {
       type: 'drawing',
-      gameId: this.props.match.params.gameId*1,
+      gameId: this.props.gameId*1,
       userId: this.props.user.id,
       drawingUrl: recording
     }
     this.props.createSubmission(submission)
+
   }
 
   render(){

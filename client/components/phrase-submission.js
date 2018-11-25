@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {getSubmissions, createSubmission} from '../store/submissions'
+import CanvasDraw from 'react-canvas-draw'
+
 
 class PhraseSubmission extends Component {
   constructor (props){
@@ -13,7 +15,9 @@ class PhraseSubmission extends Component {
   }
 
   componentDidMount(){
-    this.props.getSubmissions({id: this.props.gameId})
+    if(this.props.gameId) {
+      this.props.getSubmissions({id: this.props.gameId})
+    }
   }
 
   handleChange(ev) {
@@ -34,9 +38,14 @@ class PhraseSubmission extends Component {
   }
 
   render(){
+
     const { handleChange, handleSubmit } = this;
+
     const { submissions } = this.props
+    if(!submissions[round]) return null
     const round = 1
+    console.log('submissions',this.props.submissions[round].drawingUrl)
+    let submission = ''
 
     return (
       <Fragment>
@@ -45,7 +54,25 @@ class PhraseSubmission extends Component {
         </h1>
        <div>
        { submissions.length > 0 ?
-        <img src={submissions[round].drawingUrl}/>
+       (
+         <div>
+
+         <CanvasDraw
+           ref={canvasDraw => {
+                    // eslint-disable-next-line no-return-assign
+                    return (submission = canvasDraw);
+                  }}
+           disabled={true}
+           immediate={true}
+           />
+           <button
+            onClick={()=> submission.loadSaveData(submissions[round].drawingUrl)}
+            type="submit"
+           >
+           Play drawing
+           </button>
+           </div>
+       )
         : null
         }
        </div>
@@ -66,10 +93,11 @@ class PhraseSubmission extends Component {
   }
 }
 
-const mapStateToProps = ( { user, submissions } ) => {
+const mapStateToProps = ( { user, submissions, games } ) => {
   return {
     user,
     submissions,
+    games
   }
 }
 
