@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
@@ -14,12 +14,20 @@ const AuthForm = props => {
       <form onSubmit={handleSubmit} name={name}>
         { name === 'signup'
         ? (
+          <Fragment>
           <div>
             <label htmlFor="username">
               <small>Name</small>
             </label>
             <input name="username" type="text" />
-          </div>
+            </div>
+            <div>
+            <label htmlFor="phoneNumber">
+              <small>Phone Number</small>
+            </label>
+            <input name="phoneNumber" type="text" />
+            </div>
+          </Fragment>
         ) : null
       }
         <div>

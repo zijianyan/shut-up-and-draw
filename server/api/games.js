@@ -158,6 +158,7 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
     User.findById(game.players[game.roundNumber])
     .then(user => {
       nudgeText(user.phoneNumber)
+      console.log('nudged the user', user.name)
     })
 
     await game.save()
