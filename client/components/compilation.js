@@ -43,12 +43,18 @@ class Compilation extends Component {
             ? <div key={submission.id} >
               <label>Drawing submission by {submission.user.name}</label>
               {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
-              <CanvasDraw
-                ref={node => {this.loadableCanvas = node}}
-                disabled={true}
-                immediate={true}
-              />
-              <button onClick={()=> this.loadableCanvas.loadSaveData(submission.drawingUrl)}>Play drawing</button>
+              <div>
+                <CanvasDraw
+                  ref={canvasDraw => this.submission = canvasDraw}
+                  disabled={true}
+                  immediate={true}
+                />
+                <button onClick={()=> {
+
+                  this.submission.loadSaveData(submission.drawingUrl)
+                }
+                }>Play drawing</button>
+              </div>
               <hr />
               </div>
             : <div key={submission.id}>
