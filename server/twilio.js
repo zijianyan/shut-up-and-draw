@@ -2,7 +2,6 @@ const twilio = require('twilio');
 
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH);
 
-//run on backend
 const nudgeText = phoneNumber => {
   twilioClient.messages
     .create({
