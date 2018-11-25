@@ -23,9 +23,9 @@ class SubmissionWrapper extends Component {
         <h1>ok</h1>
       {
         isDrawing ?
-        <DrawingSubmission gameId={gameId} round={round}/>
+        <DrawingSubmission gameId={gameId} round={round} history={this.props.history} />
         :
-        <PhraseSubmission gameId={gameId} round={round}/>
+        <PhraseSubmission gameId={gameId} round={round} history={this.props.history}/>
       }
       </Fragment>
     )

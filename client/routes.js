@@ -31,7 +31,7 @@ class Routes extends Component {
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/games" component={GamesList} />
             <Route path="/selectplayers" component={PlayersList} />
-            <Route exact path='/games/:gameId/submissions' render={({match})=> <SubmissionWrapper match={match}/>} />
+            <Route exact path='/games/:gameId/submissions' render={({match, history})=> <SubmissionWrapper match={match} history={history}/>} />
             <Route path='/games/:gameId/compilation' render={({match}) => <Compilation match={match} />}/>
             {/* //Question: how to differentiate between drawing and phrase guess? */}
 

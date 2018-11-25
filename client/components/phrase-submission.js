@@ -15,6 +15,7 @@ class PhraseSubmission extends Component {
     this.updateTimer = this.updateTimer.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePlay = this.handlePlay.bind(this);
   }
 
   componentDidMount(){
@@ -44,7 +45,7 @@ class PhraseSubmission extends Component {
 
   handleTimeEnd() {
     clearInterval(this.state.intervalId); // stops timer
-    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');  
+    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');
   }
 
   handleChange(ev) {
@@ -64,6 +65,12 @@ class PhraseSubmission extends Component {
     .then(()=> this.setState({phrase:''}))
   }
 
+
+  handlePlay(event, submission) {
+    event.preventDefault()
+    this[submission.id].loadSaveData(submission.drawingUrl)
+  }
+
   render(){
 
     const { handleChange, handleSubmit } = this;
@@ -71,7 +78,7 @@ class PhraseSubmission extends Component {
     const { submissions } = this.props
     const round = this.props.round
     if(!submissions[round]) return null
-    let submission = ''
+    const submission = submissions[submissions.length-1]
 
     return (
       <Fragment>
@@ -87,22 +94,14 @@ class PhraseSubmission extends Component {
        { submissions.length > 0 ?
        (
          <div>
-
-         <CanvasDraw
-           ref={canvasDraw => {
-                    // eslint-disable-next-line no-return-assign
-                    return (submission = canvasDraw);
-                  }}
-           disabled={true}
-           immediate={true}
-           />
-           <button
-            onClick={()=> submission.loadSaveData(submissions[round].drawingUrl)}
-            type="submit"
-           >
-           Play drawing
-           </button>
-           </div>
+           <div onMouseEnter={(event) => this.handlePlay(event,submission)}>
+              <CanvasDraw
+                ref={canvasDraw => this[submission.id] = canvasDraw}
+                disabled={true}
+                immediate={true}
+              />
+            </div>
+          </div>
        )
         : null
         }

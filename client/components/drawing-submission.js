@@ -43,7 +43,7 @@ class DrawingSubmission extends Component {
 
   handleTimeEnd() {
     clearInterval(this.state.intervalId); // stops timer
-    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');  
+    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');
   }
 
   handleClear() {
@@ -59,7 +59,11 @@ class DrawingSubmission extends Component {
       drawingUrl: recording
     }
     this.props.createSubmission(submission)
-    clearInterval(this.state.intervalId); // stops timer
+    .then(()=> {
+      clearInterval(this.state.intervalId) // stops timer
+      this.props.history.push('/games')
+      })
+
   }
 
   render(){
