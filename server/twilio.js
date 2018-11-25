@@ -12,7 +12,7 @@ const nudgeText = phoneNumber => {
       to: phoneNumber
     })
     .catch(e => {
-      console.log(`sendWelcomeText failed: ${e}`);
+      console.log(` failed: ${e}`);
     });
 };
 

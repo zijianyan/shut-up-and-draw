@@ -10,8 +10,8 @@ async function seed() {
 
     const [emily, cang, zi] = await Promise.all([
       User.create({ email: 'emily@email.com', password: 'EMILY', name: 'emily', phoneNumber: process.env.EMILY_PHONENUMBER }),
-      User.create({ email: 'cang@email.com', password: 'CANG', name: 'cang' }),
-      User.create({ email: 'zi@email.com', password: 'ZI', name: 'zi' }),
+      User.create({ email: 'cang@email.com', password: 'CANG', name: 'cang' , phoneNumber: process.env.CANG_PHONENUMBER }),
+      User.create({ email: 'zi@email.com', password: 'ZI', name: 'zi' , phoneNumber: process.env.ZI_PHONENUMBER}),
     ])
     const [completedGame, activeGame] = await Promise.all([
       Game.create({ roundNumber: 2, status: 'complete', players: [cang.id, emily.id, zi.id]}),

@@ -5,6 +5,8 @@ const {Submission} = require('../db/models')
 const db = require('../db')
 const Op = db.Sequelize.Op
 const phrases = require('./phrases')
+const {nudgeText} = require('../twilio')
+
 
 module.exports = router
 
@@ -44,7 +46,7 @@ router.post('/', isLoggedIn, async (req, res, next) => {
     res.send(game);
 
   } catch(err) {
-    console.log('errroring on posting game')
+    console.log('erroring on posting game')
     next(err);
   }
 });
@@ -152,6 +154,12 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
     // after submission is created, we find the game and update the roundNumber pointer
     const game = await Game.findById(gameId)
     game.roundNumber = game.roundNumber+1
+
+    User.findById(game.players[game.roundNumber])
+    .then(user => {
+      nudgeText(user.phoneNumber)
+    })
+
     await game.save()
 
     res.send(submission);

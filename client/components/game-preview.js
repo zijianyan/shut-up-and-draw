@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import {nudgeText} from '../../server/twilio'
 
 class GamePreview extends Component {
 
@@ -39,10 +38,7 @@ class GamePreview extends Component {
               : <div>
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!
-                  <button
-                    onClick={(user)=>nudgeText(user.phone)}
-                    type="submit"
-                  >
+                  <button type="submit" >
                   Nudge Them!
                   </button>
 
