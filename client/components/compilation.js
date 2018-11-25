@@ -49,12 +49,21 @@ class Compilation extends Component {
             ? <div key={submission.id} >
               <label>Drawing submission by {submission.user.name}</label>
               {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
-              <div onMouseEnter={(event) => this.handlePlay(event,submission)}>
+              <div onMouseEnter={(event) => this.handlePlay(event,submission)} onClick={(event) => this.handlePlay(event,submission)}>
                 <CanvasDraw
                   ref={canvasDraw => this[submission.id] = canvasDraw}
                   disabled={true}
                   immediate={true}
+                  lazyRadius={0}
+                  brushRadius={5}
+                  brushColor="#222"
+                  catenaryColor="#222"
+                  hideGrid={true}
                 />
+                <button onClick={()=> {
+                    this[submission.id].loadSaveData(submission.drawingUrl)
+                  }
+                }>Play drawing</button>
               </div>
               <hr />
               </div>
