@@ -72,9 +72,8 @@ class DrawingSubmission extends Component {
   }
 }
 
-const mapStateToProps = ( { user, submissions }, { match }) => {
+const mapStateToProps = ( { user, submissions } ) => {
   return {
-    gameId: match.params.gameId,
     user,
     submissions,
   }
