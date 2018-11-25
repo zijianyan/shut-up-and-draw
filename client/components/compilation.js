@@ -11,6 +11,7 @@ class Compilation extends Component {
   constructor(props){
     super(props)
     this.state = {}
+    this.handlePlay = this.handlePlay.bind(this)
   }
 
   componentDidMount() {
@@ -21,6 +22,11 @@ class Compilation extends Component {
     if(!this.props.games.length){
       this.props.getGames()
     }
+  }
+
+  handlePlay(event, submission) {
+    event.preventDefault()
+    this[submission.id].loadSaveData(submission.drawingUrl)
   }
 
 
@@ -43,16 +49,15 @@ class Compilation extends Component {
             ? <div key={submission.id} >
               <label>Drawing submission by {submission.user.name}</label>
               {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
-              <div>
+              <div onMouseEnter={(event) => this.handlePlay(event,submission)} onClick={(event) => this.handlePlay(event,submission)}>
                 <CanvasDraw
                   ref={canvasDraw => this[submission.id] = canvasDraw}
                   disabled={true}
                   immediate={true}
                 />
                 <button onClick={()=> {
-
-                  this[submission.id].loadSaveData(submission.drawingUrl)
-                }
+                    this[submission.id].loadSaveData(submission.drawingUrl)
+                  }
                 }>Play drawing</button>
               </div>
               <hr />
