@@ -17,5 +17,5 @@ const nudgeText = phoneNumber => {
 
 
 module.exports = {
-  nudgeText
+  nudgeText,
 };
