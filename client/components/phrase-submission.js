@@ -69,9 +69,8 @@ class PhraseSubmission extends Component {
     const { handleChange, handleSubmit } = this;
     const { timer } = this.state;
     const { submissions } = this.props
+    const round = this.props.round
     if(!submissions[round]) return null
-    const round = 1
-    console.log('submissions',this.props.submissions[round].drawingUrl)
     let submission = ''
 
     return (
