@@ -23,10 +23,11 @@ class Compilation extends Component {
     }
   }
 
+
   render() {
     const { submissions, users, game, games } = this.props
     if(!users.length || !games.length || !submissions.length) {return null}
-    console.log('continuing')
+
     return (
       <div>
         <h2>Game Compilation</h2>
@@ -43,11 +44,11 @@ class Compilation extends Component {
               <label>Drawing submission by {submission.user.name}</label>
               {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
               <CanvasDraw
-                ref={canvasDraw => (this.submission = canvasDraw)}
+                ref={node => {this.loadableCanvas = node}}
                 disabled={true}
                 immediate={true}
               />
-              <button onClick={()=> this.submission.loadSaveData(submission.drawingUrl)}>Play drawing</button>
+              <button onClick={()=> this.loadableCanvas.loadSaveData(submission.drawingUrl)}>Play drawing</button>
               <hr />
               </div>
             : <div key={submission.id}>
