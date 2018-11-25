@@ -67,7 +67,7 @@ class DrawingSubmission extends Component {
     const { timer } = this.state;
     const {submissions} = this.props
     const round = this.props.round
-    console.log('this.props.round', round)
+    // console.log('this.props.round', round)
 
     return (
 
