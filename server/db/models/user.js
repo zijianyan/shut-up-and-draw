@@ -33,8 +33,8 @@ const User = db.define('user', {
   facebookId: {
     type: Sequelize.STRING
   },
-  friends: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+  phoneNumber: {
+    type: Sequelize.STRING
   }
 })
 
