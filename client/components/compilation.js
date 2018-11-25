@@ -54,6 +54,11 @@ class Compilation extends Component {
                   ref={canvasDraw => this[submission.id] = canvasDraw}
                   disabled={true}
                   immediate={true}
+                  lazyRadius={0}
+                  brushRadius={5}
+                  brushColor="#222"
+                  catenaryColor="#222"
+                  hideGrid={true}
                 />
                 <button onClick={()=> {
                     this[submission.id].loadSaveData(submission.drawingUrl)
