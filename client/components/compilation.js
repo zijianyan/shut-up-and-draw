@@ -23,6 +23,10 @@ class Compilation extends Component {
     }
   }
 
+  handlePlay(submission) {
+    this[submission.id].loadSaveData(submission.drawingUrl)
+  }
+
 
   render() {
     const { submissions, users, game, games } = this.props
@@ -45,13 +49,13 @@ class Compilation extends Component {
               {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
               <div>
                 <CanvasDraw
-                  ref={canvasDraw => this.submission = canvasDraw}
+                  ref={canvasDraw => this[submission.id] = canvasDraw}
                   disabled={true}
                   immediate={true}
                 />
                 <button onClick={()=> {
 
-                  this.submission.loadSaveData(submission.drawingUrl)
+                  this[submission.id].loadSaveData(submission.drawingUrl)
                 }
                 }>Play drawing</button>
               </div>
