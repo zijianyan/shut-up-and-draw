@@ -9,12 +9,41 @@ import CanvasDraw from 'react-canvas-draw'
 class DrawingSubmission extends Component {
   constructor (props){
     super(props);
+    this.state = {
+      timer: 10, // number of seconds the timer will count down from
+      intervalId: null // the browser needs this intervalId in order to know which timer to cancel later
+    }
+    this.updateTimer = this.updateTimer.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount(){
+    this.startTimer();
     this.props.getSubmissions({id: this.props.gameId})
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId); // stops timer
+  }
+
+  startTimer() {
+    const intervalId = setInterval(this.updateTimer, 1000);
+    this.setState({ intervalId });
+  }
+
+  updateTimer() {
+    if (this.state.timer > 0) {
+      this.setState({ timer: this.state.timer-1 });
+      console.log('this.state.timer:', this.state.timer);
+    } else {
+      this.handleTimeEnd();
+    }
+  }
+
+  handleTimeEnd() {
+    clearInterval(this.state.intervalId); // stops timer
+    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');  
   }
 
   handleClear() {
@@ -30,19 +59,26 @@ class DrawingSubmission extends Component {
       drawingUrl: recording
     }
     this.props.createSubmission(submission)
-
+    clearInterval(this.state.intervalId); // stops timer
   }
 
   render(){
     const { handleClear, handleSubmit } = this;
+    const { timer } = this.state;
     const {submissions} = this.props
     const round = 0
 
     return (
+
       <Fragment>
         <h1>
           DRAW! { submissions.length > 0 ? submissions[round].phrase : null}
         </h1>
+        {
+          timer
+            ? <h2>Timer: { timer }</h2>
+            : <h2>Time's up!</h2>
+        }
         <CanvasDraw
           ref={(node)=> {this.canvasRef = node}} // now this component has a .canvas property which references this element
           loadTimeOffset={5}
