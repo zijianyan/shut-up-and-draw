@@ -36,7 +36,8 @@ class DrawingSubmission extends Component {
   render(){
     const { handleClear, handleSubmit } = this;
     const {submissions} = this.props
-    const round = 0
+    const round = this.props.round
+    console.log('this.props.round', round)
 
     return (
       <Fragment>

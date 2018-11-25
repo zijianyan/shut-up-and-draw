@@ -14,6 +14,7 @@ class SubmissionWrapper extends Component {
   render(){
     if(!this.props.game || !this.props.gameId) return null
     const { game, gameId } = this.props
+    console.log('round', game.roundNumber)
 
     const round = game ? game.roundNumber : 0
     const isDrawing = round % 2 === 0
@@ -22,9 +23,9 @@ class SubmissionWrapper extends Component {
         <h1>ok</h1>
       {
         isDrawing ?
-        <DrawingSubmission gameId={gameId}/>
+        <DrawingSubmission gameId={gameId} round={round}/>
         :
-        <PhraseSubmission gameId={gameId}/>
+        <PhraseSubmission gameId={gameId} round={round}/>
       }
       </Fragment>
     )

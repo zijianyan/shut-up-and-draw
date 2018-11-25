@@ -18,7 +18,6 @@ class PlayersList extends Component {
 
   createNewGame (players) {
     const playersids = players.map(x => x.id)
-    console.log(playersids)
     this.props.createGame({players: playersids})
       .then(game => {
         this.props.getGames()
@@ -30,14 +29,12 @@ class PlayersList extends Component {
     this.setState((prevState) => ({
       players: [...prevState.players, player]
     }))
-    console.log(this.state.players)
   }
 
   removePlayer (player) {
     this.setState((prevState) => ({
       players: prevState.players.filter(x => x.id !== player.id)
     }))
-    console.log(this.state.players)
   }
 
   render(){
