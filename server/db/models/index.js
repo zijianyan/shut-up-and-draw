@@ -17,6 +17,12 @@ const Game = db.define('game', {
   status: {
     type: db.Sequelize.ENUM('active', 'complete')
   }
+}, {
+  hooks: {
+    beforeUpdate: (game)=> {
+      game.status = game.roundNumber+1 >= game.players ? 'complete' : 'active';
+    }
+  }
 })
 
 Game.prototype.getCurrentPlayer = function() {
