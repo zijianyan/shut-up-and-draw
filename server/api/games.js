@@ -145,7 +145,7 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
       submission = await Submission.create({
         type,
         gameId,
-        userId,
+        userId, 
         drawingUrl: req.body.drawingUrl
       })
 
