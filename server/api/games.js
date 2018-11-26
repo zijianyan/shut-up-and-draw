@@ -153,7 +153,11 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
 
     // after submission is created, we find the game and update the roundNumber pointer
     const game = await Game.findById(gameId)
-    game.roundNumber = game.roundNumber+1
+    if(game.roundNumber+1 >= game.players.length) {
+      game.status = 'complete'
+    } else {
+      game.roundNumber = game.roundNumber+1
+    }
 
     User.findById(game.players[game.roundNumber])
     .then(user => {
@@ -162,6 +166,7 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
     })
 
     await game.save()
+
 
     res.send(submission);
   } catch(err) {

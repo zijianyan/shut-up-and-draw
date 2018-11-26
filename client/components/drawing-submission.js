@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {getSubmissions, createSubmission} from '../store/submissions'
+import { getGames } from '../store/games'
 import {Link} from 'react-router-dom'
 import uploadImage from '../../server/S3'
 
@@ -61,6 +62,7 @@ class DrawingSubmission extends Component {
     this.props.createSubmission(submission)
     .then(()=> {
       clearInterval(this.state.intervalId) // stops timer
+      this.props.getGames()
       this.props.history.push('/games')
       })
 
@@ -123,7 +125,8 @@ const mapStateToProps = ( { user, submissions } ) => {
 
 const mapDispatchToProps = dispatch => ({
   getSubmissions: (game) => dispatch(getSubmissions(game)),
-  createSubmission: (submission) => dispatch(createSubmission(submission))
+  createSubmission: (submission) => dispatch(createSubmission(submission)),
+  getGames: () => dispatch(getGames())
 })
 
 

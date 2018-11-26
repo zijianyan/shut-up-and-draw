@@ -5,20 +5,6 @@ import { Link } from 'react-router-dom'
 
 class GamesList extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      toggle: true
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps !== this.props){
-      this.setState({
-        toggle: !this.state.toggle
-      })
-    }
-  }
 
   render(){
     const { games } = this.props

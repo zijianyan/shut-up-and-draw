@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {getSubmissions, createSubmission} from '../store/submissions'
+import { getGames } from '../store/games'
 import CanvasDraw from 'react-canvas-draw'
 
 
@@ -62,7 +63,11 @@ class PhraseSubmission extends Component {
       userId: this.props.user.id
     }
     this.props.createSubmission(submission)
-    .then(()=> this.setState({phrase:''}))
+    .then(()=> {
+      this.setState({phrase:''})
+      this.props.getGames()
+      this.props.history.push('/games')
+    })
   }
 
 
@@ -133,7 +138,8 @@ const mapStateToProps = ( { user, submissions, games } ) => {
 
 const mapDispatchToProps = dispatch => ({
   getSubmissions: (game) => dispatch(getSubmissions(game)),
-  createSubmission: (submission) => dispatch(createSubmission(submission))
+  createSubmission: (submission) => dispatch(createSubmission(submission)),
+  getGames: () => dispatch(getGames())
 })
 
 

@@ -18,11 +18,6 @@ class Compilation extends Component {
     this.props.getSubmissions({id: this.props.gameId})
   }
 
-  componentDidUpdate() {
-    if(!this.props.games.length){
-      this.props.getGames()
-    }
-  }
 
   handlePlay(event, submission) {
     event.preventDefault()
@@ -47,7 +42,7 @@ class Compilation extends Component {
           submissions.map((submission,index) => (
             submission.drawingUrl
             ? <div key={submission.id} >
-              <label>Drawing submission by {submission.user.name}</label>
+              <label>Drawing submission by {users.find(user => user.id === submission.userId).name}</label>
               {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
               <div onMouseEnter={(event) => this.handlePlay(event,submission)} onClick={(event) => this.handlePlay(event,submission)}>
                 <CanvasDraw
@@ -68,7 +63,7 @@ class Compilation extends Component {
               <hr />
               </div>
             : <div key={submission.id}>
-              {index === 0 ? <label>Starting Phrase:</label> : <label>Phrase submission by {submission.user.name}</label>}
+              {index === 0 ? <label>Starting Phrase:</label> : <label>Phrase submission by {users.find(user => user.id === submission.userId).name}</label>}
               <h4 key={submission.id} >{submission.phrase}</h4>
               <hr />
               </div>
