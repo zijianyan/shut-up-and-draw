@@ -11,10 +11,24 @@ import orange from '@material-ui/core/colors'
 
 const theme = createMuiTheme({
     palette: {
-        primary: {
-            main: '#ff5900'
-        }
-      },
+      primary: {
+          main: '#ff5900'
+      }
+    },
+    typography: {
+      fontFamily: [
+        '-apple-system',
+        'BlinkMacSystemFont',
+        '"Segoe UI"',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif',
+        '"Apple Color Emoji"',
+        '"Segoe UI Emoji"',
+        '"Segoe UI Symbol"',
+      ].join(','),
+    },
 });
 
 // establishes socket connection
