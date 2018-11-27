@@ -4,6 +4,23 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
+import { withStyles } from '@material-ui/core/styles';
+// import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core'
+// import { MenuIcon } from '@material-ui/icons'
+
+const styles = {
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+};
+
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <h1>EZC</h1>
@@ -46,7 +63,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(withStyles(styles)(Navbar))
 
 /**
  * PROP TYPES
