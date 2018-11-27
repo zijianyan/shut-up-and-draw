@@ -153,6 +153,7 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
 
     // after submission is created, we find the game and update the roundNumber pointer
     const game = await Game.findById(gameId)
+
     await game.incrementRound();
 
     res.send(submission);
