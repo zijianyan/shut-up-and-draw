@@ -6,13 +6,26 @@ import history from './history'
 import store from './store'
 import App from './app'
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
+import orange from '@material-ui/core/colors'
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#ff5900'
+        }
+      },
+});
+
 // establishes socket connection
 import './socket'
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App />
+      <MuiThemeProvider theme={theme}>
+        <App />
+      </MuiThemeProvider>
     </Router>
   </Provider>,
   document.getElementById('app')

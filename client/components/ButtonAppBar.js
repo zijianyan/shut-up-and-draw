@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, withTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -22,9 +22,10 @@ const styles = {
 
 function ButtonAppBar(props) {
   const { classes } = props;
+  console.log('props:', props);
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="primary">
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
@@ -39,4 +40,4 @@ function ButtonAppBar(props) {
   );
 }
 
-export default withStyles(styles)(ButtonAppBar);
+export default withTheme()(withStyles(styles)(ButtonAppBar));
