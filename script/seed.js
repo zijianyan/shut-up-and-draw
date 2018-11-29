@@ -21,12 +21,12 @@ async function seed() {
     var random = Math.random().toString();
 
 
-    const completedGameHash = await crypto.createHash('sha256').update(random).update(process.env.HASH_SECRET).digest('hex')
+    const completedGameHash = await crypto.createHash('sha256').update('1').update(process.env.HASH_SECRET).digest('hex')
 
     console.log('completedGameHash: ', completedGameHash)
 
     // had to add 1 to the current date because this seed file was creating these games at the same time which resulted in the same hash number - I'm going to make the hash on the model unique
-    const activeGameHash = await crypto.createHash('sha256').update(random).update(process.env.HASH_SECRET).digest('hex')
+    const activeGameHash = await crypto.createHash('sha256').update('2').update(process.env.HASH_SECRET).digest('hex')
 
     console.log('activeGameHash: ', activeGameHash)
 
