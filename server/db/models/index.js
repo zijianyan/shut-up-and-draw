@@ -4,7 +4,7 @@ const S3 = require('../../S3')
 const { AWS_BUCKET } = require('../../config')
 // const Game = require('./game')
 // const Submission = require('./submission')
-const nudgeText = require('../../twilio');
+const { nudgeText } = require('../../twilio');
 
 const Game = db.define('game', {
   roundNumber: {
@@ -35,7 +35,7 @@ Game.prototype.incrementRound = async function() {
   } else {
     this.roundNumber = this.roundNumber+1
   }
-  User.findById(this.players[this.roundNumber]) 
+  User.findById(this.players[this.roundNumber])
   .then(user => {
     if (user) { // if it's the last submission, there won't be a user found
       nudgeText(user.phoneNumber)
