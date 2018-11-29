@@ -1,7 +1,9 @@
 'use strict'
 
-const db = require('../server/db')
-const {User, Game, Submission} = require('../server/db/models')
+const db = require('../server/db/db')
+const Submission = require('../server/db/models/Submission')
+const User = require('../server/db/models/user')
+const Game = require('../server/db/models/Game')
 
 async function seed() {
   try {

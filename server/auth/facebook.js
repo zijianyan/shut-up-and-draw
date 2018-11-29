@@ -1,7 +1,7 @@
 const passport = require('passport')
 const router = require('express').Router()
 const FacebookStrategy = require('passport-facebook').Strategy
-const {User} = require('../db/models')
+const User = require('../db/models/user')
 module.exports = router
 
 if (!process.env.FACEBOOK_APP_ID || !process.env.FACEBOOK_APP_SECRET) {

@@ -2,10 +2,9 @@
 
 const {expect} = require('chai')
 const request = require('supertest')
-const db = require('../db')
+const db = require('../db/db')
 const app = require('../index')
 const Game = db.model('game')
-const User = db.model('user')
 const seed = require('../../script/seed');
 
 
@@ -26,5 +25,5 @@ describe('Game routes', () => {
         .expect(200)
 
     })
-  }) // end describe('/api/users')
-}) // end describe('User routes')
+  })
+})

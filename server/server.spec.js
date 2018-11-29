@@ -1,11 +1,11 @@
 const expect = require('chai').expect;
-const { User, Game, Submission } = require('./db/models');
+const User = require('./db/models/user')
+const Submission = require('./db/models/Submission')
+const Game = require('./db/models/Game')
 const seed = require('../script/seed');
 const app = require('supertest')(require('./index'));
 
 const server = require('./index');
-
-const db = require('./db');
 
 const request = require('supertest')
 
@@ -18,25 +18,17 @@ describe('an authenticated user can log in ', ()=> {
       .post('/auth/login')
       .send({ email: 'zi@email.com', password: 'ZI' })
       .expect(200);
-      // .end();
-      // .end((err, res)=> {
-      //   if (err) {
-      //     throw err;
-      //   }
-      //   done();
-      // });
   });
 
   it('and see all their games', ()=> {
     return app.get('/api/games')
       .expect(200)
       .then(res => {
-        // console.log('res.body:', res.body);
         const games = res.body;
         expect(games.length).to.equal(2);
       })
   });
-  
+
 });
 
 
