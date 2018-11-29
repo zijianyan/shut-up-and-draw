@@ -1,7 +1,5 @@
 const router = require('express').Router()
-const Game = require('../db/models/Game')
-const User = require('../db/models/user')
-const Submission = require('../db/models/Submission')
+const { Game, User, Submission } = require('../db/models')
 const db = require('../db/db')
 const Op = db.Sequelize.Op
 const phrases = require('./phrases')
