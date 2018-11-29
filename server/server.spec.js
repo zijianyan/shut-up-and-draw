@@ -1,5 +1,7 @@
 const expect = require('chai').expect;
-const { User, Game, Submission } = require('./db/models');
+const User = require('./db/models/user')
+const Submission = require('./db/models/Submission')
+const Game = require('./db/models/Game')
 const seed = require('../script/seed');
 const app = require('supertest')(require('./index'));
 
