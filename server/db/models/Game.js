@@ -11,10 +11,29 @@ const Game = db.define('game', {
     type: db.Sequelize.ARRAY(db.Sequelize.INTEGER)
   },
   status: {
-    type: db.Sequelize.ENUM('active', 'complete')
+    type: db.Sequelize.ENUM('active', 'complete'),
+    defaultValue: 'active'
   },
   gameHash: {
-    type: db.Sequelize.STRING
+    type: db.Sequelize.STRING,
+    validate: {
+      isUnique: (value, next) => {
+        Game.findOne({
+          where: {
+            gameHash: value
+          }
+        })
+        .done((err, game) => {
+          if(err) {
+            return next(err)
+          }
+          if(game) {
+            return next('Please try again!')
+          }
+        })
+        next()
+      }
+    }
   }
 }, {
   hooks: {

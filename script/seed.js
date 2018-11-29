@@ -4,6 +4,7 @@ const db = require('../server/db/db')
 const Submission = require('../server/db/models/Submission')
 const User = require('../server/db/models/user')
 const Game = require('../server/db/models/Game')
+const crypto = require('crypto')
 
 async function seed() {
   try {
@@ -15,10 +16,28 @@ async function seed() {
       User.create({ email: 'cang@email.com', password: 'CANG', name: 'cang' , phoneNumber: process.env.CANG_PHONENUMBER }),
       User.create({ email: 'zi@email.com', password: 'ZI', name: 'zi' , phoneNumber: process.env.ZI_PHONENUMBER}),
     ])
+
+    var current_date = (new Date()).valueOf().toString();
+    var random = Math.random().toString();
+
+
+    const completedGameHash = await crypto.createHash('sha256').update(current_date + random).update(process.env.HASH_SECRET).digest('hex')
+
+    console.log('completedGameHash: ', completedGameHash)
+
+    // had to add 1 to the current date because this seed file was creating these games at the same time which resulted in the same hash number - I'm going to make the hash on the model unique
+    const activeGameHash = await crypto.createHash('sha256').update((current_date+1).toString() + random).update(process.env.HASH_SECRET).digest('hex')
+
+    console.log('activeGameHash: ', activeGameHash)
+
+    // setTimeout()
+
+
     const [completedGame, activeGame] = await Promise.all([
-      Game.create({ roundNumber: 2, status: 'complete', players: [cang.id, emily.id, zi.id]}),
-      Game.create({ roundNumber: 1, status: 'active', players: [cang.id, emily.id, zi.id]})
+      Game.create({ roundNumber: 2, status: 'complete', players: [cang.id, emily.id, zi.id], gameHash: completedGameHash }),
+      Game.create({ roundNumber: 1, status: 'active', players: [cang.id, emily.id, zi.id], gameHash: activeGameHash })
     ])
+
     //create submissions for completedGame
 
       await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: cang.id, gameId: completedGame.id})
