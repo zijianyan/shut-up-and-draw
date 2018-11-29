@@ -2,7 +2,7 @@
 
 const {expect} = require('chai')
 const db = require('../db')
-const Submission = require('./submission')
+const Submission = require('./Submission')
 
 describe('Submission model', () => {
   beforeEach(() => {
