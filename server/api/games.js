@@ -5,7 +5,7 @@ const Submission = require('../db/models/Submission')
 const db = require('../db/db')
 const Op = db.Sequelize.Op
 const phrases = require('./phrases')
-
+const crypto = require('crypto')
 
 module.exports = router
 
@@ -26,21 +26,21 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   try {
 
     const { players } = req.body
-    console.log('players:', players)
+
     const game = await Game.create({
       players,
       status: 'active'
     });
 
+    const gameHash = await crypto.createHash('sha256').update(process.env.HASH_SECRET).digest('hex')
+
     const submission = await Submission.create({
       type: 'phrase',
       phrase: phrases[randomize()].text,
       gameId: game.id,
-      userId: req.user.id
-      // this can be pulled in from a phraseBank
-      // maybe randomized if it's being imported as an array of Json objects
+      userId: req.user.id,
+      gameHash
     });
-    console.log(submission)
 
     res.send(game);
 
