@@ -20,3 +20,8 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.canvas {
+  cursor: url('./pencil.svg') 0 100, auto;
+}
+

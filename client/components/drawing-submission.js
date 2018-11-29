@@ -86,19 +86,21 @@ class DrawingSubmission extends Component {
             ? <h2>Timer: { timer }</h2>
             : <h2>Time's up!</h2>
         }
-        <CanvasDraw
-          ref={(node)=> {this.canvasRef = node}} // now this component has a .canvas property which references this element
-          loadTimeOffset={5}
-          lazyRadius={0}
-          brushRadius={5}
-          brushColor="#222"
-          catenaryColor="#222"
-          gridColor="rgba(150,150,150,0.17)"
-          hideGrid={true}
-          canvasWidth={400}
-          canvasHeight={400}
-          disabled={false}
-        />
+        <div className='canvas'>
+          <CanvasDraw
+            ref={(node)=> {this.canvasRef = node}} // now this component has a .canvas property which references this element
+            loadTimeOffset={5}
+            lazyRadius={0}
+            brushRadius={5}
+            brushColor="#222"
+            catenaryColor="#222"
+            gridColor="rgba(150,150,150,0.17)"
+            hideGrid={true}
+            canvasWidth={400}
+            canvasHeight={400}
+            disabled={false}
+          />
+        </div>
         <button
           onClick={handleClear}
           type="submit"
