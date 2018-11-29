@@ -2,10 +2,9 @@ const router = require('express').Router()
 const {Game} = require('../db/models')
 const {User} = require('../db/models')
 const {Submission} = require('../db/models')
-const db = require('../db')
+const db = require('../db/db')
 const Op = db.Sequelize.Op
 const phrases = require('./phrases')
-const {nudgeText} = require('../twilio')
 
 
 module.exports = router
@@ -55,11 +54,6 @@ router.post('/', isLoggedIn, async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const games = await Game.findAll({
-      // where: {
-      //   players: {
-      //     [Op.contains]: [req.user.id]
-      //   }
-      // }
     })
     res.send(games)
   } catch (err) {
@@ -145,7 +139,7 @@ router.post('/:id/submissions', isLoggedIn, async (req, res, next) => {
       submission = await Submission.create({
         type,
         gameId,
-        userId, 
+        userId,
         drawingUrl: req.body.drawingUrl
       })
 
