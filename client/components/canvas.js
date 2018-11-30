@@ -7,13 +7,17 @@ class Canvas extends Component {
     super();
   }
 
+  handleSubmit = () => {
+
+  }
+
   render() {
     return (
       <Fragment>
         <h2>Canvas</h2>
         <hr />
-        
-        
+
+
       </Fragment>
     )
   }

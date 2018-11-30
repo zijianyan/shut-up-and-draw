@@ -1,6 +1,8 @@
 
 import React, { Component, Fragment } from 'react';
-import socket from './socket.js'
+import socket from '../../socket.js'
+import AddMessage from './AddMessage'
+import MessagesList from './MessageList'
 
 class Comments extends Component {
   constructor() {
@@ -22,18 +24,18 @@ class Comments extends Component {
 
   render(){
     return (
-      <div>
-      <form onSubmit={this.handleSend}>
-        <input
-          name='message'
-          value={this.state.message}
-          onChange={this.handleChange}
-        />
-        <button type="submit">
-          Send Comment
-        </button>
-      </form>
+      <div id="container">
+        <section >
+          <MessagesList />
+          <AddMessage />
+        </section>
       </div>
     )
+  }
+}
+
+const mapStateToProps = ({comments}) => {
+  return {
+
   }
 }
