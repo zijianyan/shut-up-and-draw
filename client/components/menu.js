@@ -64,7 +64,6 @@ class Menu extends Component {
               <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to='/home'>
                 Logo
               </Typography>
-              <Button color="inherit">Login</Button>
             </Toolbar>
           </AppBar>
         </div>

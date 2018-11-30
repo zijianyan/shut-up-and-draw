@@ -5,6 +5,8 @@ import {auth} from '../store'
 
 import { Button } from '@material-ui/core'
 
+import { Link } from 'react-router-dom';
+
 /**
  * COMPONENT
  */
@@ -46,15 +48,15 @@ const AuthForm = props => {
         </div>
         <div>
           <Button type="submit" variant="contained" color="primary">{displayName}</Button>
+          {
+            props.name === 'login'
+              ? <Button component={Link} to='/signup'variant="contained" color="secondary">Sign Up</Button>
+              : null
+          }
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <div>
-        <a href="/auth/google">{displayName} with Google</a>
-      </div>
-      <div>
-        <a href="/auth/facebook">{displayName} with Facebook</a>
-      </div>
+
 
     </div>
   )
@@ -121,3 +123,16 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
+
+
+
+
+
+/* //Removed OAuth links:
+      <div>
+        <a href="/auth/google">{displayName} with Google</a>
+      </div>
+      <div>
+        <a href="/auth/facebook">{displayName} with Facebook</a>
+      </div>
+*/
