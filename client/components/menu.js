@@ -15,6 +15,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
+import { connect } from 'react-redux';
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -44,7 +46,7 @@ class Menu extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, isLoggedIn } = this.props;
     const { toggleMenu } = this;
     const { menu } = this.state;
 
@@ -89,7 +91,7 @@ class Menu extends Component {
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary='Logout' />
+                  <ListItemText primary={isLoggedIn ? 'Logout' : 'Login'} />
                 </ListItem>
               </List>
             </div>
@@ -101,4 +103,10 @@ class Menu extends Component {
   
 }
 
-export default withTheme()(withStyles(styles)(Menu));
+const mapStateToProps = (state)=> {
+  return {
+    isLoggedIn: !!state.user.id
+  }
+}
+
+export default connect(mapStateToProps)(withTheme()(withStyles(styles)(Menu)));
