@@ -1,8 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
+import React, { Component, Fragment } from 'react';
+import { withStyles, withTheme } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,80 +16,89 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
 const styles = {
-  list: {
+  root: {
+    flexGrow: 1,
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20,
+  },
+  list: { // for menu
     width: 250,
   },
-  fullList: {
+  fullList: { // for menu
     width: 'auto',
   },
 };
 
-class Menu extends React.Component {
+class Menu extends Component {
   state = {
-    open: false
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      this.setState({ open: this.props.open })
-    }
+    menu: false
   }
 
-  toggleDrawer = () => {
-    this.setState({
-      open: !this.state.open
-    });
-  };
+  toggleMenu = ()=> {
+    this.setState({ menu: !this.state.menu })
+  }
 
   render() {
     const { classes } = this.props;
-    const { toggleDrawer } = this;
+    const { toggleMenu } = this;
+    const { menu } = this.state;
 
     return (
-      <div>
-        <Drawer open={this.state.open} onClose={toggleDrawer}>
-          <div className={classes.list}>
-            <List>
-              <ListItem button>
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary='Active Games' />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary='Finished Games' />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary='Create a Game' />
-              </ListItem>
-            </List>
-            <Divider />
-            <List>
-              <ListItem button>
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary='Friends List' />
-              </ListItem>
-              <ListItem button>
-                <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary='Logout' />
-              </ListItem>
-            </List>
-          </div>
-        </Drawer>
-      </div>
+      <Fragment>
+        <div className={classes.root}>
+          <AppBar position="static" color="primary">
+            <Toolbar>
+              <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+                <MenuIcon onClick={toggleMenu}/>
+              </IconButton>
+              <Typography variant="h6" color="inherit" className={classes.grow}>
+                Logo
+              </Typography>
+              <Button color="inherit">Login</Button>
+            </Toolbar>
+          </AppBar>
+        </div>
+
+        <div>
+          <Drawer open={menu} onClose={toggleMenu}>
+            <div className={classes.list}>
+              <List>
+                <ListItem button>
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary='Active Games' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary='Finished Games' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary='Create a Game' />
+                </ListItem>
+              </List>
+              <Divider />
+              <List>
+                <ListItem button>
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary='Friends List' />
+                </ListItem>
+                <ListItem button>
+                  <ListItemIcon><InboxIcon /></ListItemIcon>
+                  <ListItemText primary='Logout' />
+                </ListItem>
+              </List>
+            </div>
+          </Drawer>
+        </div>
+      </Fragment>
     );
   }
+  
 }
 
-export default withStyles(styles)(Menu);
-
-        // <Button onClick={this.toggleDrawer}>Open Menu</Button>
-
-          // <div
-          //   tabIndex={0}
-          //   role="button"
-          //   onClick={this.toggleDrawer}
-          //   onKeyDown={this.toggleDrawer}
-          // >
-            
-          // </div>
+export default withTheme()(withStyles(styles)(Menu));
