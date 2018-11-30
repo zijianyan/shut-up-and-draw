@@ -16,6 +16,9 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import {logout} from '../store'
+
 
 const styles = {
   root: {
@@ -46,7 +49,7 @@ class Menu extends Component {
   }
 
   render() {
-    const { classes, isLoggedIn } = this.props;
+    const { classes, isLoggedIn, handleLogout } = this.props;
     const { toggleMenu } = this;
     const { menu } = this.state;
 
@@ -89,10 +92,17 @@ class Menu extends Component {
                   <ListItemIcon><InboxIcon /></ListItemIcon>
                   <ListItemText primary='Friends List' />
                 </ListItem>
-                <ListItem button>
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary={isLoggedIn ? 'Logout' : 'Login'} />
-                </ListItem>
+                {
+                  isLoggedIn
+                    ? <ListItem button onClick={handleLogout}>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary='Logout' />
+                      </ListItem>
+                    : <ListItem button component={Link} to='/login'>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary='Login' />
+                      </ListItem>
+                }
               </List>
             </div>
           </Drawer>
@@ -109,4 +119,12 @@ const mapStateToProps = (state)=> {
   }
 }
 
-export default connect(mapStateToProps)(withTheme()(withStyles(styles)(Menu)));
+const mapDispatchToProps = (dispatch)=> {
+  return {
+    handleLogout: ()=> {
+      dispatch(logout())
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withTheme()(withStyles(styles)(Menu)));
