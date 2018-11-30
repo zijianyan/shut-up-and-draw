@@ -71,26 +71,30 @@ class Menu extends Component {
         <div>
           <Drawer open={menu} onClose={toggleMenu}>
             <div className={classes.list}>
-              <List>
-                <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary='Active Games' />
-                </ListItem>
-                <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary='Finished Games' />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary='Create a Game' />
-                </ListItem>
-              </List>
+              {
+                isLoggedIn
+                  ? <List>
+                      <ListItem button component={Link} to='/games' onClick={toggleMenu}>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary='Active Games' />
+                      </ListItem>
+                      <ListItem button component={Link} to='/games' onClick={toggleMenu}>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary='Finished Games' />
+                      </ListItem>
+                      <ListItem button>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary='Create a Game' />
+                      </ListItem>
+                      <ListItem button>
+                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemText primary='Friends List' />
+                      </ListItem>
+                    </List>
+                  : null
+              } 
               <Divider />
               <List>
-                <ListItem button>
-                  <ListItemIcon><InboxIcon /></ListItemIcon>
-                  <ListItemText primary='Friends List' />
-                </ListItem>
                 {
                   isLoggedIn
                     ? <ListItem button onClick={()=> {
