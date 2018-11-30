@@ -9,7 +9,6 @@ import ButtonAppBar from './ButtonAppBar'
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <ButtonAppBar />
-    <h1>EZC</h1>
     <nav>
       {isLoggedIn ? (
           <div>
