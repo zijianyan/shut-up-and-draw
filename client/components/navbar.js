@@ -5,10 +5,12 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 import ButtonAppBar from './button-appbar'
+import Menu from './menu'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
     <ButtonAppBar />
+    <Menu />
     <nav>
       {isLoggedIn ? (
           <div>
