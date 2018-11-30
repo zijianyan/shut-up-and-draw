@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-import ButtonAppBar from './ButtonAppBar'
+import ButtonAppBar from './button-appbar'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div>
