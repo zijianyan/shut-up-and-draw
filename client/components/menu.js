@@ -61,7 +61,7 @@ class Menu extends Component {
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon onClick={toggleMenu}/>
               </IconButton>
-              <Typography variant="h6" color="inherit" className={classes.grow}>
+              <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to='/home'>
                 Logo
               </Typography>
               <Button color="inherit">Login</Button>
