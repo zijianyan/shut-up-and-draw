@@ -5,6 +5,16 @@ import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 
+import { Paper, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = {
+  card: {
+    margin: 20,
+    padding: 20,
+    borderRadius: 15
+  }
+}
 
 class Compilation extends Component {
 
@@ -18,17 +28,14 @@ class Compilation extends Component {
     this.props.getSubmissions({id: this.props.gameId})
   }
 
-
   handlePlay(event, submission) {
     event.preventDefault()
     this[submission.id].loadSaveData(submission.drawingUrl)
   }
 
-
   render() {
-    const { submissions, users, game, games } = this.props
+    const { submissions, users, game, games, classes } = this.props
     if(!users.length || !games.length || !submissions.length) {return null}
-
     return (
       <div>
         <h2>Game Compilation</h2>
@@ -38,6 +45,9 @@ class Compilation extends Component {
             game.players.map(player => <li key={player}>{users.find(user => user.id === player).name}</li>)
           }
         </ul>
+        <Paper className={classes.card}>
+          <Typography>Paper Test</Typography>
+        </Paper>
         {
           submissions.map((submission,index) => (
             submission.drawingUrl
@@ -95,4 +105,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Compilation)
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Compilation))
