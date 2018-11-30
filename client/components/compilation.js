@@ -4,6 +4,8 @@ import { getSubmissions } from '../store/submissions'
 import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
+import queryString from 'query-string'
+
 
 
 class Compilation extends Component {
@@ -15,7 +17,12 @@ class Compilation extends Component {
   }
 
   componentDidMount() {
-    this.props.getSubmissions({id: this.props.gameId})
+    const query = queryString.parse(this.props.location.search)
+    if(query.gameHash){
+      this.props.getSubmissions({id: this.props.gameId, gameHash: query.gameHash})
+    } else {
+      this.props.getSubmissions({id: this.props.gameId})
+    }
   }
 
 
