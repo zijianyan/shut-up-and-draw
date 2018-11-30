@@ -73,11 +73,11 @@ class Menu extends Component {
           <Drawer open={menu} onClose={toggleMenu}>
             <div className={classes.list}>
               <List>
-                <ListItem button>
+                <ListItem button component={Link} to='/games' onClick={toggleMenu}>
                   <ListItemIcon><InboxIcon /></ListItemIcon>
                   <ListItemText primary='Active Games' />
                 </ListItem>
-                <ListItem button>
+                <ListItem button component={Link} to='/games' onClick={toggleMenu}>
                   <ListItemIcon><InboxIcon /></ListItemIcon>
                   <ListItemText primary='Finished Games' />
                 </ListItem>
@@ -94,11 +94,14 @@ class Menu extends Component {
                 </ListItem>
                 {
                   isLoggedIn
-                    ? <ListItem button onClick={handleLogout}>
+                    ? <ListItem button onClick={()=> {
+                        handleLogout();
+                        toggleMenu();
+                      }}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary='Logout' />
                       </ListItem>
-                    : <ListItem button component={Link} to='/login'>
+                    : <ListItem button component={Link} to='/login' onClick={toggleMenu}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary='Login' />
                       </ListItem>
