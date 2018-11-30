@@ -15,6 +15,11 @@ const AuthForm = props => {
 
   return (
     <div>
+      <div style={{ display: 'flex', maxWidth: '100%', }}>
+        <div>
+        <img src={'/logo-small.png'} style={{ flex: 1 }}/>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} name={name}>
         { name === 'signup'
         ? (
