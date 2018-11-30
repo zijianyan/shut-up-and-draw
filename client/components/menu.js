@@ -22,8 +22,14 @@ const styles = {
 
 class Menu extends React.Component {
   state = {
-    open: false,
+    open: false
   };
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.setState({ open: this.props.open })
+    }
+  }
 
   toggleDrawer = () => {
     this.setState({
@@ -33,43 +39,38 @@ class Menu extends React.Component {
 
   render() {
     const { classes } = this.props;
-
-    const sideList = (
-      <div className={classes.list}>
-        <List>
-          <ListItem button>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary='Active Games' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary='Finished Games' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary='Create a Game' />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary='Friends List' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary='Logout' />
-          </ListItem>
-        </List>
-      </div>
-    );
+    const { toggleDrawer } = this;
 
     return (
       <div>
-        <Button onClick={this.toggleDrawer}>Open Menu</Button>
-        <Drawer open={this.state.open} onClose={this.toggleDrawer}>
-        {sideList}
-
+        <Drawer open={this.state.open} onClose={toggleDrawer}>
+          <div className={classes.list}>
+            <List>
+              <ListItem button>
+                <ListItemIcon><InboxIcon /></ListItemIcon>
+                <ListItemText primary='Active Games' />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon><InboxIcon /></ListItemIcon>
+                <ListItemText primary='Finished Games' />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon><InboxIcon /></ListItemIcon>
+                <ListItemText primary='Create a Game' />
+              </ListItem>
+            </List>
+            <Divider />
+            <List>
+              <ListItem button>
+                <ListItemIcon><InboxIcon /></ListItemIcon>
+                <ListItemText primary='Friends List' />
+              </ListItem>
+              <ListItem button>
+                <ListItemIcon><InboxIcon /></ListItemIcon>
+                <ListItemText primary='Logout' />
+              </ListItem>
+            </List>
+          </div>
         </Drawer>
       </div>
     );
@@ -78,7 +79,7 @@ class Menu extends React.Component {
 
 export default withStyles(styles)(Menu);
 
-
+        // <Button onClick={this.toggleDrawer}>Open Menu</Button>
 
           // <div
           //   tabIndex={0}
