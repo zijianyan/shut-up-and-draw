@@ -6,6 +6,7 @@ import {Login, Signup, UserHome, GamesList, PlayersList, SubmissionWrapper, Comp
 import {me} from './store'
 import { getGames } from './store/games'
 import { getAllUsers } from './store/users';
+import Chat from './components/comments/chat'
 
 
 
@@ -26,6 +27,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path='/games/:gameId/compilation' render={({match, location}) => <Compilation match={match} location={location}/>}/>
+        <Route path='/test-socket' component={Chat}/>
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
