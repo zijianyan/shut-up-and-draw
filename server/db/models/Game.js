@@ -1,5 +1,5 @@
 const db = require('../db')
-const {nudgeText} = require('../../twilio')
+const {nudgeText} = require('../../twilioFunc')
 const User = require ('./user')
 
 

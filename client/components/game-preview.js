@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import {sendText} from '../store/user'
 
 class GamePreview extends Component {
 
@@ -37,7 +38,10 @@ class GamePreview extends Component {
               : <div>
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!
-                  <button type="submit" >
+                  <button
+                    type="submit"
+                    onClick={() => this.props._sendText(users.find(user => user.id === players[roundNumber]), this.props.game)}
+                  >
                   Nudge Them!
                   </button>
 
@@ -58,4 +62,10 @@ const mapStateToProps = ({user,users}) => {
   }
 }
 
-export default connect(mapStateToProps)(GamePreview)
+const mapDispatchToProps = dispatch => {
+  return {
+    _sendText: (user, game) => dispatch(sendText(user, game))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamePreview)
