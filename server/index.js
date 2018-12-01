@@ -100,7 +100,7 @@ const startListening = () => {
   io.on('connection', socket => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
     let messages = [ // seeded messages
-      {text: 'hello from server/socket/index.js!', id: Math.random()},
+      {text: 'hello from the server!', id: Math.random()},
       {text: 'yep - a second seeded message', id: Math.random()},
     ];
 
@@ -109,9 +109,9 @@ const startListening = () => {
     });
 
     socket.on('newMessage', (message) => { // receive new message
-      console.log('new message')
+      console.log('new message:', message)
       messages = [...messages, message]
-      console.log('newMessages ', messages)
+      console.log('newMessages:', messages)
     })
 
     socket.emit('messages', messages) // attempt to emit seeded messages, or current state of messages

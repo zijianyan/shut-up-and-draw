@@ -37,17 +37,25 @@ class Chat extends Component {
       })
       // socket.emit('newMessages', this.state.messages)
     })
+
+    events.on('newMessage', message => {
+      socket.emit('newMessage', message);
+    });
   }
 
   handleSend = (event) => {
     event.preventDefault()
     const message = {text: this.state.text, id: Math.random()}
+
+    socket.emit('newMessage', message);
+
+    // socket.on('newMessage', message => { //events.on?
+    //   console.log('handleSend, socket.on....emitting...');
+    //   socket.emit('newMessage', message)
+    // })
     this.setState({
-      messages: [...this.state.messages, message],
+      // messages: [...this.state.messages, message], // send single message or entire messages array?
       text: ''
-    })
-    socket.on('newMessage', message => {
-      socket.emit('newMessage', message)
     })
   }
 
