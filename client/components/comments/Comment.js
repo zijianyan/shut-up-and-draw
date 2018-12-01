@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Comment = ({comment, author}) => {
+const Comment = ({message}) => {
   return (
-    <p>
-      <i>{author}</i>: {comment}
-    </p>
+    <li key={message.id}>
+      {message.text}
+    </li>
   )
 }
 
