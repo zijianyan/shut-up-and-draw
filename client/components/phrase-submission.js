@@ -3,14 +3,38 @@ import { connect } from 'react-redux'
 import {getSubmissions, createSubmission} from '../store/submissions'
 import { getGames } from '../store/games'
 import CanvasDraw from 'react-canvas-draw'
+import { Typography, Button, Card, CardActionArea, CardActions, CardContent, TextField } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
+const styles = {
+  root: {
+    flexGrow: 1,
+    alignItems: 'center'
+  },
+  grow: {
+    flexGrow: 1,
+  },
+
+  card: {
+    margin: 20,
+    padding: 20,
+    borderRadius: 15,
+    borderColor: 'gray',
+    textAlign: 'center',
+  },
+
+  center: {
+    display: 'inline-block'
+  }
+
+};
 
 class PhraseSubmission extends Component {
   constructor (props){
     super(props);
     this.state = {
       phrase: '',
-      timer: 10, // number of seconds the timer will count down from
+      timer: 30, // number of seconds the timer will count down from
       intervalId: null // the browser needs this intervalId in order to know which timer to cancel later
     }
     this.updateTimer = this.updateTimer.bind(this);
@@ -38,7 +62,6 @@ class PhraseSubmission extends Component {
   updateTimer() {
     if (this.state.timer > 0) {
       this.setState({ timer: this.state.timer-1 });
-      console.log('this.state.timer:', this.state.timer);
     } else {
       this.handleTimeEnd();
     }
@@ -80,49 +103,58 @@ class PhraseSubmission extends Component {
 
     const { handleChange, handleSubmit } = this;
     const { timer } = this.state;
-    const { submissions } = this.props
+    const { submissions, classes } = this.props
     const round = this.props.round
     if(!submissions[round]) return null
     const submission = submissions[submissions.length-1]
 
     return (
       <Fragment>
-        <h1>
-          Guess!
-        </h1>
+        <Card className={classes.card}>
+          <Typography variant="h5" component="h3">Guess!</Typography>
+
         {
           timer
-            ? <h2>Timer: { timer }</h2>
-            : <h2>Time's up!</h2>
+            ? <Typography variant="h5" component="h4">Timer: { timer }</Typography>
+            : <Typography variant="h5" component="h4">Time's up!</Typography>
         }
        <div>
        { submissions.length > 0 ?
        (
-         <div>
-           <div onMouseEnter={(event) => this.handlePlay(event,submission)}>
-              <CanvasDraw
-                ref={canvasDraw => this[submission.id] = canvasDraw}
-                disabled={true}
-                immediate={true}
-              />
-            </div>
-          </div>
+          <CardContent align='center' onMouseEnter={(event) => this.handlePlay(event,submission)}>
+            <CanvasDraw
+              ref={canvasDraw => this[submission.id] = canvasDraw}
+              disabled={true}
+              immediate={true}
+            />
+          </CardContent>
        )
         : null
         }
        </div>
-        <form onSubmit={handleSubmit}>
-          <input
-            name="guess"
-            type="text"
-            value={this.state.guess}
-            onChange={handleChange}/>
-          <button
-            type="submit"
-            >
-            Guess the phrase!
-          </button>
-        </form>
+       </Card>
+       <Card className={classes.card}>
+          <form onSubmit={handleSubmit}>
+          <Typography variant="h5" component="h4">What is this?</Typography>
+            <TextField
+              id="outlined-name"
+              label="Guess"
+              name="phrase"
+              type="text"
+              value={this.state.phrase}
+              onChange={handleChange}
+              margin="normal"
+              />
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              >
+              Submit
+            </Button>
+          </form>
+        </Card>
       </Fragment>
     )
   }
@@ -144,4 +176,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhraseSubmission)
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(PhraseSubmission))

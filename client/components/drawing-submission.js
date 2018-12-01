@@ -5,7 +5,7 @@ import { getGames } from '../store/games'
 import {Link} from 'react-router-dom'
 import uploadImage from '../../server/S3'
 import CanvasDraw from 'react-canvas-draw'
-import { Paper, Typography, Button, Card, CardActionArea, CardActions, CardContent } from '@material-ui/core'
+import { Typography, Button, Card, CardActions, CardContent } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
