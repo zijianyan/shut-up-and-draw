@@ -2,7 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {createGame, getGames} from '../store/games'
 import {Link} from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import Checkbox from '@material-ui/core/Checkbox'
+import { Button } from '@material-ui/core'
 
+
+const styles = theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: 'white',
+  },
+});
 
 class PlayersList extends Component {
   constructor (props){
@@ -14,10 +28,12 @@ class PlayersList extends Component {
   this.addPlayer = this.addPlayer.bind(this)
   this.removePlayer = this.removePlayer.bind(this)
   this.createNewGame = this.createNewGame.bind(this)
+  this.selectPlayer = this.selectPlayer.bind(this)
 }
 
   createNewGame (players) {
     const playersids = players.map(x => x.id)
+    console.log(playersids)
     this.props.createGame({players: playersids})
       .then(game => {
         this.props.getGames()
@@ -31,6 +47,23 @@ class PlayersList extends Component {
     }))
   }
 
+  selectPlayer(player) {
+    const { players } = this.state
+    const currentIndex = players.indexOf(player)
+    const newChecked = [...players]
+
+    if(currentIndex === -1) {
+      newChecked.push(player)
+    } else {
+      newChecked.splice(currentIndex, 1)
+    }
+
+    this.setState({
+      players: newChecked
+    })
+  }
+
+
   removePlayer (player) {
     this.setState((prevState) => ({
       players: prevState.players.filter(x => x.id !== player.id)
@@ -40,52 +73,36 @@ class PlayersList extends Component {
   render(){
     const { users } = this.props
     const { players } = this.state
-    const {addPlayer, removePlayer, createNewGame} = this
+    console.log('players ', players)
+    const {addPlayer, removePlayer, createNewGame, selectPlayer} = this
 
     return (
       <div>
-        <h1>Select Players</h1>
-        <ul>
+        <h1>Choose Some Friends</h1>
+        <List>
           {
             users.map(user => {
               return (
-              <li key={user.id} >
-                {user.name}
-                <button
-                  type="submit"
-                  onClick={()=>{
-                    addPlayer(user)
-                    user.selected=true
-                  }}
-                >
-                Add
-                </button>
-                <button
-                  type="submit"
-                  onClick={()=>removePlayer(user)}
-                >
-                Remove
-                </button>
-              </li>
-              )
-          })
+              <ListItem key={user.id} onClick={()=> selectPlayer(user)} >
+                <Checkbox
+                  checked={players.indexOf(user) !== -1}
+                  tabIndex={-1}
+                  disableRipple
+                />
+                <ListItemText primary={user.name} />
+              </ListItem>
+            )})
           }
-        </ul>
-        <h1>Players</h1>
-        { players.length > 0 ?
-          <ul>
-            {players.map(player => <li key={player.id}>{player.name}</li>)}
-          </ul>
-          :
-          null
-        }
-        <button
+        </List>
+        <Button
           type="submit"
+          variant="contained"
+          color="primary"
           onClick={()=>createNewGame(players)}
           disabled={!players.length}
         >
           Create Game
-        </button>
+        </Button>
       </div>
     )
   }
@@ -109,4 +126,4 @@ const mapDispatch = dispatch => {
 }
 
 
-export default connect(mapStateToProps, mapDispatch)(PlayersList)
+export default withStyles(styles)(connect(mapStateToProps, mapDispatch)(PlayersList))
