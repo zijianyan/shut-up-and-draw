@@ -25,6 +25,16 @@ const styles = theme => ({
 
 });
 
+import { Paper, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
+const styles = {
+  card: {
+    margin: 20,
+    padding: 20,
+    borderRadius: 15
+  }
+}
 
 class Compilation extends Component {
 
@@ -43,21 +53,30 @@ class Compilation extends Component {
     }
   }
 
-
   handlePlay(event, submission) {
     event.preventDefault()
     this[submission.id].loadSaveData(submission.drawingUrl)
   }
 
-
   render() {
-    const { submissions, users, game, games } = this.props
+    const { submissions, users, game, games, classes } = this.props
     if(!users.length || !games.length || !submissions.length) {return null}
-
     return (
       <div>
         <h2>Game Compilation</h2>
+
+        <h3>Masterfully created by: </h3>
+        <ul>
+          {
+            game.players.map(player => <li key={player}>{users.find(user => user.id === player).name}</li>)
+          }
+        </ul>
+        <Paper className={classes.card}>
+          <Typography>Paper Test</Typography>
+        </Paper>
+
         <Grid container spacing={16} justify="center">
+
         {
 
           submissions.map((submission,index) => (
