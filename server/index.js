@@ -103,11 +103,17 @@ const startListening = () => {
       {text: 'hello from server/socket/index.js!', id: Math.random()},
       {text: 'yep - a second seeded message', id: Math.random()},
     ];
+
+    socket.on('connect', ()=> {
+      socket.emit('messages', messages) // attempt to emit seeded messages, or current sta
+    });
+
     socket.on('newMessage', (message) => { // receive new message
       console.log('new message')
       messages = [...messages, message]
       console.log('newMessages ', messages)
     })
+
     socket.emit('messages', messages) // attempt to emit seeded messages, or current state of messages
     socket.on('disconnect', () => { // does this need a socket argument passed in?
       console.log(`Connection ${socket.id} has left the building`)

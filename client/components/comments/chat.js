@@ -21,19 +21,22 @@ class Chat extends Component {
   }
 
   componentDidMount() {
+    socket.on('connect', (socket)=> {
+      console.log('client establishing connectionnnnnnn.....');
 
+    });
 
     // events.on('messages', messages => {
     //   socket.emit('new
     // })
 
-    // socket.on('messages', messages => {
-    //   console.log('messages received!', messages)
-    //   this.setState({
-    //     messages
-    //   })
-    //   socket.emit('newMessages', this.state.messages)
-    // })
+    socket.on('messages', messages => {
+      console.log('messages received!', messages)
+      this.setState({
+        messages
+      })
+      // socket.emit('newMessages', this.state.messages)
+    })
   }
 
   handleSend = (event) => {
