@@ -6,6 +6,7 @@ import {Login, Signup, UserHome, GamesList, PlayersList, SubmissionWrapper, Comp
 import {me} from './store'
 import { getGames } from './store/games'
 import { getAllUsers } from './store/users';
+import Chat from './components/comments/chat'
 
 
 
@@ -25,6 +26,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path='/games/:gameId/compilation' render={({match, location}) => <Compilation match={match} location={location}/>}/>
+        <Route path='/test-socket' component={Chat}/>
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -32,13 +35,13 @@ class Routes extends Component {
             <Route exact path="/games" component={GamesList} />
             <Route path="/selectplayers" component={PlayersList} />
             <Route exact path='/games/:gameId/submissions' render={({match, history})=> <SubmissionWrapper match={match} history={history}/>} />
-            <Route path='/games/:gameId/compilation' render={({match}) => <Compilation match={match} />}/>
             {/* //Question: how to differentiate between drawing and phrase guess? */}
 
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
+
       </Switch>
     )
   }

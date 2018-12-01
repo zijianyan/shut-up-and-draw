@@ -6,12 +6,14 @@ import user from './user'
 import users from './users'
 import games from './games'
 import submissions from './submissions'
+import comments from './comments'
 
 const reducer = combineReducers({
   user, // auth reducer
   users,
   games,
-  submissions
+  submissions,
+  comments
 })
 
 const middleware = composeWithDevTools(
