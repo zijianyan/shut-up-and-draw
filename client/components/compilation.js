@@ -5,18 +5,23 @@ import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 import queryString from 'query-string'
-import { Card, Typography, Button, Grid, Zoom } from '@material-ui/core'
+import { Card, Typography, Button, Grid, Zoom, CardContent, CardActions } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
+import AOS from 'aos';
+
 
 const styles = {
   card: {
-    padding: 10,
-    // marginTop:10,
-    // marginBottom: 10,
-    justify: "center"
+    padding: 20,
+    marginTop: 20,
+    marginBottom: 20,
+    textAlign: "center",
+    borderRadius: 15,
+    borderColor: "grey"
   },
   container: {
-    flexGrow: 1
+    flexGrow: 1,
+
   }
 };
 
@@ -43,59 +48,73 @@ class Compilation extends Component {
   }
 
   render() {
-
+    AOS.init({
+      duration: 1000
+    });
     const { submissions, users, game, games, classes } = this.props
     if(!users.length || !games.length || !submissions.length) {return null}
     return (
+    <Grid container className={classes.container} spacing={16} justify="center">
       <div>
-        <h2>Game Compilation</h2>
-
-        <h3>Masterfully created by: </h3>
-
-        <Grid container spacing={16} justify="center">
-
+        <Typography
+          variant="h1"
+        >
+          Game Compilation
+        </Typography>
         {
 
           submissions.map((submission,index) => (
             submission.drawingUrl
             ?
-              <div key={submission.id} >
-                <Zoom in style={{ transitionDelay:'500ms'}}>
-                    <Card className={classes.card}>
-                      <Typography
-                        variant="h5"
-                      >
-                        Drawing submission by {users.find(user => user.id === submission.userId).name}
-                      </Typography>
-                      <div
-                        onMouseEnter={(event) => this.handlePlay(event,submission)}
-                        onClick={(event) => this.handlePlay(event,submission)}
-                      >
-                        <CanvasDraw
-                          ref={canvasDraw => this[submission.id] = canvasDraw}
-                          disabled={true}
-                          immediate={true}
-                          lazyRadius={0}
-                          brushRadius={5}
-                          brushColor="#222"
-                          catenaryColor="#222"
-                          hideGrid={true}
-                        />
-                        <Button
-                          color="secondary"
-                          onClick={()=> {this[submission.id].loadSaveData(submission.drawingUrl)}}
+              <div
+                key={submission.id}
+                data-aos="fade-in"
+                data-aos-duration="3000"
+              >
+                    <Card
+                      className={classes.card}
+                      raised={true}
+                    >
+                      <CardContent align="center">
+                        <Typography
+                          variant="h5"
                         >
-                          Play drawing
-                        </Button>
-                      </div>
+                          Drawing submission by {users.find(user => user.id === submission.userId).name}
+                        </Typography>
+                        <div
+                          onMouseEnter={(event) => this.handlePlay(event,submission)}
+                          onClick={(event) => this.handlePlay(event,submission)}
+                        >
+                          <CanvasDraw
+                            ref={canvasDraw => this[submission.id] = canvasDraw}
+                            disabled={true}
+                            immediate={true}
+                            lazyRadius={0}
+                            brushRadius={5}
+                            brushColor="#222"
+                            catenaryColor="#222"
+                            hideGrid={true}
+                          />
+                          <CardActions>
+                            <Button
+                              color="secondary"
+                              onClick={()=> {this[submission.id].loadSaveData(submission.drawingUrl)}}
+                            >
+                              Play drawing
+                            </Button>
+                          </CardActions>
+                        </div>
+                        </CardContent>
                       </Card>
-                </Zoom>
               </div>
             :
-              <div key={submission.id}>
+              <div
+                key={submission.id}
+                data-aos="fade-in"
+                data-aos-duration="3000"
+              >
                 <Grid item xs={12}>
-                  <Zoom in style={{ transitionDelay:'500ms'}}>
-                    <Card className={classes.card}>
+                    <Card className={classes.card} raised={true}>
                       {
                         index === 0 ?
                           <Typography>Starting Phrase:</Typography>
@@ -111,20 +130,22 @@ class Compilation extends Component {
                           {submission.phrase}
                         </Typography>
                       </Card>
-                    </Zoom>
                   </Grid>
                 </div>
           ))
         }
-        </Grid>
         <Link to='/selectplayers'>
           <Button
             color="primary"
-          >
+            justify="center"
+            variant="contained"
+            sizeLarge
+            >
             Play Again!
           </Button>
         </Link>
       </div>
+      </Grid>
     )
   }
 }
