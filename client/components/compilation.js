@@ -5,9 +5,6 @@ import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 import queryString from 'query-string'
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 
@@ -19,22 +16,19 @@ const styles = theme => ({
     marginTop:10,
     marginBottom: 10,
     maxWidth: 400,
-
-
   },
+  card: {
+    margin: 20,
+    padding: 20,
+    borderRadius: 15
+  }
 
 });
 
 import { Paper, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
-const styles = {
-  card: {
-    margin: 20,
-    padding: 20,
-    borderRadius: 15
-  }
-}
+
 
 class Compilation extends Component {
 
