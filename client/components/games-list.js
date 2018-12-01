@@ -7,15 +7,8 @@ class GamesList extends Component {
 
 
   render(){
-    let games
+    const { games } = this.props
     if(!this.props.games) { return null }
-
-    if(this.props.match.params.status === 'active') {
-      games = this.props.games.filter(game=> game.status ==='active')
-    }
-    if(this.props.match.params.status === 'completed') {
-      games = this.props.games.filter(game => game.status === 'complete')
-    }
 
     return (
       <div>
