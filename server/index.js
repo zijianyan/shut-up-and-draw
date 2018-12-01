@@ -95,7 +95,24 @@ const startListening = () => {
 
   // set up our socket control center
   const io = socketio(server)
-  require('./socket')(io)
+  // require('./socket')(io)
+
+  io.on('connection', socket => {
+    console.log(`A socket connection to the server has been made: ${socket.id}`)
+    let messages = [ // seeded messages
+      {text: 'hello from server/socket/index.js!', id: Math.random()},
+      {text: 'yep - a second seeded message', id: Math.random()},
+    ];
+    socket.on('newMessage', (message) => { // receive new message
+      console.log('new message')
+      messages = [...messages, message]
+      console.log('newMessages ', messages)
+    })
+    socket.emit('messages', messages) // attempt to emit seeded messages, or current state of messages
+    socket.on('disconnect', () => { // does this need a socket argument passed in?
+      console.log(`Connection ${socket.id} has left the building`)
+    })
+  })
 }
 
 const syncDb = () => db.sync()

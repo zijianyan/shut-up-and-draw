@@ -1,9 +1,15 @@
 
 import React, { Component, Fragment } from 'react';
-import socket from '../../socket'
+// import socket from '../../socket'
+import io from 'socket.io-client'
 import AddMessage from './AddMessage'
 import MessagesList from './MessageList'
 import Comment from './Comment'
+
+
+import {EventEmitter} from 'events'
+const events = new EventEmitter()
+const socket = io(window.location.origin)
 
 class Chat extends Component {
   constructor() {
@@ -15,13 +21,19 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    socket.on('messages', messages => {
-      console.log('messages received!', messages)
-      this.setState({
-        messages
-      })
-      socket.emit('newMessages', this.state.messages)
-    })
+
+
+    // events.on('messages', messages => {
+    //   socket.emit('new
+    // })
+
+    // socket.on('messages', messages => {
+    //   console.log('messages received!', messages)
+    //   this.setState({
+    //     messages
+    //   })
+    //   socket.emit('newMessages', this.state.messages)
+    // })
   }
 
   handleSend = (event) => {
