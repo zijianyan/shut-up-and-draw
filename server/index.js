@@ -104,7 +104,9 @@ async function bootApp() {
   await syncDb()
   await createApp() //
   await startListening()
+  console.log('server/index.js, bootApp(), about to seed()');
   await seed() // added by zi
+  console.log('server/index.js, bootApp(), after seed()');
 }
 // This evaluates as true when this file is run directly from the command line,
 // i.e. when we say 'node server/index.js' (or 'nodemon server/index.js', or 'nodemon server', etc)
