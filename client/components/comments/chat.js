@@ -1,6 +1,5 @@
 
 import React, { Component, Fragment } from 'react';
-// import socket from '../../socket'
 import io from 'socket.io-client'
 import AddMessage from './AddMessage'
 import MessagesList from './MessageList'
@@ -22,7 +21,7 @@ class Chat extends Component {
 
   componentDidMount() {
     socket.on('connect', (socket)=> {
-      console.log('client establishing connectionnnnnnn.....');
+      console.log('established socket connection to server');
     });
     socket.on('messages', messages => {
       this.setState({ messages })
@@ -46,8 +45,6 @@ class Chat extends Component {
   render(){
     const { messages, text } = this.state
     const { handleChange, handleSend } = this
-    console.log('Chat, this.state:', this.state);
-    console.log('window.location:', window.location);
     return (
       <div id="container">
         <section >
