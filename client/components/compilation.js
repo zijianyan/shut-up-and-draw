@@ -5,23 +5,20 @@ import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 import queryString from 'query-string'
-import { Paper, Typography, Button, Grid, Zoom } from '@material-ui/core'
+import { Card, Typography, Button, Grid, Zoom } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
-const styles = theme => ({
-  paper: {
-    padding: 1000,
-    marginTop:10,
-    marginBottom: 10,
-    width: 200,
+
+const styles = {
+  card: {
+    padding: 10,
+    // marginTop:10,
+    // marginBottom: 10,
+    justify: "center"
   },
   container: {
     flexGrow: 1
   }
-
-});
-
-
-
+};
 
 class Compilation extends Component {
 
@@ -46,6 +43,7 @@ class Compilation extends Component {
   }
 
   render() {
+
     const { submissions, users, game, games, classes } = this.props
     if(!users.length || !games.length || !submissions.length) {return null}
     return (
@@ -63,8 +61,7 @@ class Compilation extends Component {
             ?
               <div key={submission.id} >
                 <Zoom in style={{ transitionDelay:'500ms'}}>
-                  <Grid item xs={12} padding={30}>
-                    <Paper className="paper">
+                    <Card className={classes.card}>
                       <Typography
                         variant="h5"
                       >
@@ -91,22 +88,21 @@ class Compilation extends Component {
                           Play drawing
                         </Button>
                       </div>
-                      </Paper>
-                    </Grid>
+                      </Card>
                 </Zoom>
               </div>
             :
               <div key={submission.id}>
                 <Grid item xs={12}>
                   <Zoom in style={{ transitionDelay:'500ms'}}>
-                    <Paper className="paper">
+                    <Card className={classes.card}>
                       {
                         index === 0 ?
-                          <label>Starting Phrase:</label>
+                          <Typography>Starting Phrase:</Typography>
                           :
-                          <label>
+                          <Typography>
                             Phrase submission by {users.find(user => user.id === submission.userId).name}
-                          </label>
+                          </Typography>
                       }
                         <Typography
                           variant="h5"
@@ -114,7 +110,7 @@ class Compilation extends Component {
                         >
                           {submission.phrase}
                         </Typography>
-                      </Paper>
+                      </Card>
                     </Zoom>
                   </Grid>
                 </div>
