@@ -1,9 +1,8 @@
 const router = require('express').Router()
 const { Game, User, Submission } = require('../db/models')
 const db = require('../db/db')
-const Op = db.Sequelize.Op
 const phrases = require('./phrases')
-
+const crypto = require('crypto')
 
 module.exports = router
 
@@ -15,6 +14,15 @@ const randomize = () => {
 const isLoggedIn = (req, res, next) => {
   next(req.user ? null : {status: 401})
 }
+
+const hasHash = async (req, res, next) => {
+  const game = await Game.findById(req.params.id)
+  if(req.user) {
+    next(req.user ? null : {status: 401})
+  } else {
+    next(game.gameHash == req.query.gameHash ? null : {status: 401})
+  }
+}
 // router is hosted under /api/games
 
 // creating a game with an initial submission of a phrase
@@ -24,21 +32,23 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   try {
 
     const { players } = req.body
-    console.log('players:', players)
+
     const game = await Game.create({
       players,
-      status: 'active'
+      status: 'active',
     });
+
+    const gameHash = await crypto.createHash('sha256').update(game.createdAt.toString()).update(process.env.HASH_SECRET).digest('hex')
+
+    game.gameHash = gameHash
+    await game.save()
 
     const submission = await Submission.create({
       type: 'phrase',
       phrase: phrases[randomize()].text,
       gameId: game.id,
       userId: req.user.id
-      // this can be pulled in from a phraseBank
-      // maybe randomized if it's being imported as an array of Json objects
     });
-    console.log(submission)
 
     res.send(game);
 
@@ -94,7 +104,7 @@ router.get('/submissions', async (req, res, next) => {
 })
 
 // /api/games/id/submissions to get all submissions for a game
-router.get('/:id/submissions', async (req, res, next) => {
+router.get('/:id/submissions', hasHash, async (req, res, next) => {
   // GET all submissions that belong to a game
   try {
     const submissions = await Submission.findAll({

@@ -4,6 +4,26 @@ import { getSubmissions } from '../store/submissions'
 import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
+import queryString from 'query-string'
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+
+
+
+const styles = theme => ({
+
+  Paper: {
+    padding: theme.spacing.unit * 2,
+    marginTop:10,
+    marginBottom: 10,
+    maxWidth: 400,
+
+
+  },
+
+});
 
 import { Paper, Typography } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
@@ -25,7 +45,12 @@ class Compilation extends Component {
   }
 
   componentDidMount() {
-    this.props.getSubmissions({id: this.props.gameId})
+    const query = queryString.parse(this.props.location.search)
+    if(query.gameHash){
+      this.props.getSubmissions({id: this.props.gameId, gameHash: query.gameHash})
+    } else {
+      this.props.getSubmissions({id: this.props.gameId})
+    }
   }
 
   handlePlay(event, submission) {
@@ -39,6 +64,7 @@ class Compilation extends Component {
     return (
       <div>
         <h2>Game Compilation</h2>
+
         <h3>Masterfully created by: </h3>
         <ul>
           {
@@ -48,12 +74,17 @@ class Compilation extends Component {
         <Paper className={classes.card}>
           <Typography>Paper Test</Typography>
         </Paper>
+
+        <Grid container spacing={16} justify="center">
+
         {
+
           submissions.map((submission,index) => (
             submission.drawingUrl
-            ? <div key={submission.id} >
-              <label>Drawing submission by {users.find(user => user.id === submission.userId).name}</label>
-              {/* <img key={submission.id} src={submission.drawingUrl}></img> */}
+            ?<div key={submission.id} >
+              <Grid item xs={12}>
+              <Paper elevation={3}>
+              <Typography variant="display1">Drawing submission by {users.find(user => user.id === submission.userId).name}</Typography>
               <div onMouseEnter={(event) => this.handlePlay(event,submission)} onClick={(event) => this.handlePlay(event,submission)}>
                 <CanvasDraw
                   ref={canvasDraw => this[submission.id] = canvasDraw}
@@ -70,15 +101,20 @@ class Compilation extends Component {
                   }
                 }>Play drawing</button>
               </div>
-              <hr />
+              </Paper>
+              </Grid>
               </div>
             : <div key={submission.id}>
-              {index === 0 ? <label>Starting Phrase:</label> : <label>Phrase submission by {users.find(user => user.id === submission.userId).name}</label>}
-              <h4 key={submission.id} >{submission.phrase}</h4>
-              <hr />
+                <Grid xs={12}>
+                  <Paper  elevation={3}>
+                  {index === 0 ? <label>Starting Phrase:</label> : <label>Phrase submission by {users.find(user => user.id === submission.userId).name}</label>}
+                  <Typography variant="display1" key={submission.id} >{submission.phrase}</Typography>
+                   </Paper>
+                </Grid>
               </div>
           ))
         }
+        </Grid>
         <button><Link to='/selectplayers'>Play Again!</Link></button>
       </div>
     )
