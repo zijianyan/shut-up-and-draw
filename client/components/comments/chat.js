@@ -69,7 +69,7 @@ class Chat extends Component {
     const { messages, text } = this.state
     const { handleChange, handleSend } = this
     console.log('Chat, this.state:', this.state);
-
+    console.log('window.location:', window.location);
     return (
       <div id="container">
         <section >

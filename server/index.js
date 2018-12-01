@@ -112,6 +112,8 @@ const startListening = () => {
       console.log('new message:', message)
       messages = [...messages, message]
       console.log('newMessages:', messages)
+
+      io.emit('messages', messages);
     })
 
     socket.emit('messages', messages) // attempt to emit seeded messages, or current state of messages
