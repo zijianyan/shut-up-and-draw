@@ -2,7 +2,7 @@ import React from 'react'
 
 const Comment = ({message}) => {
   return (
-    <li key={message.id}>
+    <li>
       {message.text}
     </li>
   )

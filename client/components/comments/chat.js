@@ -1,9 +1,14 @@
 
 import React, { Component, Fragment } from 'react';
-import socket from '../../socket'
+import io from 'socket.io-client'
 import AddMessage from './AddMessage'
 import MessagesList from './MessageList'
 import Comment from './Comment'
+
+
+import {EventEmitter} from 'events'
+const events = new EventEmitter()
+const socket = io(window.location.origin)
 
 class Chat extends Component {
   constructor() {
@@ -15,58 +20,46 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    socket.on('messages', (obj) => {
-      console.log('message received!', obj)
-      this.setState({
-        messages: [...this.state.messages, obj]
-      })
-      socket.emit('newMessages', this.state.messages)
+    socket.on('connect', (socket)=> {
+      console.log('established socket connection to server');
+    });
+    socket.on('messages', messages => {
+      this.setState({ messages })
     })
+    events.on('newMessage', message => {
+      socket.emit('newMessage', message);
+    });
   }
 
   handleSend = (event) => {
     event.preventDefault()
     const message = {text: this.state.text, id: Math.random()}
-    this.setState({
-      messages: [...this.state.messages, obj]
-    })
-    socket.on('newMessage', (obj) => {
-      socket.emit('newMessage', message)
-    })
+    socket.emit('newMessage', message);
+    this.setState({ text: '' });
   }
 
   handleChange = (ev) => {
-    this.setState({
-      text: ev.target.value
-    })
+    this.setState({ text: ev.target.value })
   }
 
   render(){
-    const { messages } = this.state
+    const { messages, text } = this.state
+    const { handleChange, handleSend } = this
     return (
       <div id="container">
         <section >
-        <section id="comments-list">
-          <ul>
-          {messages.map(message => (
-            <Comment
-            key={message.id} message={message}
-            />
-          ))}
-          </ul>
-        </section>
+          <h1>Comments</h1>
+          <section id="comments-list">
+            <ul>
+              {messages.map(message => ( <Comment key={message.id} message={message}/> ))}
+            </ul>
+          </section>
           <section id="new-message">
-            <input name='comment' value={this.state.text}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  this.handleSend(e)
-                  this.setState({
-                    text: ''
-                  })
-                }
-              }}
-              onChange={this.handleChange}
+            <input name='comment' value={text}
+              onKeyPress={(e) => { if (e.key === 'Enter') {handleSend(e)} }}
+              onChange={handleChange}
             />
+            <button onClick={handleSend}>Send</button>
           </section>
         </section>
       </div>

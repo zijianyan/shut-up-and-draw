@@ -14,7 +14,6 @@ const seed = require('../script/seed') // added by zi
 
 module.exports = app
 
-
 if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
