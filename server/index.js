@@ -14,7 +14,6 @@ const seed = require('../script/seed') // added by zi
 
 module.exports = app
 
-
 if (process.env.NODE_ENV === 'test') {
   after('close the session store', () => sessionStore.stopExpiringSessions())
 }
@@ -95,32 +94,32 @@ const startListening = () => {
 
   // set up our socket control center
   const io = socketio(server)
-  // require('./socket')(io)
+  require('./socket')(io)
 
-  io.on('connection', socket => {
-    console.log(`A socket connection to the server has been made: ${socket.id}`)
-    let messages = [ // seeded messages
-      {text: 'hello from the server!', id: Math.random()},
-      {text: 'yep - a second seeded message', id: Math.random()},
-    ];
+  // io.on('connection', socket => {
+  //   console.log(`A socket connection to the server has been made: ${socket.id}`)
+  //   let messages = [ // seeded messages
+  //     {text: 'hello from the server!', id: Math.random()},
+  //     {text: 'yep - a second seeded message', id: Math.random()},
+  //   ];
 
-    socket.on('connect', ()=> {
-      socket.emit('messages', messages) // attempt to emit seeded messages, or current sta
-    });
+  //   socket.on('connect', ()=> {
+  //     socket.emit('messages', messages) // attempt to emit seeded messages, or current sta
+  //   });
 
-    socket.on('newMessage', (message) => { // receive new message
-      console.log('new message:', message)
-      messages = [...messages, message]
-      console.log('newMessages:', messages)
+  //   socket.on('newMessage', (message) => { // receive new message
+  //     console.log('new message:', message)
+  //     messages = [...messages, message]
+  //     console.log('newMessages:', messages)
 
-      io.emit('messages', messages);
-    })
+  //     io.emit('messages', messages);
+  //   })
 
-    socket.emit('messages', messages) // attempt to emit seeded messages, or current state of messages
-    socket.on('disconnect', () => { // does this need a socket argument passed in?
-      console.log(`Connection ${socket.id} has left the building`)
-    })
-  })
+  //   socket.emit('messages', messages) // attempt to emit seeded messages, or current state of messages
+  //   socket.on('disconnect', () => { // does this need a socket argument passed in?
+  //     console.log(`Connection ${socket.id} has left the building`)
+  //   })
+  // })
 }
 
 const syncDb = () => db.sync()
