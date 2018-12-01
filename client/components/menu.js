@@ -74,13 +74,13 @@ class Menu extends Component {
               {
                 isLoggedIn
                   ? <List>
-                      <ListItem button component={Link} to='/games' onClick={toggleMenu}>
+                      <ListItem button component={Link} to='/games/active' onClick={toggleMenu}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
-                        <ListItemText primary='Active Games' />
+                        <ListItemText primary='Active Games'/>
                       </ListItem>
-                      <ListItem button component={Link} to='/games' onClick={toggleMenu}>
+                      <ListItem button component={Link} to='/games/completed' onClick={toggleMenu}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
-                        <ListItemText primary='Finished Games' />
+                        <ListItemText primary='Completed Games' />
                       </ListItem>
                       <ListItem button>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
@@ -92,7 +92,7 @@ class Menu extends Component {
                       </ListItem>
                     </List>
                   : null
-              } 
+              }
               <Divider />
               <List>
                 {
@@ -116,7 +116,7 @@ class Menu extends Component {
       </Fragment>
     );
   }
-  
+
 }
 
 const mapStateToProps = (state)=> {

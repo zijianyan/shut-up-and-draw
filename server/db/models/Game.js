@@ -1,5 +1,6 @@
 const db = require('../db')
 const {nudgeText} = require('../../twilio')
+const User = require ('./user')
 
 
 const Game = db.define('game', {
@@ -56,7 +57,7 @@ Game.prototype.incrementRound = async function() {
   User.findById(this.players[this.roundNumber])
   .then(user => {
     if (user) { // if it's the last submission, there won't be a user found
-      nudgeText(user.phoneNumber)
+      nudgeText(user.phoneNumber,this)
       console.log('nudged the user', user.name)
     }
   })
