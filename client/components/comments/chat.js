@@ -28,10 +28,10 @@ class Chat extends Component {
     event.preventDefault()
     const message = {text: this.state.text, id: Math.random()}
     this.setState({
-      messages: [...this.state.messages, obj],
+      messages: [...this.state.messages, message],
       text: ''
     })
-    socket.on('newMessage', (obj) => {
+    socket.on('newMessage', message => {
       socket.emit('newMessage', message)
     })
   }
@@ -43,8 +43,10 @@ class Chat extends Component {
   }
 
   render(){
-    const { messages } = this.state
+    const { messages, text } = this.state
+    const { handleChange, handleSend } = this
     console.log('Chat, this.state:', this.state);
+
     return (
       <div id="container">
         <section >
@@ -59,10 +61,11 @@ class Chat extends Component {
             </ul>
           </section>
           <section id="new-message">
-            <input name='comment' value={this.state.text}
-              onKeyPress={(e) => { if (e.key === 'Enter') {this.handleSend(e)} }}
-              onChange={this.handleChange}
+            <input name='comment' value={text}
+              onKeyPress={(e) => { if (e.key === 'Enter') {handleSend(e)} }}
+              onChange={handleChange}
             />
+            <button onClick={handleSend}>Send</button>
           </section>
         </section>
       </div>
