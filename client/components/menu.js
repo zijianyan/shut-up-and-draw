@@ -86,10 +86,6 @@ class Menu extends Component {
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary='Create a Game' />
                       </ListItem>
-                      <ListItem button>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
-                        <ListItemText primary='Friends List' />
-                      </ListItem>
                     </List>
                   : null
               }
