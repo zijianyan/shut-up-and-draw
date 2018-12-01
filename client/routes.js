@@ -32,9 +32,9 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
-            <Route exact path="/games" component={GamesList} />
+            <Route exact path="/games/:status" render={({match}) => <GamesList match={match}/>} />
             <Route path="/selectplayers" component={PlayersList} />
-            <Route exact path='/games/:gameId/submissions' render={({match, history})=> <SubmissionWrapper match={match} history={history}/>} />
+            <Route exact path='/games/:gameId/submissions' render={({match, history,location})=> <SubmissionWrapper match={match} history={history} location={location}/>} />
             {/* //Question: how to differentiate between drawing and phrase guess? */}
 
           </Switch>
