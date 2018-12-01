@@ -24,9 +24,6 @@ const theme = createMuiTheme({
     },
 });
 
-// establishes socket connection
-import './socket'
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
