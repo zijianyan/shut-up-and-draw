@@ -3,9 +3,27 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-import { Button } from '@material-ui/core'
+import { Button, TextField } from '@material-ui/core'
 
 import { Link } from 'react-router-dom';
+
+// const styles = theme => ({
+//   container: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+//   textField: {
+//     marginLeft: theme.spacing.unit,
+//     marginRight: theme.spacing.unit,
+//     width: 200,
+//   },
+//   dense: {
+//     marginTop: 19,
+//   },
+//   menu: {
+//     width: 200,
+//   },
+// });
 
 /**
  * COMPONENT
@@ -40,16 +58,24 @@ const AuthForm = props => {
         ) : null
       }
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <TextField
+            name='email'
+            type='text'
+            label="Email"
+            placeholder="Email"
+            style={{ width: 200 }}
+            margin="normal"
+          />
         </div>
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+          <TextField
+            name='password'
+            type='password'
+            label="Password"
+            placeholder="Password"
+            style={{ width: 200 }}
+            margin="normal"
+          />
         </div>
         <div>
           <Button type="submit" variant="contained" color="primary">{displayName}</Button>
@@ -141,3 +167,7 @@ AuthForm.propTypes = {
         <a href="/auth/facebook">{displayName} with Facebook</a>
       </div>
 */
+
+
+          // <input name="email" type="text" />
+                    // <input name="password" type="password" />
