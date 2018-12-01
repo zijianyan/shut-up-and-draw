@@ -15,7 +15,6 @@ class AddMessage extends Component {
     })
   }
 
-
   render() {
     return (
       <section id="new-message">
