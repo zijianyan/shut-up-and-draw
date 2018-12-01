@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-import { Button, TextField } from '@material-ui/core'
+import { Button, TextField, Card } from '@material-ui/core'
 
 import { Link } from 'react-router-dom';
 
@@ -33,11 +33,12 @@ const AuthForm = props => {
 
   return (
     <div>
-      <div style={{ display: 'flex', maxWidth: '100%', }}>
-        <div>
-        <img src={'/logo-small.png'} style={{ flex: 1 }}/>
-        </div>
-      </div>
+      <Card align='center' elevation={9} style={{ margin: 30, padding: 20, borderRadius: 15}}>
+
+
+      <img src={'/logo-small.png'}/>
+
+
       <form onSubmit={handleSubmit} name={name}>
         { name === 'signup'
         ? (
@@ -63,6 +64,7 @@ const AuthForm = props => {
             type='text'
             label="Email"
             placeholder="Email"
+            // className={classes.textField}
             style={{ width: 200 }}
             margin="normal"
           />
@@ -73,6 +75,7 @@ const AuthForm = props => {
             type='password'
             label="Password"
             placeholder="Password"
+            // className={classes.textField}
             style={{ width: 200 }}
             margin="normal"
           />
@@ -88,7 +91,7 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
-
+      </Card>
     </div>
   )
 }

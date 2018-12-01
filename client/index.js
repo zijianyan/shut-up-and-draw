@@ -18,8 +18,8 @@ const theme = createMuiTheme({
     typography: {
       useNextVariants: true,
       fontFamily: [
-        'Raleway',
-        // 'Permanent Marker',
+        // 'Raleway',
+        'Permanent Marker',
       ].join(','),
     },
 });
