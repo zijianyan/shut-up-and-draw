@@ -82,7 +82,7 @@ class Menu extends Component {
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary='Completed Games' />
                       </ListItem>
-                      <ListItem button>
+                      <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary='Create a Game' />
                       </ListItem>
