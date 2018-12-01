@@ -10,7 +10,7 @@ a {
 label {
   display: block;
 }
-/* 
+/*
 nav a {
   display: inline-block;
   margin: 1em;
@@ -23,5 +23,9 @@ form div {
 
 .canvas {
   cursor: url('./pencil.svg') 0 100, auto;
+  min-height: 400;
+  min-width: 400
 }
+
+
 

@@ -20,7 +20,6 @@ class SubmissionWrapper extends Component {
     const isDrawing = round % 2 === 0
     return (
       <Fragment>
-        <h1>ok</h1>
       {
         isDrawing ?
         <DrawingSubmission gameId={gameId} round={round} history={this.props.history} />
