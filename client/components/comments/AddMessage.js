@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { addComment } from '../../store/comments'
+import { connect } from 'react-redux'
 
-class AddComment extends Component {
+class AddMessage extends Component {
   constructor(props) {
     super(props)
     this.state = {
