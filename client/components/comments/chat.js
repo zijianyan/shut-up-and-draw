@@ -76,11 +76,7 @@ class Chat extends Component {
           <h1>Comments</h1>
           <section id="comments-list">
             <ul>
-            {messages.map(message => (
-              <li key={message.id}>
-                {message.text}
-              </li>
-            ))}
+              {messages.map(message => ( <Comment key={message.id} message={message}/> ))}
             </ul>
           </section>
           <section id="new-message">
