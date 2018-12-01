@@ -5,28 +5,21 @@ import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 import queryString from 'query-string'
-import Grid from '@material-ui/core/Grid';
-
-
-
+import { Paper, Typography, Button, Grid, Zoom } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 const styles = theme => ({
-
-  Paper: {
-    padding: theme.spacing.unit * 2,
+  paper: {
+    padding: 1000,
     marginTop:10,
     marginBottom: 10,
-    maxWidth: 400,
+    width: 200,
   },
-  card: {
-    margin: 20,
-    padding: 20,
-    borderRadius: 15
+  container: {
+    flexGrow: 1
   }
 
 });
 
-import { Paper, Typography } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
 
 
 
@@ -60,14 +53,6 @@ class Compilation extends Component {
         <h2>Game Compilation</h2>
 
         <h3>Masterfully created by: </h3>
-        <ul>
-          {
-            game.players.map(player => <li key={player}>{users.find(user => user.id === player).name}</li>)
-          }
-        </ul>
-        <Paper className={classes.card}>
-          <Typography>Paper Test</Typography>
-        </Paper>
 
         <Grid container spacing={16} justify="center">
 
@@ -75,41 +60,74 @@ class Compilation extends Component {
 
           submissions.map((submission,index) => (
             submission.drawingUrl
-            ?<div key={submission.id} >
-              <Grid item xs={12}>
-              <Paper elevation={3}>
-              <Typography variant="display1">Drawing submission by {users.find(user => user.id === submission.userId).name}</Typography>
-              <div onMouseEnter={(event) => this.handlePlay(event,submission)} onClick={(event) => this.handlePlay(event,submission)}>
-                <CanvasDraw
-                  ref={canvasDraw => this[submission.id] = canvasDraw}
-                  disabled={true}
-                  immediate={true}
-                  lazyRadius={0}
-                  brushRadius={5}
-                  brushColor="#222"
-                  catenaryColor="#222"
-                  hideGrid={true}
-                />
-                <button onClick={()=> {
-                    this[submission.id].loadSaveData(submission.drawingUrl)
-                  }
-                }>Play drawing</button>
+            ?
+              <div key={submission.id} >
+                <Zoom in style={{ transitionDelay:'500ms'}}>
+                  <Grid item xs={12} padding={30}>
+                    <Paper className="paper">
+                      <Typography
+                        variant="h5"
+                      >
+                        Drawing submission by {users.find(user => user.id === submission.userId).name}
+                      </Typography>
+                      <div
+                        onMouseEnter={(event) => this.handlePlay(event,submission)}
+                        onClick={(event) => this.handlePlay(event,submission)}
+                      >
+                        <CanvasDraw
+                          ref={canvasDraw => this[submission.id] = canvasDraw}
+                          disabled={true}
+                          immediate={true}
+                          lazyRadius={0}
+                          brushRadius={5}
+                          brushColor="#222"
+                          catenaryColor="#222"
+                          hideGrid={true}
+                        />
+                        <Button
+                          color="secondary"
+                          onClick={()=> {this[submission.id].loadSaveData(submission.drawingUrl)}}
+                        >
+                          Play drawing
+                        </Button>
+                      </div>
+                      </Paper>
+                    </Grid>
+                </Zoom>
               </div>
-              </Paper>
-              </Grid>
-              </div>
-            : <div key={submission.id}>
-                <Grid xs={12}>
-                  <Paper  elevation={3}>
-                  {index === 0 ? <label>Starting Phrase:</label> : <label>Phrase submission by {users.find(user => user.id === submission.userId).name}</label>}
-                  <Typography variant="display1" key={submission.id} >{submission.phrase}</Typography>
-                   </Paper>
-                </Grid>
-              </div>
+            :
+              <div key={submission.id}>
+                <Grid item xs={12}>
+                  <Zoom in style={{ transitionDelay:'500ms'}}>
+                    <Paper className="paper">
+                      {
+                        index === 0 ?
+                          <label>Starting Phrase:</label>
+                          :
+                          <label>
+                            Phrase submission by {users.find(user => user.id === submission.userId).name}
+                          </label>
+                      }
+                        <Typography
+                          variant="h5"
+                          key={submission.id}
+                        >
+                          {submission.phrase}
+                        </Typography>
+                      </Paper>
+                    </Zoom>
+                  </Grid>
+                </div>
           ))
         }
         </Grid>
-        <button><Link to='/selectplayers'>Play Again!</Link></button>
+        <Link to='/selectplayers'>
+          <Button
+            color="primary"
+          >
+            Play Again!
+          </Button>
+        </Link>
       </div>
     )
   }
