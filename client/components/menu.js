@@ -69,7 +69,7 @@ class Menu extends Component {
                 <MenuIcon onClick={toggleMenu}/>
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to='/home'>
-                Logo
+                <img src='/shut-up-and-draw-logo-white-small.png'/>
               </Typography>
             </Toolbar>
           </AppBar>
@@ -86,7 +86,6 @@ class Menu extends Component {
                         <ListItemText primary='Your Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
-                        <ListItemIcon><Stars /></ListItemIcon>
                         <ListItemText primary='Create a Game' />
                       </ListItem>
                     </List>
@@ -100,11 +99,9 @@ class Menu extends Component {
                         handleLogout();
                         toggleMenu();
                       }}>
-                        <ListItemIcon><Launch /></ListItemIcon>
                         <ListItemText primary='Logout' />
                       </ListItem>
                     : <ListItem button component={Link} to='/login' onClick={toggleMenu}>
-                        <ListItemIcon><Input /></ListItemIcon>
                         <ListItemText primary='Login' />
                       </ListItem>
                 }

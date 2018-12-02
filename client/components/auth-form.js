@@ -18,7 +18,7 @@ const AuthForm = props => {
       <Grid container justify="center">
       <Card align='center' elevation={9} style={{ margin: 30, padding: 20, borderRadius: 15}}>
 
-      <img src={'/logo-small.png'}/>
+      <img src='/shut-up-and-draw-logo.png'/>
       <Grid item xs={3}>
         <form onSubmit={handleSubmit} name={name}>
           { name === 'signup'
@@ -81,13 +81,14 @@ const AuthForm = props => {
       </Grid>
         <div>
           <Button>
+            <img src='/google.svg' style={{ paddingRight: 10 }}/>
             <a href="/auth/google">{displayName} with Google</a>
           </Button></div>
         <div>
           <Button>
+            <img src='/facebook.svg' style={{ paddingRight: 10 }}/>
             <a href="/auth/facebook">{displayName} with Facebook</a>
           </Button>
-          <Button type="submit" variant="contained" color='primary'>{displayName}</Button>
         </div>
       </Card>
       </Grid>
