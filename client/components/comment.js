@@ -2,9 +2,9 @@ import React from 'react'
 
 const Comment = ({message}) => {
   return (
-    <li>
-      {message.text}
-    </li>
+    <div key={message.id}>
+      <b>{message.author}</b>: {message.text}
+    </div>
   )
 }
 
