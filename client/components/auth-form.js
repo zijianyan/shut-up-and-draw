@@ -19,7 +19,7 @@ const AuthForm = props => {
       <Grid container justify="center">
       <Card align='center' elevation={9} style={{ margin: 30, padding: 20, borderRadius: 15}}>
 
-      <img src={'/logo-small.png'}/>
+      <img src='/shut-up-and-draw-logo.png'/>
       <Grid item xs={3}>
         <form onSubmit={handleSubmit} name={name}>
           { name === 'signup'

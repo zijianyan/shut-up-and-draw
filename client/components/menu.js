@@ -69,7 +69,7 @@ class Menu extends Component {
                 <MenuIcon onClick={toggleMenu}/>
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to='/home'>
-                Logo
+                <img src='/shut-up-and-draw-logo-white-small.png'/>
               </Typography>
             </Toolbar>
           </AppBar>
