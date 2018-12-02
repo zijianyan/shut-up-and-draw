@@ -88,7 +88,6 @@ const AuthForm = props => {
           <Button>
             <a href="/auth/facebook">{displayName} with Facebook</a>
           </Button>
-          <Button type="submit" variant="contained" color='primary'>{displayName}</Button>
         </div>
       </Card>
       </Grid>
