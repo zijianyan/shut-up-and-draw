@@ -148,27 +148,28 @@ class PhraseSubmission extends Component {
        </div>
        </Card>
        <Card className={classes.card}>
-          <form onSubmit={handleSubmit}>
           <Typography variant="h5" component="h4">What is this? </Typography>
+          <CardContent>
             <TextField
               id="outlined-name"
               label="Guess"
               name="phrase"
+              placeholder='Your Guess Here'
               type="text"
               value={this.state.phrase}
               onChange={handleChange}
               margin="normal"
               variant="outlined"
               />
-
+            </CardContent>
             <Button
               type="submit"
               variant="contained"
               color="primary"
+              onClick={handleSubmit}
               >
               Submit
             </Button>
-          </form>
         </Card>
         <Modal open={this.state.open} className={classes.modal}>
             <Card raised={true}>

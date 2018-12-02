@@ -83,7 +83,7 @@ class Menu extends Component {
                   ? <List>
                       <ListItem button component={Link} to='/games' onClick={toggleMenu}>
                         <ListItemIcon></ListItemIcon>
-                        <ListItemText primary='Active Games'/>
+                        <ListItemText primary='Your Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
                         <ListItemIcon><Stars /></ListItemIcon>

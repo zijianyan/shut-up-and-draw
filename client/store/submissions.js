@@ -21,7 +21,6 @@ const _createSubmission = submission => ({type: CREATE_SUBMISSION, submission})
  * THUNK CREATORS
  */
 export const getSubmissions = (game) => async dispatch => {
-  console.log(game)
   try {
     const res = await axios.get(`/api/games/${game.id}/submissions${game.gameHash ? `?gameHash=${game.gameHash}`: '' }`)
     dispatch(_getSubmissions(res.data || initialState))
