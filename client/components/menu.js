@@ -13,7 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import WhatsHot from '@material-ui/icons/WhatsHot';
+// import WhatsHot from '@material-ui/icons/WhatsHot';
 import Done from '@material-ui/icons/Done';
 import Stars from '@material-ui/icons/Stars';
 import Input from '@material-ui/icons/Input';
@@ -82,7 +82,7 @@ class Menu extends Component {
                 isLoggedIn
                   ? <List>
                       <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                        <ListItemIcon><WhatsHot /></ListItemIcon>
+                        <ListItemIcon></ListItemIcon>
                         <ListItemText primary='Active Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
