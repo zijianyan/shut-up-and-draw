@@ -1,26 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Card, Button } from '@material-ui/core'
+
 
 class GamePreview extends Component {
-
-
   render() {
 
     const { players, status, roundNumber, id } = this.props.game
     const { users, me } = this.props
 
-
-    // will move the CSS to it's own file later
-    const style = {
-      border: 'solid black',
-      borderWidth: 'thin'
-    }
-
     if(!users.length) return null
 
     return (
-      <div style={style}>
+      <Card>
         <div>{status}</div>
         <div>
           {
@@ -33,20 +26,22 @@ class GamePreview extends Component {
             {
               status === 'active' ?
               players[roundNumber] === me.id
-              ? <div>Your Turn! <Link to={`/games/${id}/submissions`}><button>Play</button></Link></div>
+              ? <div>Your Turn! <Link to={`/games/${id}/submissions`}><Button>Play</Button></Link></div>
               : <div>
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!
-                  <button type="submit" >
+                  <Button>
                   Nudge Them!
-                  </button>
+                  </Button>
 
                 </div>
-              : <button><Link to={`/games/${id}/compilation`}>View Finished Chain</Link></button>
+              : <Button>
+                  <Link to={`/games/${id}/compilation`}>View Finished Chain</Link>
+                </Button>
             }
           </div>
         </div>
-      </div>
+      </Card>
     )
   }
 }
