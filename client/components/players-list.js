@@ -82,8 +82,8 @@ class PlayersList extends Component {
 
     return (
       <div>
-        <Card className={classes.card}>
-        <Typography variant='h2'>Choose Some Friends</Typography>
+        <Card className={classes.card} align='center'>
+        <Typography variant='h3'>Choose Some Friends</Typography>
         <List>
           {
             users.map(user => {
