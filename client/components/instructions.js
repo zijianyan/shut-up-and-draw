@@ -10,33 +10,33 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
 
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+// const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
   {
-    label: 'San Francisco – Oakland Bay Bridge, United States',
+    label: 'How to Play: 1 - Get a phrase',
     imgPath:
-      'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+      './instructions/1.jpg',
   },
   {
-    label: 'Bird',
+    label: 'How to Play: 2 - Draw that phrase!',
     imgPath:
-      'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+      './instructions/2.jpg',
   },
   {
-    label: 'Bali, Indonesia',
+    label: 'How to Play: 3 - Hurry before the time runs out!',
     imgPath:
-      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250&q=80',
+      './instructions/3.jpg',
   },
   {
-    label: 'NeONBRAND Digital Marketing, Las Vegas, United States',
+    label: 'How to Play: 4 - The next player gets your drawing and describes it!',
     imgPath:
-      'https://images.unsplash.com/photo-1518732714860-b62714ce0c59?auto=format&fit=crop&w=400&h=250&q=60',
+      './instructions/4.jpg',
   },
   {
-    label: 'Goč, Serbia',
+    label: 'How to Play: 5 - Then the next player draws!',
     imgPath:
-      'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+      './instructions/5.jpg',
   },
 ];
 
@@ -53,11 +53,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    height: 255,
+    height: 350,
     display: 'block',
     maxWidth: 400,
     overflow: 'hidden',
-    width: '100%',
+    // width: '100%',
   },
 });
 
@@ -92,7 +92,7 @@ class Instructions extends React.Component {
         <Paper square elevation={0} className={classes.header}>
           <Typography>{tutorialSteps[activeStep].label}</Typography>
         </Paper>
-        <AutoPlaySwipeableViews
+        <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={activeStep}
           onChangeIndex={this.handleStepChange}
@@ -105,7 +105,7 @@ class Instructions extends React.Component {
               ) : null}
             </div>
           ))}
-        </AutoPlaySwipeableViews>
+        </SwipeableViews>
         <MobileStepper
           steps={maxSteps}
           position="static"
