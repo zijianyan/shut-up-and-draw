@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-import { Button, TextField, Card } from '@material-ui/core'
+import { Button, TextField, Card, Grid } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
  * COMPONENT
  */
 const AuthForm = props => {
-  
+
   const {name, displayName, handleSubmit, error, classes} = props
   console.log('window url ', window.location)
 
