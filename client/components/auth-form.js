@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-import { Button, TextField, Card } from '@material-ui/core'
+import { Button, TextField, Card, Grid } from '@material-ui/core'
 
 import { Link } from 'react-router-dom';
 
@@ -33,65 +33,81 @@ const AuthForm = props => {
 
   return (
     <div>
+      <Grid container justify="center">
       <Card align='center' elevation={9} style={{ margin: 30, padding: 20, borderRadius: 15}}>
 
-
       <img src={'/logo-small.png'}/>
-
-
-      <form onSubmit={handleSubmit} name={name}>
-        { name === 'signup'
-        ? (
-          <Fragment>
+      <Grid item xs={3}>
+        <form onSubmit={handleSubmit} name={name}>
+          { name === 'signup'
+          ? (
+            <Fragment>
+              <div>
+                <TextField
+                  name='username'
+                  type='text'
+                  label="Name"
+                  placeholder="Name"
+                  style={{ width: 200 }}
+                  margin="normal"
+                />
+              </div>
+              <div>
+                <TextField
+                  name='phoneNumber'
+                  type='text'
+                  label="Phone Number"
+                  placeholder="+10000000000"
+                  style={{ width: 200 }}
+                  margin="normal"
+                />
+              </div>
+            </Fragment>
+          ) : null
+        }
           <div>
-            <label htmlFor="username">
-              <small>Name</small>
-            </label>
-            <input name="username" type="text" />
-            </div>
-            <div>
-            <label htmlFor="phoneNumber">
-              <small>Phone Number</small>
-            </label>
-            <input name="phoneNumber" type="text" />
-            </div>
-          </Fragment>
-        ) : null
-      }
-        <div>
-          <TextField
-            name='email'
-            type='text'
-            label="Email"
-            placeholder="Email"
-            // className={classes.textField}
-            style={{ width: 200 }}
-            margin="normal"
-          />
-        </div>
-        <div>
-          <TextField
-            name='password'
-            type='password'
-            label="Password"
-            placeholder="Password"
-            // className={classes.textField}
-            style={{ width: 200 }}
-            margin="normal"
-          />
-        </div>
-        <div>
-          <Button type="submit" variant="contained" color="primary">{displayName}</Button>
-          {
-            props.name === 'login'
-              ? <Button component={Link} to='/signup'variant="contained" color="secondary">Sign Up</Button>
-              : null
-          }
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
+            <TextField
+              name='email'
+              type='text'
+              label="Email"
+              placeholder="Email"
+              style={{ width: 200 }}
+              margin="normal"
+            />
+          </div>
+          <div>
+            <TextField
+              name='password'
+              type='password'
+              label="Password"
+              placeholder="Password"
+              style={{ width: 200 }}
+              margin="normal"
+            />
+          </div>
+          <div>
+            <Button type="submit" variant="contained" color="primary" style={{padding: 10, margin:10}}>{displayName}</Button>
+            {
+              props.name === 'login'
+                ? <Button component={Link} to='/signup'variant="contained" color="secondary">Sign Up</Button>
+                : null
+            }
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
 
+        </form>
+      </Grid>
+        <div>
+          <Button>
+            <a href="/auth/google">{displayName} with Google</a>
+          </Button></div>
+        <div>
+          <Button>
+            <a href="/auth/facebook">{displayName} with Facebook</a>
+          </Button>
+        </div>
       </Card>
+      </Grid>
     </div>
   )
 }
@@ -162,11 +178,6 @@ AuthForm.propTypes = {
 
 
 
-/* //Removed OAuth links:
-      <div>
-        <a href="/auth/google">{displayName} with Google</a>
-      </div>
-      <div>
-        <a href="/auth/facebook">{displayName} with Facebook</a>
-      </div>
-*/
+
+
+
