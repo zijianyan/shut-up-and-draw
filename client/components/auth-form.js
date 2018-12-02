@@ -82,10 +82,12 @@ const AuthForm = props => {
       </Grid>
         <div>
           <Button>
+            <img src='/google.svg' style={{ paddingRight: 10 }}/>
             <a href="/auth/google">{displayName} with Google</a>
           </Button></div>
         <div>
           <Button>
+            <img src='/facebook.svg' style={{ paddingRight: 10 }}/>
             <a href="/auth/facebook">{displayName} with Facebook</a>
           </Button>
         </div>
