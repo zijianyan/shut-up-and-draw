@@ -85,7 +85,6 @@ class DrawingSubmission extends Component {
 
   handleTimeEnd() {
     clearInterval(this.state.intervalId); // stops timer
-    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');
   }
 
   handleClear() {
@@ -93,29 +92,25 @@ class DrawingSubmission extends Component {
   }
 
   handleSubmit() {
-    const recording = this.canvasRef.getSaveData();
     const image = this.canvasRef.canvas.drawing.toDataURL()
+    this.setState({open: true, image})
+  }
+
+  handleModalClose() {
+    const recording = this.canvasRef.getSaveData();
     const submission = {
       type: 'drawing',
       gameId: this.props.gameId*1,
       userId: this.props.user.id,
       drawingUrl: recording
     }
-    this.setState({open: true, image})
-    // this.submitRef.loadSaveData(recording, true)
-    // this.props.createSubmission(submission)
-    // .then((submission)=> {
-    //   console.log('created submission ', submission)
-    //   clearInterval(this.state.intervalId) // stops timer
-    //   this.props.getGames()
-    //   this.props.history.push('/games')
-    //   })
-
-  }
-
-  handleModalClose() {
-    this.setState({open: false})
-    // this.props.history.push(`/games/${this.props.submissions[0].gameId}/compilation`)
+    this.props.createSubmission(submission)
+    .then((submission)=> {
+      clearInterval(this.state.intervalId) // stops timer
+      this.props.getGames()
+      this.setState({open: false})
+      this.props.history.push(`/games/${this.props.submissions[0].gameId}/compilation`)
+      })
   }
 
   render(){
@@ -123,7 +118,6 @@ class DrawingSubmission extends Component {
     const { timer } = this.state;
     const {submissions, classes} = this.props
     const round = this.props.round
-    // console.log('this.props.round', round)
 
 
     return (
