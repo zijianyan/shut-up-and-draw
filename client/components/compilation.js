@@ -5,7 +5,7 @@ import { getGames } from '../store/games'
 import { Link } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 import queryString from 'query-string'
-import { Card, Typography, Button, Grid, Zoom, CardContent, CardActions } from '@material-ui/core'
+import { Card, Typography, Button, Grid, CardContent, CardActions } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import AOS from 'aos';
 import Comments from './comments'

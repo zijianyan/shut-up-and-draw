@@ -10,6 +10,7 @@ router.post('/', async(req, res, next) => {
     const {game, user} = req.body
     console.log('req.body.game', game)
     console.log('req.body.user', user)
+
     User.findById(user.id)
     .then(foundUser => {
       console.log('founduser', foundUser)
@@ -20,6 +21,7 @@ router.post('/', async(req, res, next) => {
         to: foundUser.phoneNumber
       })
     })
+    .then(res.sendStatus(200))
 
   } catch(err) {
     console.log('erroring on posting game')

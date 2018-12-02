@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
-import { Button } from '@material-ui/core'
+import { Button, Typography, Card } from '@material-ui/core'
+
+import Instructions from './instructions'
 
 /**
  * COMPONENT
@@ -13,11 +15,15 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {name}</h3>
-      {/* placeholder until game is created */}
-      <Link to='/selectplayers'>
-      <Button type="submit" variant="contained" color="primary">Start Game</Button>
-      </Link>
+      <Card align='center'>
+        <Typography variant='h3'>Welcome, {name}</Typography>
+        <Instructions />
+
+        {/* placeholder until game is created */}
+        <Link to='/selectplayers'>
+        <Button type="submit" variant="contained" color="primary">Start Game</Button>
+        </Link>
+      </Card>
     </div>
   )
 }

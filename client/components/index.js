@@ -11,5 +11,5 @@ export {default as DrawingSubmission} from './drawing-submission'
 export {default as Compilation} from './compilation'
 export {default as SubmissionWrapper} from './submission-wrapper'
 export {default as PhraseSubmission} from './phrase-submission'
-
+export {default as GamePreview} from './game-preview'
 export {Login, Signup} from './auth-form'

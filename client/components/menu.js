@@ -3,7 +3,6 @@ import { withStyles, withTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
@@ -64,7 +63,7 @@ class Menu extends Component {
     return (
       <Fragment>
         <div className={classes.root}>
-          <AppBar position="static" color="primary">
+          <AppBar position="static" style={{}}>
             <Toolbar>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon onClick={toggleMenu}/>
@@ -82,13 +81,9 @@ class Menu extends Component {
               {
                 isLoggedIn
                   ? <List>
-                      <ListItem button component={Link} to='/games/active' onClick={toggleMenu}>
+                      <ListItem button component={Link} to='/games' onClick={toggleMenu}>
                         <ListItemIcon><WhatsHot /></ListItemIcon>
                         <ListItemText primary='Active Games'/>
-                      </ListItem>
-                      <ListItem button component={Link} to='/games/completed' onClick={toggleMenu}>
-                        <ListItemIcon><Done /></ListItemIcon>
-                        <ListItemText primary='Completed Games' />
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
                         <ListItemIcon><Stars /></ListItemIcon>

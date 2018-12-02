@@ -39,7 +39,7 @@ describe('Seeded models', ()=> {
   describe('Seeded Users', ()=> {
     it('has three users', async ()=> {
       const users = await User.findAll();
-      expect(users.length).to.equal(3);
+      expect(users.length).to.equal(5); // change this expectation if seeding more users
     });
   });
 
