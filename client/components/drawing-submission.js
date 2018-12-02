@@ -5,7 +5,7 @@ import { getGames } from '../store/games'
 import {Link} from 'react-router-dom'
 import uploadImage from '../../server/S3'
 import CanvasDraw from 'react-canvas-draw'
-import { Typography, Button, Card, CardActions, CardContent } from '@material-ui/core'
+import { Typography, Button, Card, CardActions, CardContent, Modal, CardMedia, CardHeader } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
@@ -16,7 +16,6 @@ const styles = {
   grow: {
     flexGrow: 1,
   },
-
   card: {
     margin: 20,
     padding: 20,
@@ -24,9 +23,24 @@ const styles = {
     borderColor: 'gray',
     textAlign: 'center',
   },
-
   center: {
     display: 'inline-block'
+  },
+  modal: {
+    margin: 50,
+    padding: 50,
+  },
+  media: {
+    margin: 20,
+    padding: 20,
+    height: 100,
+    width: 100,
+    borderColor: 'gray',
+    display: 'inline-block'
+  },
+  padding: {
+    padding: 5,
+    margin: 5
   }
 
 };
@@ -38,11 +52,13 @@ class DrawingSubmission extends Component {
     this.state = {
       timer: 30, // number of seconds the timer will count down from
       intervalId: null, // the browser needs this intervalId in order to know which timer to cancel later
-      open: false
+      open: false,
+      image: ''
     }
     this.updateTimer = this.updateTimer.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentDidMount(){
@@ -69,7 +85,6 @@ class DrawingSubmission extends Component {
 
   handleTimeEnd() {
     clearInterval(this.state.intervalId); // stops timer
-    console.log('handleTimeEnd called, submit drawing automatically / display modal confirming submission');
   }
 
   handleClear() {
@@ -77,6 +92,11 @@ class DrawingSubmission extends Component {
   }
 
   handleSubmit() {
+    const image = this.canvasRef.canvas.drawing.toDataURL()
+    this.setState({open: true, image})
+  }
+
+  handleModalClose() {
     const recording = this.canvasRef.getSaveData();
     const submission = {
       type: 'drawing',
@@ -86,20 +106,18 @@ class DrawingSubmission extends Component {
     }
     this.props.createSubmission(submission)
     .then((submission)=> {
-      console.log('created submission ', submission)
       clearInterval(this.state.intervalId) // stops timer
       this.props.getGames()
-      this.props.history.push('/games')
+      this.setState({open: false})
+      this.props.history.push(`/games/${this.props.submissions[0].gameId}/compilation`)
       })
-
   }
 
   render(){
-    const { handleClear, handleSubmit } = this;
+    const { handleClear, handleSubmit, handleModalClose } = this;
     const { timer } = this.state;
     const {submissions, classes} = this.props
     const round = this.props.round
-    // console.log('this.props.round', round)
 
 
     return (
@@ -137,20 +155,48 @@ class DrawingSubmission extends Component {
               variant="contained"
               color="primary"
               onClick={handleClear}
-
               >
               Clear
             </Button>
             <Button
-              onClick={handleSubmit}
               type="submit"
               variant="contained"
               color="primary"
+              onClick={handleSubmit}
               >
               Submit
             </Button>
           </CardActions>
           </Card>
+          <Modal open={this.state.open} className={classes.modal}>
+            <Card >
+              <CardContent className={classes.card}>
+                <Card raised={true}>
+                  <CardHeader
+                    title="It's a masterpiece!"
+                  />
+                  <CardMedia
+                    src={this.state.image}
+                    component='img'
+                    className={classes.media}
+                    />
+                </Card>
+                </CardContent>
+                <CardContent className={classes.card}>
+                <Typography >
+                  We're sending it to down the line. Clearly they'll know exactly what it is... right?
+                </Typography>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleModalClose}
+                >
+                  View Game Progress
+                </Button>
+              </CardContent>
+            </Card>
+          </Modal>
       </Fragment>
     )
   }

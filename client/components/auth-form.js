@@ -171,4 +171,3 @@ AuthForm.propTypes = {
         <a href="/auth/facebook">{displayName} with Facebook</a>
       </div>
 */
-
