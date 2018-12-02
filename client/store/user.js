@@ -53,7 +53,12 @@ export const auth = (email, password, method, username, phoneNumber) => async di
   try {
     dispatch(getUser(res.data))
     dispatch(getAllUsers())
-    history.push(window.location.pathname)
+    if(window.location.pathname === '/login' || window.location.pathname === '/'){
+      history.push('/home')
+    } else {
+      history.push(window.location.pathname)
+    }
+
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

@@ -5,6 +5,8 @@ import {connect} from 'react-redux'
 
 import { Button } from '@material-ui/core'
 
+import Instructions from './instructions'
+
 /**
  * COMPONENT
  */
@@ -13,6 +15,7 @@ export const UserHome = props => {
 
   return (
     <div>
+      <Instructions />
       <h3>Welcome, {name}</h3>
       {/* placeholder until game is created */}
       <Link to='/selectplayers'>
