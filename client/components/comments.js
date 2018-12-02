@@ -12,7 +12,8 @@ const socket = io(window.location.origin)
 const styles = {
   card: {
     padding: 20,
-    margin: 20,
+    marginTop: 20,
+    marginBottom: 20,
     borderRadius: 15,
     borderColor: "grey"
   },
