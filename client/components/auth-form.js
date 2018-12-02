@@ -4,32 +4,17 @@ import PropTypes from 'prop-types'
 import {auth} from '../store'
 
 import { Button, TextField, Card } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 
 import { Link } from 'react-router-dom';
-
-// const styles = theme => ({
-//   container: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//   },
-//   textField: {
-//     marginLeft: theme.spacing.unit,
-//     marginRight: theme.spacing.unit,
-//     width: 200,
-//   },
-//   dense: {
-//     marginTop: 19,
-//   },
-//   menu: {
-//     width: 200,
-//   },
-// });
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  
+  const {name, displayName, handleSubmit, error, classes} = props
+  console.log('window url ', window.location)
 
   return (
     <div>
@@ -81,7 +66,7 @@ const AuthForm = props => {
           />
         </div>
         <div>
-          <Button type="submit" variant="contained" color="primary">{displayName}</Button>
+          <Button type="submit" variant="contained" color='primary'>{displayName}</Button>
           {
             props.name === 'login'
               ? <Button component={Link} to='/signup'variant="contained" color="secondary">Sign Up</Button>
