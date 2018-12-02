@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+<<<<<<< HEAD
 import { Card, Button } from '@material-ui/core'
+=======
+import {sendText} from '../store/user'
+
+class GamePreview extends Component {
+>>>>>>> 526b65e2fd39dae55ca380d3f7ebf6acf35e94cc
 
 
 class GamePreview extends Component {
@@ -30,7 +36,14 @@ class GamePreview extends Component {
               : <div>
                   {users.find(user => user.id === players[roundNumber]).name}'s
                   turn!
+<<<<<<< HEAD
                   <Button>
+=======
+                  <button
+                    type="submit"
+                    onClick={() => this.props._sendText(users.find(user => user.id === players[roundNumber]), this.props.game)}
+                  >
+>>>>>>> 526b65e2fd39dae55ca380d3f7ebf6acf35e94cc
                   Nudge Them!
                   </Button>
 
@@ -53,4 +66,10 @@ const mapStateToProps = ({user,users}) => {
   }
 }
 
-export default connect(mapStateToProps)(GamePreview)
+const mapDispatchToProps = dispatch => {
+  return {
+    _sendText: (user, game) => dispatch(sendText(user, game))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamePreview)
