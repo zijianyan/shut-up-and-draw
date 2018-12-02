@@ -13,10 +13,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import WhatsHot from '@material-ui/icons/WhatsHot';
+import Done from '@material-ui/icons/Done';
+import Stars from '@material-ui/icons/Stars';
+import Input from '@material-ui/icons/Input';
+import Launch from '@material-ui/icons/Launch';
+
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {logout} from '../store'
+
+
 
 
 const styles = {
@@ -74,11 +82,11 @@ class Menu extends Component {
                 isLoggedIn
                   ? <List>
                       <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
-                        <ListItemText primary='Games'/>
+                        <ListItemIcon><WhatsHot /></ListItemIcon>
+                        <ListItemText primary='Active Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemIcon><Stars /></ListItemIcon>
                         <ListItemText primary='Create a Game' />
                       </ListItem>
                     </List>
@@ -92,11 +100,11 @@ class Menu extends Component {
                         handleLogout();
                         toggleMenu();
                       }}>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemIcon><Launch /></ListItemIcon>
                         <ListItemText primary='Logout' />
                       </ListItem>
                     : <ListItem button component={Link} to='/login' onClick={toggleMenu}>
-                        <ListItemIcon><InboxIcon /></ListItemIcon>
+                        <ListItemIcon><Input /></ListItemIcon>
                         <ListItemText primary='Login' />
                       </ListItem>
                 }
