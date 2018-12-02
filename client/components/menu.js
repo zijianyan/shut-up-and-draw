@@ -82,11 +82,9 @@ class Menu extends Component {
                 isLoggedIn
                   ? <List>
                       <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                        <ListItemIcon></ListItemIcon>
                         <ListItemText primary='Active Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
-                        <ListItemIcon><Stars /></ListItemIcon>
                         <ListItemText primary='Create a Game' />
                       </ListItem>
                     </List>
@@ -100,11 +98,9 @@ class Menu extends Component {
                         handleLogout();
                         toggleMenu();
                       }}>
-                        <ListItemIcon><Launch /></ListItemIcon>
                         <ListItemText primary='Logout' />
                       </ListItem>
                     : <ListItem button component={Link} to='/login' onClick={toggleMenu}>
-                        <ListItemIcon><Input /></ListItemIcon>
                         <ListItemText primary='Login' />
                       </ListItem>
                 }
