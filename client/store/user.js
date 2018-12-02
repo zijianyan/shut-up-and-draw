@@ -7,6 +7,7 @@ import { getAllUsers } from './users';
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const SEND_TEXT = 'SEND_TEXT'
 
 /**
  * INITIAL STATE
@@ -22,6 +23,16 @@ const removeUser = () => ({type: REMOVE_USER})
 /**
  * THUNK CREATORS
  */
+
+export const sendText = (user, game) => async dispatch => {
+    try {
+      return await axios.post('/api/twilio', {user, game})
+    } catch (err) {
+      console.error('this is an error', err)
+    }
+  }
+
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -42,7 +53,7 @@ export const auth = (email, password, method, username, phoneNumber) => async di
   try {
     dispatch(getUser(res.data))
     dispatch(getAllUsers())
-    history.push('/home')
+    history.push(window.location.pathname)
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }

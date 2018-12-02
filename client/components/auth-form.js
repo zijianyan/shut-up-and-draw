@@ -30,6 +30,7 @@ import { Link } from 'react-router-dom';
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
+  console.log('window url ', window.location)
 
   return (
     <div>
@@ -171,6 +172,3 @@ AuthForm.propTypes = {
       </div>
 */
 
-
-          // <input name="email" type="text" />
-                    // <input name="password" type="password" />

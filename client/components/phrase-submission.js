@@ -144,6 +144,7 @@ class PhraseSubmission extends Component {
               value={this.state.phrase}
               onChange={handleChange}
               margin="normal"
+              variant="outlined"
               />
 
             <Button
