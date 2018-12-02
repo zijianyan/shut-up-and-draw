@@ -13,8 +13,8 @@ class GamePreview extends Component {
     if(!users.length) return null
 
     return (
-      <Grid item xs={4} padding={8}>
-        <Card padding={10}>
+      <Grid item xs={8}>
+        <Card style={{ margin: 30, padding: 20, borderRadius: 15}}>
           <Typography variant="h3">{status}</Typography>
           <div>
             {
@@ -45,6 +45,7 @@ class GamePreview extends Component {
                     turn!
                     <div>
                       <Button
+
                         type="submit"
                         color="primary"
                         variant="contained"

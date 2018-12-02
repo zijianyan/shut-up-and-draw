@@ -40,9 +40,9 @@ class GamesList extends Component {
             value={value}
             onChange={this.handleChange}
           >
+            <Tab label="All"/>
             <Tab label="Active"/>
             <Tab label="Complete"/>
-            <Tab label="All"/>
           </Tabs>
         </AppBar>
         <Grid
@@ -50,9 +50,9 @@ class GamesList extends Component {
           align="center"
           justify="center"
         >
-            { value === 0 && gameMap('active')}
-            { value === 1 && gameMap('complete')}
-            { value === 2 && gameMap('all')}
+            { value === 0 && gameMap('all')}
+            { value === 1 && gameMap('active')}
+            { value === 2 && gameMap('complete')}
         </Grid>
       </div>
     )
