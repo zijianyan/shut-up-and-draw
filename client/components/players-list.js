@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {createGame, getGames} from '../store/games'
 import {Link} from 'react-router-dom'
@@ -7,7 +7,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
-import { Button } from '@material-ui/core'
+import { Button, Card, Divider, Typography } from '@material-ui/core'
 
 
 const styles = theme => ({
@@ -16,6 +16,11 @@ const styles = theme => ({
     maxWidth: 360,
     backgroundColor: 'white',
   },
+  card: {
+    margin: 20,
+    padding: 20,
+    borderRadius: 15
+  }
 });
 
 class PlayersList extends Component {
@@ -63,7 +68,6 @@ class PlayersList extends Component {
     })
   }
 
-
   removePlayer (player) {
     this.setState((prevState) => ({
       players: prevState.players.filter(x => x.id !== player.id)
@@ -71,26 +75,29 @@ class PlayersList extends Component {
   }
 
   render(){
-    const { users } = this.props
+    const { users, classes } = this.props
     const { players } = this.state
     console.log('players ', players)
     const {addPlayer, removePlayer, createNewGame, selectPlayer} = this
 
     return (
       <div>
-        <h1>Choose Some Friends</h1>
+        <Card className={classes.card} align='center'>
+        <Typography variant='h3'>Choose Some Friends</Typography>
         <List>
           {
             users.map(user => {
               return (
-              <ListItem key={user.id} onClick={()=> selectPlayer(user)} >
-                <Checkbox
-                  checked={players.indexOf(user) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                />
-                <ListItemText primary={user.name} />
-              </ListItem>
+              <Fragment key={user.id}>
+                <Divider />
+                <ListItem onClick={()=> selectPlayer(user)} >
+                  <Checkbox
+                    checked={players.indexOf(user) !== -1}
+                    tabIndex={-1}
+                  />
+                  <ListItemText primary={user.name} />
+                </ListItem>
+              </Fragment>
             )})
           }
         </List>
@@ -103,6 +110,7 @@ class PlayersList extends Component {
         >
           Create Game
         </Button>
+        </Card>
       </div>
     )
   }

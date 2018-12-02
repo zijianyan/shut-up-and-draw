@@ -2,34 +2,17 @@ import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-
-import { Button, TextField, Card, Grid } from '@material-ui/core'
-
+import { Button, TextField, Card } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom';
-
-// const styles = theme => ({
-//   container: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//   },
-//   textField: {
-//     marginLeft: theme.spacing.unit,
-//     marginRight: theme.spacing.unit,
-//     width: 200,
-//   },
-//   dense: {
-//     marginTop: 19,
-//   },
-//   menu: {
-//     width: 200,
-//   },
-// });
 
 /**
  * COMPONENT
  */
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  
+  const {name, displayName, handleSubmit, error, classes} = props
+  console.log('window url ', window.location)
 
   return (
     <div>
@@ -105,6 +88,7 @@ const AuthForm = props => {
           <Button>
             <a href="/auth/facebook">{displayName} with Facebook</a>
           </Button>
+          <Button type="submit" variant="contained" color='primary'>{displayName}</Button>
         </div>
       </Card>
       </Grid>

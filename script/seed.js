@@ -16,6 +16,8 @@ async function seed() {
       User.create({ email: 'emily@email.com', password: 'EMILY', name: 'emily', phoneNumber: process.env.EMILY_PHONENUMBER }),
       User.create({ email: 'cang@email.com', password: 'CANG', name: 'cang' , phoneNumber: process.env.CANG_PHONENUMBER }),
       User.create({ email: 'zi@email.com', password: 'ZI', name: 'zi' , phoneNumber: process.env.ZI_PHONENUMBER}),
+      User.create({ email: 'prof@email.com', password: 'PROF', name: 'Prof' , phoneNumber: process.env.ZI_PHONENUMBER}),
+      User.create({ email: 'eliot@email.com', password: 'ELIOT', name: 'Eliot' , phoneNumber: process.env.ZI_PHONENUMBER}),
     ])
 
     var current_date = (new Date()).valueOf().toString();
