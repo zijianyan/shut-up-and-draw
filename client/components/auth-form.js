@@ -3,9 +3,27 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-import { Button } from '@material-ui/core'
+import { Button, TextField, Card } from '@material-ui/core'
 
 import { Link } from 'react-router-dom';
+
+// const styles = theme => ({
+//   container: {
+//     display: 'flex',
+//     flexWrap: 'wrap',
+//   },
+//   textField: {
+//     marginLeft: theme.spacing.unit,
+//     marginRight: theme.spacing.unit,
+//     width: 200,
+//   },
+//   dense: {
+//     marginTop: 19,
+//   },
+//   menu: {
+//     width: 200,
+//   },
+// });
 
 /**
  * COMPONENT
@@ -16,11 +34,12 @@ const AuthForm = props => {
 
   return (
     <div>
-      <div style={{ display: 'flex', maxWidth: '100%', }}>
-        <div>
-        <img src={'/logo-small.png'} style={{ flex: 1 }}/>
-        </div>
-      </div>
+      <Card align='center' elevation={9} style={{ margin: 30, padding: 20, borderRadius: 15}}>
+
+
+      <img src={'/logo-small.png'}/>
+
+
       <form onSubmit={handleSubmit} name={name}>
         { name === 'signup'
         ? (
@@ -41,16 +60,26 @@ const AuthForm = props => {
         ) : null
       }
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <TextField
+            name='email'
+            type='text'
+            label="Email"
+            placeholder="Email"
+            // className={classes.textField}
+            style={{ width: 200 }}
+            margin="normal"
+          />
         </div>
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+          <TextField
+            name='password'
+            type='password'
+            label="Password"
+            placeholder="Password"
+            // className={classes.textField}
+            style={{ width: 200 }}
+            margin="normal"
+          />
         </div>
         <div>
           <Button type="submit" variant="contained" color="primary">{displayName}</Button>
@@ -63,7 +92,7 @@ const AuthForm = props => {
         {error && error.response && <div> {error.response.data} </div>}
       </form>
 
-
+      </Card>
     </div>
   )
 }
@@ -142,3 +171,4 @@ AuthForm.propTypes = {
         <a href="/auth/facebook">{displayName} with Facebook</a>
       </div>
 */
+
