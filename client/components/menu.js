@@ -64,7 +64,7 @@ class Menu extends Component {
     return (
       <Fragment>
         <div className={classes.root}>
-          <AppBar position="static" color="primary">
+          <AppBar position="static" style={{}}>
             <Toolbar>
               <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
                 <MenuIcon onClick={toggleMenu}/>
