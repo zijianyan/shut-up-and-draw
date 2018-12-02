@@ -139,8 +139,7 @@ class Compilation extends Component {
             color="primary"
             justify="center"
             variant="contained"
-            sizeLarge
-            >
+          >
             Play Again!
           </Button>
         </Link>
