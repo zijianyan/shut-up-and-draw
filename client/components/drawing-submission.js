@@ -5,7 +5,7 @@ import { getGames } from '../store/games'
 import {Link} from 'react-router-dom'
 import uploadImage from '../../server/S3'
 import CanvasDraw from 'react-canvas-draw'
-import { Typography, Button, Card, CardActions, CardContent, Modal } from '@material-ui/core'
+import { Typography, Button, Card, CardActions, CardContent, Modal, CardMedia, CardHeader } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 
 const styles = {
@@ -16,7 +16,6 @@ const styles = {
   grow: {
     flexGrow: 1,
   },
-
   card: {
     margin: 20,
     padding: 20,
@@ -24,13 +23,24 @@ const styles = {
     borderColor: 'gray',
     textAlign: 'center',
   },
-
   center: {
     display: 'inline-block'
   },
   modal: {
     margin: 50,
     padding: 50,
+  },
+  media: {
+    margin: 20,
+    padding: 20,
+    height: 100,
+    width: 100,
+    borderColor: 'gray',
+    display: 'inline-block'
+  },
+  padding: {
+    padding: 5,
+    margin: 5
   }
 
 };
@@ -85,7 +95,6 @@ class DrawingSubmission extends Component {
   handleSubmit() {
     const recording = this.canvasRef.getSaveData();
     const image = this.canvasRef.canvas.drawing.toDataURL()
-
     const submission = {
       type: 'drawing',
       gameId: this.props.gameId*1,
@@ -166,12 +175,20 @@ class DrawingSubmission extends Component {
           </CardActions>
           </Card>
           <Modal open={this.state.open} className={classes.modal}>
-            <Card className={classes.card}>
-              <CardContent>
-
-                <Typography variant='h5' component="h5">
-                  It's a masterpiece.
-                </Typography>
+            <Card >
+              <CardContent className={classes.card}>
+                <Card raised={true}>
+                  <CardHeader
+                    title="It's a masterpiece!"
+                  />
+                  <CardMedia
+                    src={this.state.image}
+                    component='img'
+                    className={classes.media}
+                    />
+                </Card>
+                </CardContent>
+                <CardContent className={classes.card}>
                 <Typography >
                   We're sending it to down the line. Clearly they'll know exactly what it is... right?
                 </Typography>
