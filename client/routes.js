@@ -6,7 +6,7 @@ import {Login, Signup, UserHome, GamesList, PlayersList, SubmissionWrapper, Comp
 import {me} from './store'
 import { getGames } from './store/games'
 import { getAllUsers } from './store/users';
-import Chat from './components/comments/chat'
+import Chat from './components/comments'
 
 
 class Routes extends Component {

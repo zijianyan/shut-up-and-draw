@@ -13,7 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import WhatsHot from '@material-ui/icons/WhatsHot';
+// import WhatsHot from '@material-ui/icons/WhatsHot';
 import Done from '@material-ui/icons/Done';
 import Stars from '@material-ui/icons/Stars';
 import Input from '@material-ui/icons/Input';
@@ -69,7 +69,7 @@ class Menu extends Component {
                 <MenuIcon onClick={toggleMenu}/>
               </IconButton>
               <Typography variant="h6" color="inherit" className={classes.grow} component={Link} to='/home'>
-                Logo
+                <img src='/shut-up-and-draw-logo-white-small.png'/>
               </Typography>
             </Toolbar>
           </AppBar>
@@ -82,11 +82,10 @@ class Menu extends Component {
                 isLoggedIn
                   ? <List>
                       <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                        <ListItemIcon><WhatsHot /></ListItemIcon>
-                        <ListItemText primary='Active Games'/>
+                        <ListItemIcon></ListItemIcon>
+                        <ListItemText primary='Your Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
-                        <ListItemIcon><Stars /></ListItemIcon>
                         <ListItemText primary='Create a Game' />
                       </ListItem>
                     </List>
@@ -100,11 +99,9 @@ class Menu extends Component {
                         handleLogout();
                         toggleMenu();
                       }}>
-                        <ListItemIcon><Launch /></ListItemIcon>
                         <ListItemText primary='Logout' />
                       </ListItem>
                     : <ListItem button component={Link} to='/login' onClick={toggleMenu}>
-                        <ListItemIcon><Input /></ListItemIcon>
                         <ListItemText primary='Login' />
                       </ListItem>
                 }

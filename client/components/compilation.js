@@ -8,7 +8,7 @@ import queryString from 'query-string'
 import { Card, Typography, Button, Grid, CardContent, CardActions } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles'
 import AOS from 'aos';
-
+import Comments from './comments'
 
 const styles = {
   card: {
@@ -134,13 +134,17 @@ class Compilation extends Component {
                 </div>
           ))
         }
+        <Grid item xs={12}>
+          <Comments />
+        </Grid>
         <Link to='/selectplayers'>
           <Button
             color="primary"
             justify="center"
             variant="contained"
-          >
-            Play Again!
+            className={classes.card}
+            >
+            Create Another Masterpiece
           </Button>
         </Link>
       </div>

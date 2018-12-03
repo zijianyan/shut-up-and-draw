@@ -7,21 +7,34 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Checkbox from '@material-ui/core/Checkbox'
-import { Button, Card, Divider, Typography } from '@material-ui/core'
+import { Button, Card, Divider, Typography, Modal, CardHeader, CardContent } from '@material-ui/core'
 
 
-const styles = theme => ({
+const styles = {
   root: {
     width: '100%',
     maxWidth: 360,
     backgroundColor: 'white',
   },
   card: {
-    margin: 20,
-    padding: 20,
-    borderRadius: 15
+    margin: 100,
+    padding: 100,
+    borderRadius: 15,
+    borderColor: 'gray',
+    textAlign: 'center'
+  },
+  modal: {
+    margin: 50,
+    padding: 50,
+    borderRadius: 15,
+    borderColor: 'gray',
+    textAlign: 'center'
+  },
+  padding: {
+    padding: 7,
+    margin: 5
   }
-});
+};
 
 class PlayersList extends Component {
   constructor (props){
@@ -29,21 +42,36 @@ class PlayersList extends Component {
   const {user} = this.props
   this.state = {
     players: [user], //initializes with logged in user
+    open: false
   };
   this.addPlayer = this.addPlayer.bind(this)
   this.removePlayer = this.removePlayer.bind(this)
   this.createNewGame = this.createNewGame.bind(this)
   this.selectPlayer = this.selectPlayer.bind(this)
+  this.handleModalOpen = this.handleModalOpen.bind(this)
+  this.handleModalClose = this.handleModalClose.bind(this)
 }
 
-  createNewGame (players) {
-    const playersids = players.map(x => x.id)
+  createNewGame (event) {
+    event.preventDefault()
+    const playersids = this.state.players.map(x => x.id)
     console.log(playersids)
     this.props.createGame({players: playersids})
       .then(game => {
         this.props.getGames()
+        this.setState({open: false})
         this.props.history.push(`/games/${game.data.id}/submissions`)
       })
+  }
+
+  handleModalOpen(event) {
+    event.preventDefault()
+    this.setState({open: true})
+  }
+
+  handleModalClose(event){
+    event.preventDefault()
+    this.setState({open: false})
   }
 
   addPlayer (player) {
@@ -77,8 +105,7 @@ class PlayersList extends Component {
   render(){
     const { users, classes } = this.props
     const { players } = this.state
-    console.log('players ', players)
-    const {addPlayer, removePlayer, createNewGame, selectPlayer} = this
+    const { createNewGame, selectPlayer, handleModalOpen, handleModalClose } = this
 
     return (
       <div>
@@ -105,12 +132,49 @@ class PlayersList extends Component {
           type="submit"
           variant="contained"
           color="primary"
-          onClick={()=>createNewGame(players)}
+          onClick={handleModalOpen}
           disabled={!players.length}
         >
-          Create Game
+          Let's Do This
         </Button>
         </Card>
+        <Modal open={this.state.open} className={classes.modal}>
+            <Card raised={true}>
+              <CardContent className={classes.modal}>
+                <Card raised={true}>
+                <CardHeader
+                  title="Prepare Your Artistic Spirit!"
+                />
+                <CardContent className={classes.modal}>
+                <Typography className={classes.padding}>
+                  On the next page, you'll be given a phrase to draw. You'll get 30 seconds to draw your best interpretation of the phrase.
+                </Typography>
+                <Typography className={classes.padding}>
+                  That submission will be sent down the line for your friends to guess what phrase you received.
+                </Typography>
+                </CardContent>
+                </Card>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={createNewGame}
+                  className={classes.padding}
+                >
+                  Shut Up and Let Me Draw
+                </Button>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  onClick={handleModalClose}
+                  className={classes.padding}
+                >
+                  Go Back
+                </Button>
+              </CardContent>
+            </Card>
+          </Modal>
       </div>
     )
   }
