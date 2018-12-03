@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 const AuthForm = props => {
 
   const {name, displayName, handleSubmit, error, classes} = props
-  console.log('window url ', window.location)
 
   return (
     <div>

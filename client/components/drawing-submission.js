@@ -169,8 +169,8 @@ class DrawingSubmission extends Component {
           </CardActions>
           </Card>
           <Modal open={this.state.open} className={classes.modal}>
-            <Card >
-              <CardContent className={classes.card}>
+            <Card className={classes.card}>
+              <CardContent >
                 <Card raised={true}>
                   <CardHeader
                     title="It's a masterpiece!"
