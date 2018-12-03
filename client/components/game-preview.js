@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Card, Button, Grid, Typography, CardHeader, Modal, CardContent } from '@material-ui/core'
@@ -58,6 +58,7 @@ class GamePreview extends Component {
     if(!users.length) return null
 
     return (
+      <Fragment>
         <Card style={{ margin: 30, padding: 20, borderRadius: 15}}>
           <Typography variant="h3">{status}</Typography>
           <div>
@@ -107,41 +108,41 @@ class GamePreview extends Component {
           </div>
         </Card>
         <Modal open={this.state.open} className={classes.modal}>
-            <Card raised={true}>
-              <CardContent className={classes.modal}>
-                <Card raised={true}>
+          <Card raised={true}>
+            <CardContent className={classes.modal}>
+              <Card raised={true}>
                 <CardHeader
                   title="Prepare Your Artistic Spirit!"
                 />
                 <CardContent className={classes.padding}>
-                <Typography >
-                   You'll get 30 seconds to interpret your friend's submission.
-                </Typography>
+                  <Typography >
+                      You'll get 30 seconds to interpret your friend's submission.
+                  </Typography>
                 </CardContent>
-                </Card>
-                <Link to={`/games/${id}/submissions`}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className={classes.padding}
-                  >
-                    Let's Do This
-                  </Button>
-                </Link>
+              </Card>
+              <Link to={`/games/${id}/submissions`}>
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
-                  onClick={handleModalClose}
                   className={classes.padding}
                 >
-                  Go Back
+                  Let's Do This
                 </Button>
-              </CardContent>
-            </Card>
-          </Modal>
-      </Grid>
+              </Link>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                onClick={handleModalClose}
+                className={classes.padding}
+              >
+                Go Back
+              </Button>
+            </CardContent>
+          </Card>
+        </Modal>
+      </Fragment>
     )
   }
 }
