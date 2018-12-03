@@ -58,7 +58,6 @@ class GamePreview extends Component {
     if(!users.length) return null
 
     return (
-      <Grid item xs={8}>
         <Card style={{ margin: 30, padding: 20, borderRadius: 15}}>
           <Typography variant="h3">{status}</Typography>
           <div>

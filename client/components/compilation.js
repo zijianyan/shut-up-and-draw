@@ -54,10 +54,11 @@ class Compilation extends Component {
     const { submissions, users, game, games, classes } = this.props
     if(!users.length || !games.length || !submissions.length) {return null}
     return (
-    <Grid container className={classes.container} spacing={16} justify="center">
       <div>
         <Typography
-          variant="h1"
+          variant="h3"
+          component="h3"
+          style={{textAlign:"center"}}
         >
           Game Compilation
         </Typography>
@@ -75,7 +76,7 @@ class Compilation extends Component {
                       className={classes.card}
                       raised={true}
                     >
-                      <CardContent align="center">
+                      <CardContent>
                         <Typography
                           variant="h5"
                         >
@@ -113,7 +114,7 @@ class Compilation extends Component {
                 data-aos="fade-in"
                 data-aos-duration="3000"
               >
-                <Grid item xs={12}>
+
                     <Card className={classes.card} raised={true}>
                       {
                         index === 0 ?
@@ -130,7 +131,6 @@ class Compilation extends Component {
                           {submission.phrase}
                         </Typography>
                       </Card>
-                  </Grid>
                 </div>
           ))
         }
@@ -148,7 +148,6 @@ class Compilation extends Component {
           </Button>
         </Link>
       </div>
-      </Grid>
     )
   }
 }
