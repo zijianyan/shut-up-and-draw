@@ -25,7 +25,7 @@ describe('an authenticated user can log in ', ()=> {
       .expect(200)
       .then(res => {
         const games = res.body;
-        expect(games.length).to.equal(2);
+        expect(games.length).to.equal(3);
       })
   });
 
@@ -46,7 +46,7 @@ describe('Seeded models', ()=> {
   describe('Seeded Game', ()=> {
     it('has two games', async ()=> {
       const games = await Game.findAll();
-      expect(games.length).to.equal(2);
+      expect(games.length).to.equal(3);
     });
   });
 
