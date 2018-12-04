@@ -85,6 +85,7 @@ class DrawingSubmission extends Component {
 
   handleTimeEnd() {
     clearInterval(this.state.intervalId); // stops timer
+    this.handleSubmit()
   }
 
   handleClear() {
