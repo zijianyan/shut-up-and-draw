@@ -24,14 +24,14 @@ const styles = {
     textAlign: 'center'
   },
   modal: {
-    margin: 50,
-    padding: 50,
+    margin: 20,
+    padding: 20,
     borderRadius: 15,
     borderColor: 'gray',
     textAlign: 'center'
   },
   padding: {
-    padding: 7,
+    padding: 5,
     margin: 5
   }
 };

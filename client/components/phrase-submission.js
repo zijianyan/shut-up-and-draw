@@ -167,6 +167,7 @@ class PhraseSubmission extends Component {
               variant="contained"
               color="primary"
               onClick={handleSubmit}
+              disabled={!this.state.phrase.length}
               >
               Submit
             </Button>
