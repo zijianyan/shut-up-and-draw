@@ -15,10 +15,11 @@ export const UserHome = props => {
 
   return (
     <div>
-      <Card align='center'>
+      <Card align='center' style={{ margin: 20, padding: 30 }}>
         <Typography variant='h3'>Welcome, {name}</Typography>
-        <Instructions />
-
+        <div style={{ padding: 30 }}>
+          <Instructions />
+        </div>
         {/* placeholder until game is created */}
         <Link to='/selectplayers'>
         <Button type="submit" variant="contained" color="primary">Start Game</Button>
