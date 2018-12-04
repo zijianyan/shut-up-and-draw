@@ -6,7 +6,7 @@ const User = require('../server/db/models/user')
 const Game = require('../server/db/models/Game')
 const crypto = require('crypto')
 const { HASH_SECRET } = require('../secrets')
-const { game1drawing1, game1drawing2 } = require('./drawings');
+const { game1drawing1, game1drawing2, game2drawing1, game2drawing2 } = require('./drawings');
 
 async function seed() {
   try {
@@ -27,28 +27,44 @@ async function seed() {
 
     const completedGameHash1 = await crypto.createHash('sha256').update('1').update(process.env.HASH_SECRET || HASH_SECRET).digest('hex')
 
+    const completedGameHash2 = await crypto.createHash('sha256').update('2').update(process.env.HASH_SECRET || HASH_SECRET).digest('hex')
+
     console.log('completedGameHash1: ', completedGameHash1)
 
     // had to add 1 to the current date because this seed file was creating these games at the same time which resulted in the same hash number - I'm going to make the hash on the model unique
-    const activeGameHash = await crypto.createHash('sha256').update('2').update(process.env.HASH_SECRET || HASH_SECRET).digest('hex')
+    const activeGameHash = await crypto.createHash('sha256').update('3').update(process.env.HASH_SECRET || HASH_SECRET).digest('hex')
 
     console.log('activeGameHash: ', activeGameHash)
 
     // setTimeout()
 
 
-    const [completedGame1, activeGame] = await Promise.all([
+    const [completedGame1, completedGame2, activeGame] = await Promise.all([
       Game.create({ roundNumber: 2, status: 'complete', players: [cang.id, emily.id, zi.id], gameHash: completedGameHash1 }),
+      Game.create({ roundNumber: 3, status: 'complete', players: [cang.id, emily.id, zi.id], gameHash: completedGameHash2 }),
       Game.create({ roundNumber: 1, status: 'active', players: [cang.id, emily.id, zi.id], gameHash: activeGameHash })
     ])
 
-    //create submissions for completedGame
+    //create submissions for completedGame1
 
       await Submission.create({ type: 'phrase', phrase: 'pigeon stole your bagel', userId: cang.id, gameId: completedGame1.id})
       await Submission.create({ type: 'drawing', drawingUrl: game1drawing1, userId: cang.id, gameId: completedGame1.id})
  
       await Submission.create({ type: 'phrase', phrase: 'avian bird flu', userId: emily.id, gameId: completedGame1.id})
       await Submission.create({ type: 'drawing', drawingUrl: game1drawing2, userId: zi.id, gameId: completedGame1.id})
+
+    //create submissions for completedGame2
+
+      await Submission.create({ type: 'phrase', phrase: 'Paul McCartney changes a tire', userId: cang.id, gameId: completedGame2.id})
+      await Submission.create({ type: 'drawing', drawingUrl: game2drawing1, userId: cang.id, gameId: completedGame2.id})
+ 
+      await Submission.create({ type: 'phrase', phrase: 'Failed Musician pays bills as a mechanic', userId: emily.id, gameId: completedGame2.id})
+      await Submission.create({ type: 'drawing', drawingUrl: game2drawing2, userId: cang.id, gameId: completedGame2.id})
+
+      await Submission.create({ type: 'phrase', phrase: 'Floating Wrench Man hates pianos', userId: cang.id, gameId: completedGame2.id})
+      await Submission.create({ type: 'drawing', drawingUrl: game1drawing2, userId: zi.id, gameId: completedGame2.id})
+      
+      await Submission.create({ type: 'phrase', phrase: 'Dubstep', userId: emily.id, gameId: completedGame2.id})
 
 
     //create submissions for active game
