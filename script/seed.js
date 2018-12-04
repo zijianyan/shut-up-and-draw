@@ -6,7 +6,7 @@ const User = require('../server/db/models/user')
 const Game = require('../server/db/models/Game')
 const crypto = require('crypto')
 const { HASH_SECRET } = require('../secrets')
-const { game1drawing1, game1drawing2, game2drawing1, game2drawing2 } = require('./drawings');
+const { game1drawing1, game1drawing2, game2drawing1, game2drawing2, game2drawing3 } = require('./drawings');
 
 async function seed() {
   try {
@@ -58,11 +58,11 @@ async function seed() {
       await Submission.create({ type: 'phrase', phrase: 'Paul McCartney changes a tire', userId: cang.id, gameId: completedGame2.id})
       await Submission.create({ type: 'drawing', drawingUrl: game2drawing1, userId: cang.id, gameId: completedGame2.id})
  
-      await Submission.create({ type: 'phrase', phrase: 'Failed Musician pays bills as a mechanic', userId: emily.id, gameId: completedGame2.id})
-      await Submission.create({ type: 'drawing', drawingUrl: game2drawing2, userId: cang.id, gameId: completedGame2.id})
+      await Submission.create({ type: 'phrase', phrase: 'Failed Musician pays bills as a mechanic', userId: zi.id, gameId: completedGame2.id})
+      await Submission.create({ type: 'drawing', drawingUrl: game2drawing2, userId: emily.id, gameId: completedGame2.id})
 
       await Submission.create({ type: 'phrase', phrase: 'Floating Wrench Man hates pianos', userId: cang.id, gameId: completedGame2.id})
-      await Submission.create({ type: 'drawing', drawingUrl: game1drawing2, userId: zi.id, gameId: completedGame2.id})
+      await Submission.create({ type: 'drawing', drawingUrl: game2drawing3, userId: zi.id, gameId: completedGame2.id})
       
       await Submission.create({ type: 'phrase', phrase: 'Dubstep', userId: emily.id, gameId: completedGame2.id})
 
