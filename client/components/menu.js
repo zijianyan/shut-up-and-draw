@@ -82,7 +82,6 @@ class Menu extends Component {
                 isLoggedIn
                   ? <List>
                       <ListItem button component={Link} to='/games' onClick={toggleMenu}>
-                        <ListItemIcon></ListItemIcon>
                         <ListItemText primary='Your Games'/>
                       </ListItem>
                       <ListItem button component={Link} to='/selectplayers' onClick={toggleMenu}>
