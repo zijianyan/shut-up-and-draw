@@ -21,7 +21,9 @@ const styles = {
   },
   container: {
     flexGrow: 1,
-
+  },
+  center: {
+    display: 'inline-block'
   }
 };
 
@@ -85,6 +87,7 @@ class Compilation extends Component {
                         <div
                           onMouseEnter={(event) => this.handlePlay(event,submission)}
                           onClick={(event) => this.handlePlay(event,submission)}
+                          className={classes.center}
                         >
                           <CanvasDraw
                             ref={canvasDraw => this[submission.id] = canvasDraw}
@@ -96,14 +99,14 @@ class Compilation extends Component {
                             catenaryColor="#222"
                             hideGrid={true}
                           />
-                          <CardActions>
+                          {/* <CardActions>
                             <Button
                               color="secondary"
                               onClick={()=> {this[submission.id].loadSaveData(submission.drawingUrl)}}
                             >
                               Play drawing
                             </Button>
-                          </CardActions>
+                          </CardActions> */}
                         </div>
                         </CardContent>
                       </Card>
